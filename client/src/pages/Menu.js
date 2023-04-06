@@ -1,13 +1,13 @@
 import React from "react";
-import "./App.css"
-import "./index.css"
+import "../App.css"
+import "../index.css"
 import items from "./data.js";
 import { UilLocationPinAlt } from '@iconscout/react-unicons'
 import { UilPhoneAlt } from '@iconscout/react-unicons'
 import { UilFastMail } from '@iconscout/react-unicons'
 
 
-const Menu = ({}) => {
+export const Menu = ({}) => {
   return (
     <div className="section-center">
       {items.map((item) => {
