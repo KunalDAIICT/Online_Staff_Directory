@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const dbConnection = require("../db/dbConnection");
 const loginController = require("../controllers/loginController");
 const signUpController = require("../controllers/signUpController");
+const reqHandler = require("../controllers/requestHandler");
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,7 +18,8 @@ module.exports = async function startServer() {
 
 	app.post("/signUp", signUpController);
 	app.post("/login", loginController);
-
+	app.post("/studentProfile", reqHandler.getStudentProfile);
+	
 	app.listen(process.env.PORT_NUM, function (req, res) {
 		console.log("Server setup complete, Listening on Port 3000");
 	});
