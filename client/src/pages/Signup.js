@@ -129,9 +129,10 @@ export const Signup = () => {
                     label='University'
                     select
                 >
-                    <MenuItem value='IN'>India</MenuItem>
-                    <MenuItem value='US'>USA</MenuItem>
-                    <MenuItem value='AU'>Australia</MenuItem>
+                    <MenuItem value='Dhirubhai Ambani Institute of Information and Communication Technology'>Dhirubhai Ambani Institute of Information and Communication Technology</MenuItem>
+                    <MenuItem value='IIT Bombay'>IIT Bombay</MenuItem>
+                    <MenuItem value='Indian Institute of Science'>Indian Institute of Science</MenuItem>
+                    <MenuItem value='Nirma University'>Nirma University</MenuItem>
                 </TextField>
               </Grid>
               <Grid item xs={12}>
