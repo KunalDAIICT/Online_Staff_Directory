@@ -1,5 +1,5 @@
 const authorize = require("./authController");
-const userCollection = require('../models/userModel')
+const studentCollection = require('../models/studentModel')
 
 function getStudentProfile(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
@@ -7,7 +7,7 @@ function getStudentProfile(req, res) {
 	if (!student) {
 		return res.status(401).json({ error: "Invalid token" });
 	}
-	userCollection.findOne(student, function (err, student) {
+	studentCollection.findOne(student, function (err, student) {
 		if (err) {
 			console.error(err);
 			return res.status(500).json({ error: "Internal server error" });
