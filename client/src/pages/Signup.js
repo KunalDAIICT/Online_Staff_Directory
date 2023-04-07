@@ -104,13 +104,13 @@ export const Signup = () => {
         "mobile_number": data.get('mobile'),
         "university": data.get('university'),
         "role": a,
-        "specialization": "Not Known",
-        "experience": "Not known",
+        "specialization": "NotKnown",
+        "experience": "0",
         "projects": [],
         "Awards_and_Honors": [],
         "Industrial_experience": [],
         "Publications": [],
-        "__v": {"$numberInt": "0"}
+        "__v": {"$numberInt":"0"}
       };
     }
     console.log(userData);
