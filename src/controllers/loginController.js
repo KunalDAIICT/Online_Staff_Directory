@@ -10,12 +10,12 @@ module.exports = function (req, res) {
 			if (user) {
 				// User exists and password is correct, generate a JWT
 				const token = jwt.sign(
-					{ userId: user._id, role: user.role },
+					{ _id: user._id, role: user.role },
 					process.env.ACESS_TOKEN_SECRET
 				);
 				// Send the JWT as a response to the client
 				console.log("Login Sucess");
-				res.status(200).json({ token });
+				res.status(200).json({ "token": token });
 			} else {
 				// User does not exist or password is incorrect
 				console.log("Login Failed");
