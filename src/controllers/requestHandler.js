@@ -1,7 +1,7 @@
 const authorize = require("./authController");
 const studentCollection = require('../models/studentModel')
 
-function getStudentProfile(req, res) {
+function getProfile(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	const student = authorize(token, process.env.ACESS_TOKEN_SECRET);
 	if (!student) {
@@ -23,6 +23,6 @@ function getStudentProfile(req, res) {
 }
 
 module.exports = {
-    getStudentProfile: getStudentProfile,
+    getProfile: getProfile,
 
 }
