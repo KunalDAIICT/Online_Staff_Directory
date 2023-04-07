@@ -83,8 +83,9 @@ export const Signup = () => {
     //     "university": "DAIICT",
     //     "userEmail": "kunal.hotwani1@gmail.com"
     //   };
-    
-    const userData = {
+    var userData={};
+    if(a===0){
+    userData = {...userData,
       "name" : data.get('firstName') + " " + data.get('lastName'),
       "userEmail": data.get('email'),
       "password": data.get('password'),
@@ -93,6 +94,25 @@ export const Signup = () => {
       "university": data.get('university'),
       "role": a
     };
+    }
+    else{
+      userData={...userData,
+        "name" : data.get('firstName') + " " + data.get('lastName'),
+        "userEmail": data.get('email'),
+        "password": data.get('password'),
+        "confirmpassword" : data.get('confirm password'),
+        "mobile_number": data.get('mobile'),
+        "university": data.get('university'),
+        "role": a,
+        "specialization": "Not Known",
+        "experience": "Not known",
+        "projects": [],
+        "Awards_and_Honors": [],
+        "Industrial_experience": [],
+        "Publications": [],
+        "__v": {"$numberInt": "0"}
+      };
+    }
     console.log(userData);
     handleUserSignup(userData);
   };

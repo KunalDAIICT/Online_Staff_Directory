@@ -11,18 +11,68 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export const Loginpg = () => {
+
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
+
+  let navigate=useNavigate();
+  const handleUserSignup = async (userData) => {
+    
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    console.log(response);
+    if(response.status === 200){
+      alert("Logged in successfully");
+      navigate('/');
+    }
+    else if(response.status === 401){
+      alert("Invalid Username and Password, Please try again!");
+    }
+    else{
+      alert("An unknown error occured, Please try again!");
+    }
+  };
+
   const handleSubmit = (event) => {
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    var a="0";
+    if(data.get('role') === "faculty"){
+      a="1";
+    }
+    console.log(a);
+    const userData = 
+      {
+        "password": data.get('password'),
+        "role": a,
+        "userEmail": data.get('email')
+      };
+    console.log(userData);
+    handleUserSignup(userData);
   };
 
   return (
@@ -64,6 +114,19 @@ export const Loginpg = () => {
               id="password"
               autoComplete="current-password"
             />
+            <Grid item xs={12}>
+              <FormControl>
+                <FormLabel id="role">Role</FormLabel>
+                <RadioGroup
+                    row
+                    aria-labelledby="role"
+                    name="role"
+                >
+                    <FormControlLabel value="student" control={<Radio />} label="Student" />
+                    <FormControlLabel value="faculty" control={<Radio />} label="Faculty" />
+                </RadioGroup>
+                </FormControl>
+              </Grid>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
