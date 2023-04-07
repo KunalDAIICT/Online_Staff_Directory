@@ -19,6 +19,7 @@ module.exports = async function startServer() {
 	app.post("/signUp", signUpController);
 	app.post("/login", loginController);
 	app.post("/profile", reqHandler.getProfile);
+	app.get("/faculties", reqHandler.getFaculties);
 	
 	app.listen(process.env.PORT_NUM, function (req, res) {
 		console.log("Server setup complete, Listening on Port 3000");
