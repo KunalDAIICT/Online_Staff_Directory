@@ -8,20 +8,33 @@ const loginController = require("../controllers/loginController");
 const signUpController = require("../controllers/signUpController");
 const reqHandler = require("../controllers/requestHandler");
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-module.exports = async function startServer() {
-	await dbConnection();
 
-	app.post("/signUp", signUpController);
-	app.post("/login", loginController);
-	app.post("/profile", reqHandler.getProfile);
-	app.get("/faculties", reqHandler.getFaculties);
-	
-	app.listen(process.env.PORT_NUM, function (req, res) {
-		console.log("Server setup complete, Listening on Port 3000");
-	});
+async function startServer() {
+  await dbConnection.connectToDB();
+
+  app.post("/signUp", signUpController);
+  app.post("/login", loginController);
+  app.post("/profile", reqHandler.getProfile);
+  app.get("/faculties", reqHandler.getFaculties);
+
+  let server = app.listen(process.env.PORT_NUM, function (req, res) {
+    console.log("Server setup complete, Listening on Port 3000");
+  });
+
+  return server;
 }
+
+async function stopServer(server) {
+  await server.close(async () => {
+    await dbConnection.closeDB();
+  });
+}
+
+module.exports = {
+  startServer,
+  stopServer,
+};

@@ -1,3 +1,3 @@
-const serverStartup = require('./controllers/serverController');
+const serverController = require('./controllers/serverController');
 
-serverStartup();
+var server = serverController.startServer();
