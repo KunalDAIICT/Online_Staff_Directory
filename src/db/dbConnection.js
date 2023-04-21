@@ -17,7 +17,14 @@ async function connectToDB() {
 
 async function closeDB() {
     await mongoose.connection.close();
+    // return new Promise((resolve, reject) => {
+    //     mongoose.connection.once("close", () => {
+    //         console.log("MongoDB connection is closed");
+    //         resolve();
+    //     });
+    // });
 }
+
 
 module.exports = {
     connectToDB,

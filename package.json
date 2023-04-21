@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "test": "jest",
+    "test": "src/tests/runTests.sh",
     "dev": "npx nodemon src/app.js",
     "start": "node src/app.js"
   },
