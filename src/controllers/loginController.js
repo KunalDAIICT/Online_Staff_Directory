@@ -14,7 +14,7 @@ module.exports = function (req, res) {
 					process.env.ACESS_TOKEN_SECRET
 				);
 				// Send the JWT as a response to the client
-				console.log("Login Sucess");
+				console.log("Login Success");
 				res.status(200).json({ "token": token });
 			} else {
 				// User does not exist or password is incorrect
