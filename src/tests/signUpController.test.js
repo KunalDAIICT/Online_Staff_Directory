@@ -33,7 +33,7 @@ describe('POST /signUp', () => {
     test('Valid credentials (not used before) Student', async () => {
         const req = {
             body: {
-                userEmail: 'devansh123sfasefsfewfdasddadad@gmail.com',
+                userEmail: 'deva123sfasefsfewfdasddadad@gmail.com',
                 name: 'Devansh',
                 password: '1234567890',
                 mobile_number: '1234567890',
@@ -76,7 +76,7 @@ describe('POST /signUp', () => {
                 password: "p",
                 role: "1",
                 university: "DAIICT",
-                userEmail: "vansh12345svfsddsfdfsf6564sfee64@gmail.com",
+                userEmail: "vansh1fsddsfdfsf6564sfee64@gmail.com",
                 specialization : "ML",
                 experience : "5",
                 Projects : ["ABC","DEG"],
