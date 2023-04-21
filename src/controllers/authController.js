@@ -25,5 +25,8 @@ module.exports = function(token, secret) {
 
 
 */
+<<<<<<< HEAD
 
 //added new line
+=======
+>>>>>>> f086a4e541938cc4899db9f81b844a5565974abb
