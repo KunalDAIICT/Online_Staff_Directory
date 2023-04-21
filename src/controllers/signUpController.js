@@ -10,7 +10,7 @@ module.exports = function (req, res) {
 				console.log("User already exist");
 				res.statusMessage =
 					'This e-mail address is already in use, <a href="./login.html">login</a>';
-				res.send(400);
+				res.sendStatus(400);
 			} else {
 				studentInstance = new studentCollection({
 					_id: req.body.userEmail,
@@ -24,7 +24,7 @@ module.exports = function (req, res) {
 				console.log("New Student added");
 				res.statusMessage =
 					'You are registered, head to the <a href="./login.html">login</a> page';
-				res.send(200);
+				res.sendStatus(200);
 			}
 		});
 	} else {
@@ -33,7 +33,7 @@ module.exports = function (req, res) {
 				console.log("User already exist");
 				res.statusMessage =
 					'This e-mail address is already in use, <a href="./login.html">login</a>';
-				res.send(400);
+				res.sendStatus(400);
 			} else {
 				facultyInstance = new facultyCollection({
 					_id: req.body.userEmail,
@@ -68,7 +68,7 @@ module.exports = function (req, res) {
 				console.log("New Faculty added");
 				res.statusMessage =
 					'You are registered, head to the <a href="./login.html">login</a> page';
-				res.send(200);
+				res.sendStatus(200);
 			}
 		});
 	}

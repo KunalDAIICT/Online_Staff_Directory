@@ -12,29 +12,28 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-
 async function startServer() {
-  await dbConnection.connectToDB();
+	await dbConnection.connectToDB();
 
-  app.post("/signUp", signUpController);
-  app.post("/login", loginController);
-  app.post("/profile", reqHandler.getProfile);
-  app.get("/faculties", reqHandler.getFaculties);
+	app.post("/signUp", signUpController);
+	app.post("/login", loginController);
+	app.post("/profile", reqHandler.getProfile);
+	app.get("/faculties", reqHandler.getFaculties);
 
-  let server = app.listen(process.env.PORT_NUM, function (req, res) {
-    console.log("Server setup complete, Listening on Port 3000");
-  });
+	let server = app.listen(process.env.PORT_NUM, function (req, res) {
+		console.log("Server setup complete, Listening on Port 3000");
+	});
 
-  return server;
+	return server;
 }
 
 async function stopServer(server) {
-  await server.close(async () => {
-    await dbConnection.closeDB();
-  });
+	await server.close(async function () {
+		await dbConnection.closeDB();
+	});
 }
 
 module.exports = {
-  startServer,
-  stopServer,
+	startServer,
+	stopServer,
 };

@@ -1,16 +1,16 @@
 const request = require("supertest");
 const baseURL = "http://localhost:3000";
-// const serverController = require('../controllers/serverController');
+const serverController = require('../controllers/serverController');
 
-// let server;
+let server;
 
-// beforeAll(async () => {
-// 	server = await serverController.startServer();
-// });
+beforeAll(async () => {
+	server = await serverController.startServer();
+});
 
-// afterAll(async () => {
-//     await serverController.stopServer(server);
-// });
+afterAll(async () => {
+    await serverController.stopServer(server);
+});
 
 describe("POST /login", () => {
 	test("should return status 401 for invalid credentials(wrong Email)", async () => {
