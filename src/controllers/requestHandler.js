@@ -79,7 +79,12 @@ function editProfile(req, res) {
 }
 
 function getFaculties(req, res) {
-	facultyDetailsCollection.find({}, function (err, faculties) {
+	let filter = {};
+	if (req.body.university != null) {
+		filter.university = req.body.university;
+	}
+	
+	facultyDetailsCollection.find(filter, function (err, faculties) {
 		if (err) {
 			console.error(err);
 			return res.status(500).json({ error: "Internal server error" });
