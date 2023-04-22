@@ -30,10 +30,6 @@ export const Myprofile = () => {
         const json = await response.json();
         console.log(json);
         setData(json);
-        // console.log(data.name);
-
-        data=json;
-        console.log(data.name);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -41,7 +37,7 @@ export const Myprofile = () => {
     };
 
     fetchData();
-  }, []); 
+  },[]); 
 
 
 
