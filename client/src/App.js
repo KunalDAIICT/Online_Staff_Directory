@@ -5,6 +5,10 @@ import { Loginpg } from './pages/Loginpg';
 import { Notfound } from './pages/Notfound';
 import { Signup } from './pages/Signup';
 import { Menu } from './pages/Menu';
+import { Universitypg } from './pages/Universitypg';
+import { UnivAbout } from './pages/UnivAbout';
+import { Myprofile } from './pages/Myprofile';
+import { EditMyProfile } from './pages/EditMyProfile';
 
 function App() {
   return (
@@ -15,7 +19,11 @@ function App() {
           <Route path="/loginpage" element={<Loginpg />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="*" element={<Notfound />}></Route>
-          <Route path="/faculty" element={<Menu />}> </Route>
+          <Route path="/university/faculties" element={<Menu />}> </Route>
+          <Route path="/university" element={<Universitypg />} />
+          <Route path="/university/about" element={<UnivAbout />} />
+          <Route path="/myprofile" element={<Myprofile />} />
+          <Route path="/editmyprofile" element={<EditMyProfile />} />
         </Routes>
       </Router>
     </div>

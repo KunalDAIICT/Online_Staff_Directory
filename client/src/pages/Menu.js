@@ -7,7 +7,7 @@ import { UilPhoneAlt } from '@iconscout/react-unicons'
 import { UilFastMail } from '@iconscout/react-unicons'
 
 
-const Menu = ({}) => {
+export const Menu = ({}) => {
   return (
     <div className="section-center">
       {items.map((item) => {

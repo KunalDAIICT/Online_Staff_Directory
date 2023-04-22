@@ -8,6 +8,11 @@ export const Landing = () => {
             <Link to={'/loginpage'}><button>Login</button></Link>
             OR 
             <Link to={'/signup'}><button>Sign Up</button></Link>
+
+            <br />
+            <Link to={'/university'}><button>Go to University</button></Link>
+
+            <br />
         </div>
     )
 }
