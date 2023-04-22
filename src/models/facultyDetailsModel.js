@@ -10,19 +10,11 @@ const facultyDetailschema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		password: {
-			type: String,
-			required: true,
-		},
 		mobile_number: {
 			type: String,
-			required: true,
+			required: false,
 		},
 		university: {
-			type: String,
-			required: true,
-		},
-		role: {
 			type: String,
 			required: true,
 		},
@@ -51,6 +43,10 @@ const facultyDetailschema = new mongoose.Schema(
 			type: [String],
 			required: true,
 		},
+		isApproved: {
+			type: Boolean,
+            required: true,
+        },
 	},
     { collection: "Faculties" }
 );

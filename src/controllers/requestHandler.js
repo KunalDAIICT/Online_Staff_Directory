@@ -79,7 +79,9 @@ function editProfile(req, res) {
 }
 
 function getFaculties(req, res) {
-	let filter = {};
+	let filter = {
+		isApproved: true,
+	};
 	if (req.body.university != null) {
 		filter.university = req.body.university;
 	}
