@@ -17,7 +17,10 @@ export const Landing = () => {
             <br />
             <Link to={'/university'}><button>Go to University</button></Link>
 
+
             <br />
+
+            {localStorage.getItem("token")};
         </div>
     )
 }

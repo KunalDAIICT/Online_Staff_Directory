@@ -43,6 +43,12 @@ export const Loginpg = () => {
       body: JSON.stringify(userData),
     });
     console.log(response);
+
+    const json = await response.json(); // Convert response body to JSON object
+    console.log(json.token); // Log the token field to the console
+
+    localStorage.setItem("token", json.token);
+    
     if(response.status === 200){
       alert("Logged in successfully");
       navigate('/');
