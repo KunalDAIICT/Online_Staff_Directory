@@ -6,6 +6,10 @@ import Button from '@mui/material/Button';
 
 
 export const Landing = () => {
+
+    const logout = () => {
+        localStorage.setItem("token","null");
+    }
     return(
         <div className="App">
             This is the landing page
@@ -20,7 +24,9 @@ export const Landing = () => {
 
             <br />
 
-            {localStorage.getItem("token")};
+            {/* {localStorage.getItem("token")}; */}
+
+            <button onClick={logout}>Logout</button>
         </div>
     )
 }

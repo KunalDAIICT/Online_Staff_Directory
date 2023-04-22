@@ -91,7 +91,7 @@ export const EditMyProfile = () => {
           <Typography component="h1" variant="h5">
             Edit Profile
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1}}>
           <FormLabel id="role">First Name</FormLabel>
             <TextField
               margin="normal"
