@@ -17,7 +17,7 @@ export const Menu = ({}) => {
         const { _id, name, password, mobile_number, university, specialization, experience, projects, Awards_and_Honors, Industrial_experience, Publications, img, __v} = item;
         return (
           <article key={1} className="menu-item">
-            <img src={"https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"} className="photo" />
+            {/* <img src={"https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg"} className="photo" /> */}
             <div className="item-info">
               <header>
                 <h4>{name}</h4>
