@@ -104,7 +104,7 @@ export const Signup = () => {
         "mobile_number": data.get('mobile'),
         "university": data.get('university'),
         "role": a,
-        "specialization": "NotKnown",
+        "specialization": "Not Known",
         "experience": "0",
         "projects": [],
         "Awards_and_Honors": [],

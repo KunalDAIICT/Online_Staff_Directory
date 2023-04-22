@@ -6,10 +6,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const theme = createTheme();
-
 
 export const Myprofile = () => {
   const token = localStorage.getItem("token");
@@ -17,29 +16,36 @@ export const Myprofile = () => {
   // var data=null;
   const [data, setData] = useState(null);
 
+  const myStyle = {
+    borderStyle: "solid",
+    borderColor:"#dedede",
+    borderWidth:"1px",
+    borderRadius:"5px",
+    padding:"5px 8px 5px 10px",
+    margin:"5px",
+    backgroundColor:"white",
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:3000/profile", {
-            method: "POST",
-            headers: {
-              "Authorization": "Bearer "+token,
-            },
-          });
-          console.log(response);
+          method: "POST",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        console.log(response);
         const json = await response.json();
         console.log(json);
         setData(json);
-
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  },[]); 
-
-
+  }, []);
 
   return (
     <div className="App">
@@ -62,15 +68,19 @@ export const Myprofile = () => {
               <Typography component="h1" variant="h5">
                 My Profile
               </Typography>
-              <Box component="form" sx={{ mt: 1}}>
-                <img src="https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000" alt="img" width="25%"/>
+              <Box component="form" sx={{ mt: 1 }}>
+                <img
+                  src="https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000"
+                  alt="img"
+                  width="25%"
+                />
                 <br />
 
                 <Typography variant="h5" align="center">
                   Name
                 </Typography>
                 <Typography variant="subtitle1" align="center">
-                  {data!==null && <div>{data.name}</div>}
+                  {data !== null && <div style={myStyle}>{data.name}</div>}
                 </Typography>
 
                 <br />
@@ -79,7 +89,7 @@ export const Myprofile = () => {
                   User Email
                 </Typography>
                 <Typography variant="subtitle1" align="center">
-                  {data!==null && <div>{data._id}</div>}
+                  {data !== null && <div style={myStyle}>{data._id}</div>}
                 </Typography>
 
                 <br />
@@ -88,7 +98,9 @@ export const Myprofile = () => {
                   University
                 </Typography>
                 <Typography variant="subtitle1" align="center">
-                  {data!==null && <div>{data.university}</div>}
+                  {data !== null && (
+                    <div style={myStyle}>{data.university}</div>
+                  )}
                 </Typography>
 
                 <br />
@@ -97,10 +109,124 @@ export const Myprofile = () => {
                   Role
                 </Typography>
                 <Typography variant="subtitle1" align="center">
-                  {data!==null && <div>{data.role==="0" && <div>Student</div>}{data.role==="1" && <div>Faculty</div>}</div>}
+                  {data !== null && (
+                    <div>
+                      {data.role === "0" && <div style={myStyle}>Student</div>}
+                      {data.role === "1" && <div style={myStyle}>Faculty</div>}
+                    </div>
+                  )}
                 </Typography>
 
+                <br />
 
+                {data !== null && data.role === "1" && (
+                  <div>
+                    <Typography variant="h5" align="center">
+                      Specialization
+                    </Typography>
+                    <Typography variant="subtitle1" align="center">
+                      {data !== null && (
+                        <div style={myStyle}>{data.specialization}</div>
+                      )}
+                    </Typography>
+
+                    <br />
+
+                    <Typography variant="h5" align="center">
+                      Experience
+                    </Typography>
+                    <Typography variant="subtitle1" align="center">
+                      {data !== null && (
+                        <div style={myStyle}>{data.experience}</div>
+                      )}
+                    </Typography>
+
+                    <br />
+
+                    <Typography variant="h5" align="center">
+                      Awards and Honours
+                    </Typography>
+                    <Typography variant="subtitle1" align="center">
+                      {data !== null && (
+                        <div style={myStyle}>
+                          {data.Awards_and_Honors.map((str, index) => (
+                            <p key={index}>{str}</p>
+                          )).map((str, index) => (
+                            <p key={index}>{str}</p>
+                          ))}
+                        </div>
+                      )}
+                    </Typography>
+
+                    <br />
+
+                    <Typography variant="h5" align="center">
+                      Industrial Experience
+                    </Typography>
+                    <Typography variant="subtitle1" align="center">
+                      {data !== null && (
+                        <div style={myStyle}>
+                          {data.Industrial_experience.map((str, index) => (
+                            <p key={index}>{str}</p>
+                          )).map((str, index) => (
+                            <p key={index}>{str}</p>
+                          ))}
+                        </div>
+                      )}
+                    </Typography>
+
+                    <br />
+
+                    <Typography variant="h5" align="center">
+                      Publications
+                    </Typography>
+                    <Typography variant="subtitle1" align="center">
+                      {data !== null && (
+                        <div style={myStyle}>
+                          {data.Industrial_experience.map((str, index) => (
+                            <p key={index}>{str}</p>
+                          )).map((str, index) => (
+                            <p key={index}>{str}</p>
+                          ))}
+                        </div>
+                      )}
+                    </Typography>
+
+                    <br />
+
+                    <Typography variant="h5" align="center">
+                      Publications
+                    </Typography>
+                    <Typography variant="subtitle1" align="center">
+                      {data !== null && (
+                        <div style={myStyle}>
+                          {data.Publications.map((str, index) => (
+                            <p key={index}>{str}</p>
+                          )).map((str, index) => (
+                            <p key={index}>{str}</p>
+                          ))}
+                        </div>
+                      )}
+                    </Typography>
+
+                    <br />
+
+                    <Typography variant="h5" align="center">
+                      Projects
+                    </Typography>
+                    <Typography variant="subtitle1" align="center">
+                      {data !== null && (
+                        <div style={myStyle}>
+                          {data.projects.map((str, index) => (
+                            <p key={index}>{str}</p>
+                          )).map((str, index) => (
+                            <p key={index}>{str}</p>
+                          ))}
+                        </div>
+                      )}
+                    </Typography>
+                  </div>
+                )}
 
                 <Link to={"/editmyprofile"}>
                   <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
