@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/KunalDAIICT/Online_Staff_Directory#readme",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
