@@ -5,12 +5,12 @@ const studentCollection = require("../models/studentModel");
 
 module.exports = function (req, res) {
 	studentCollection.findOne(
-		{ _id: req.body.userEmail, password: req.body.password, role: req.body.role },
+		{ _id: req.body.userEmail, password: req.body.password },
 		function (err, user) {
 			if (user) {
 				// User exists and password is correct, generate a JWT
 				const token = jwt.sign(
-					{ _id: user._id, role: user.role },
+					{ _id: user._id },
 					process.env.ACESS_TOKEN_SECRET
 				);
 				// Send the JWT as a response to the client
