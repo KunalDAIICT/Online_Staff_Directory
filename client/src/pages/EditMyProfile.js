@@ -25,6 +25,7 @@ export const EditMyProfile = () => {
   const [projs, setProjs] = useState(null);
   const [pass, setPass] = useState("");
   const [cpass, setCpass] = useState("");
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +47,7 @@ export const EditMyProfile = () => {
           setRole("Student");
           setPass(json.password);
           setCpass(json.password);
+          setImage(json.Image);
         } else {
           setName(json.name);
           setEmail(json._id);
@@ -60,6 +62,7 @@ export const EditMyProfile = () => {
           setProjs(json.projects);
           setPass(json.password);
           setCpass(json.password);
+          setImage(json.Image);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -104,7 +107,8 @@ export const EditMyProfile = () => {
           password: pass,
           role: "0",
           university: univ,
-          userEmail: email
+          userEmail: email,
+          Image: image
         };
       }
       else{
@@ -121,7 +125,8 @@ export const EditMyProfile = () => {
           Publications: pubs,
           projects: projs,
           specialization: spec,
-          experience: exper
+          experience: exper,
+          Image: image
         };
       }
     }
@@ -130,6 +135,28 @@ export const EditMyProfile = () => {
     }
     console.log(userData);
     handleEditProfile(userData);
+  };
+
+  function convertTobase64(file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+  
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+  
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
+
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    const base64 = await convertTobase64(file);
+    setImage(base64);
+    console.log(base64); 
   };
 
   const handleAwardsChange = (event, index) => {
@@ -232,6 +259,14 @@ export const EditMyProfile = () => {
           <h1>Edit Profile</h1>
         </FormLabel>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <FormLabel id="role">
+            <h3>Profile Image</h3>
+          </FormLabel>
+          <img src={image}  width="25%"/>
+          <FormLabel id="role">
+            <h3>Update Profile Image</h3>
+          </FormLabel>
+          <input type="file" onChange={handleImageChange} />
           <FormLabel id="role">
             <h3>Name</h3>
           </FormLabel>
