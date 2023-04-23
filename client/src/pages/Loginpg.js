@@ -51,7 +51,7 @@ export const Loginpg = () => {
     
     if(response.status === 200){
       alert("Logged in successfully");
-      navigate('/');
+      navigate('/myprofile');
     }
     else if(response.status === 402){
       alert("Email not verified, Please verify your email!");
