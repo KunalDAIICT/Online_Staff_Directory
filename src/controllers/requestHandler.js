@@ -39,6 +39,7 @@ function editProfile(req, res) {
 			mobile_number: req.body.mobile_number,
 			university: req.body.university,
 			role: req.body.role,
+			Image: req.body.Image
 		});
 	}
 	else
@@ -55,6 +56,7 @@ function editProfile(req, res) {
 			Awards_and_Honors: req.body.Awards_and_Honors,
 			Industrial_experience: req.body.Industrial_experience,
 			Publications: req.body.Publications,
+			Image: req.body.Image
 		});
 	}
 
