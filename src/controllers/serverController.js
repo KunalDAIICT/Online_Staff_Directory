@@ -7,6 +7,7 @@ const dbConnection = require("../db/dbConnection");
 const loginController = require("../controllers/loginController");
 const signUpController = require("../controllers/signUpController");
 const reqHandler = require("../controllers/requestHandler");
+const adminReqHandler = require("../controllers/adminRequestHandler");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,6 +23,8 @@ async function startServer() {
 	app.post("/editProfile", reqHandler.editProfile);
 	app.get("/verifyUser", reqHandler.verifyUser);
 	app.get("/deleteProfile", reqHandler.deleteProfile);
+	app.get("/pendingRequests", adminReqHandler.getPendingFaculties);
+	app.post("/approveFaculty", adminReqHandler.approveFaculty);
 
 	let server = app.listen(process.env.PORT_NUM, function (req, res) {
 		console.log("Server setup complete, Listening on Port 3000");
