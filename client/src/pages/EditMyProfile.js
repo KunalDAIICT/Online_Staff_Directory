@@ -25,6 +25,8 @@ export const EditMyProfile = () => {
   const [indux, setIndux] = useState(null);
   const [pubs, setPubs] = useState(null);
   const [projs, setProjs] = useState(null);
+  const [pass, setPass] = useState("");
+  const [cpass, setCpass] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,13 +41,14 @@ export const EditMyProfile = () => {
         const json = await response.json();
         console.log(json);
         setData(json);
-        console.log(json.role);
         if (json.role === "0") {
           setName(json.name);
           setEmail(json._id);
           setUniv(json.university);
           setMob(json.mobile_number);
           setRole("Student");
+          setPass(json.password);
+          setCpass(json.password);
         } else {
           setName(json.name);
           setEmail(json._id);
@@ -58,6 +61,8 @@ export const EditMyProfile = () => {
           setIndux(json.Industrial_experience);
           setPubs(json.Publications);
           setProjs(json.projects);
+          setPass(json.password);
+          setCpass(json.password);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -67,50 +72,67 @@ export const EditMyProfile = () => {
     fetchData();
   }, []);
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
 
   let navigate = useNavigate();
-  const handleUserSignup = async (userData) => {
-    // const response = await fetch("http://localhost:3000/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(userData),
-    // });
-    // console.log(response);
-    // if (response.status === 200) {
-    //   alert("Logged in successfully");
-    //   navigate("/");
-    // } else if (response.status === 401) {
-    //   alert("Invalid Username and Password, Please try again!");
-    // } else {
-    //   alert("An unknown error occured, Please try again!");
-    // }
+  const handleEditProfile = async (userData) => {
+    const response = await fetch("http://localhost:3000/editProfile", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    console.log(response);
+    if (response.status === 200) {
+      alert("Profile updated successfully");
+      navigate("/myprofile");
+    } else if (response.status === 404) {
+      alert("Try again with a different email and password!");
+    } else {
+      alert("An unknown error occured, Please try again!");
+    }
   };
 
   const handleSubmit = (event) => {
-    // event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // var a = "0";
-    // if (data.get("role") === "faculty") {
-    //   a = "1";
-    // }
-    // console.log(a);
-    // const userData = {
-    //   password: data.get("password"),
-    //   role: a,
-    //   userEmail: data.get("email"),
-    // };
-    // console.log(userData);
-    // handleUserSignup(userData);
+    event.preventDefault();
+    var userData={};
+
+    if (pass === cpass) {
+      if (role === "Student") {
+        userData = {...userData,
+          confirmpassword: cpass,
+          mobile_number: mob,
+          name: name,
+          password: pass,
+          role: "0",
+          university: univ,
+          userEmail: email
+        };
+      }
+      else{
+        userData = {...userData,
+          confirmpassword: cpass,
+          mobile_number: mob,
+          name: name,
+          password: pass,
+          role: "0",
+          university: univ,
+          userEmail: email,
+          Awards_and_Honors: awards,
+          Industrial_experience: indux,
+          Publications: pubs,
+          projects: projs,
+          specialization: spec,
+          experience: exper
+        };
+      }
+    }
+    else{
+      alert("Password and Confirm Password don't match!");
+    }
+    console.log(userData);
+    handleEditProfile(userData);
   };
 
   const handleAwardsChange = (event, index) => {
@@ -235,6 +257,32 @@ export const EditMyProfile = () => {
             fullWidth
             value={email}
             onChange={(event) => setEmail(event.target.value)}
+            autoFocus
+          />
+
+          <FormLabel id="role">
+            <h3>Set New Password</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={pass}
+            type="password"
+            onChange={(event) => setPass(event.target.value)}
+            autoFocus
+          />
+
+          <FormLabel id="role">
+            <h3>Confirm Password</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={cpass}
+            type="password"
+            onChange={(event) => setCpass(event.target.value)}
             autoFocus
           />
 
