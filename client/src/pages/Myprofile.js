@@ -23,6 +23,7 @@ export const Myprofile = () => {
   const [indux, setIndux] = useState(null);
   const [pubs, setPubs] = useState(null);
   const [projs, setProjs] = useState(null);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +44,7 @@ export const Myprofile = () => {
           setUniv(json.university);
           setMob(json.mobile_number);
           setRole("Student");
+          setImage(json.Image);
         } else {
           setName(json.name);
           setEmail(json._id);
@@ -55,6 +57,7 @@ export const Myprofile = () => {
           setIndux(json.Industrial_experience);
           setPubs(json.Publications);
           setProjs(json.projects);
+          setImage(json.Image);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -82,7 +85,7 @@ export const Myprofile = () => {
 
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <img
-            src="https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000"
+            src={image}
             alt="img"
             width="25%"
           />
