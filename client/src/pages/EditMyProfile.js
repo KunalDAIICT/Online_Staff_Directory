@@ -1,20 +1,8 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import RadioGroup from "@mui/material/RadioGroup";
-import Radio from "@mui/material/Radio";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -24,12 +12,20 @@ const theme = createTheme();
 
 export const EditMyProfile = () => {
   const token = localStorage.getItem("token");
-  const [data, setData] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [univ, setUniv] = useState("");
   const [mob, setMob] = useState("");
   const [role, setRole] = useState("");
+  const [spec, setSpec] = useState("");
+  const [exper, setExper] = useState("");
+  const [awards, setAwards] = useState(null);
+  const [indux, setIndux] = useState(null);
+  const [pubs, setPubs] = useState(null);
+  const [projs, setProjs] = useState(null);
+  const [pass, setPass] = useState("");
+  const [cpass, setCpass] = useState("");
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,20 +39,30 @@ export const EditMyProfile = () => {
         console.log(response);
         const json = await response.json();
         console.log(json);
-        setData(json);
-        console.log(json.role);
         if (json.role === "0") {
           setName(json.name);
           setEmail(json._id);
           setUniv(json.university);
           setMob(json.mobile_number);
           setRole("Student");
+          setPass(json.password);
+          setCpass(json.password);
+          setImage(json.Image);
         } else {
           setName(json.name);
           setEmail(json._id);
           setUniv(json.university);
           setMob(json.mobile_number);
           setRole("Faculty");
+          setSpec(json.specialization);
+          setExper(json.experience);
+          setAwards(json.Awards_and_Honors);
+          setIndux(json.Industrial_experience);
+          setPubs(json.Publications);
+          setProjs(json.projects);
+          setPass(json.password);
+          setCpass(json.password);
+          setImage(json.Image);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -66,30 +72,23 @@ export const EditMyProfile = () => {
     fetchData();
   }, []);
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
 
   let navigate = useNavigate();
-  const handleUserSignup = async (userData) => {
-    const response = await fetch("http://localhost:3000/login", {
+  const handleEditProfile = async (userData) => {
+    const response = await fetch("http://localhost:3000/editProfile", {
       method: "POST",
       headers: {
+        "Authorization": "Bearer " + token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
     });
     console.log(response);
     if (response.status === 200) {
-      alert("Logged in successfully");
-      navigate("/");
-    } else if (response.status === 401) {
-      alert("Invalid Username and Password, Please try again!");
+      alert("Profile updated successfully");
+      navigate("/myprofile");
+    } else if (response.status === 404) {
+      alert("Try again with a different email and password!");
     } else {
       alert("An unknown error occured, Please try again!");
     }
@@ -97,20 +96,151 @@ export const EditMyProfile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    var userData={};
 
-    var a = "0";
-    if (data.get("role") === "faculty") {
-      a = "1";
+    if (pass === cpass) {
+      if (role === "Student") {
+        userData = {...userData,
+          confirmpassword: cpass,
+          mobile_number: mob,
+          name: name,
+          password: pass,
+          role: "0",
+          university: univ,
+          userEmail: email,
+          Image: image
+        };
+      }
+      else{
+        userData = {...userData,
+          confirmpassword: cpass,
+          mobile_number: mob,
+          name: name,
+          password: pass,
+          role: "0",
+          university: univ,
+          userEmail: email,
+          Awards_and_Honors: awards,
+          Industrial_experience: indux,
+          Publications: pubs,
+          projects: projs,
+          specialization: spec,
+          experience: exper,
+          Image: image
+        };
+      }
     }
-    console.log(a);
-    const userData = {
-      password: data.get("password"),
-      role: a,
-      userEmail: data.get("email"),
-    };
+    else{
+      alert("Password and Confirm Password don't match!");
+    }
     console.log(userData);
-    handleUserSignup(userData);
+    handleEditProfile(userData);
+  };
+
+  function convertTobase64(file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+  
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+  
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
+
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    const base64 = await convertTobase64(file);
+    setImage(base64);
+    console.log(base64); 
+  };
+
+  const handleAwardsChange = (event, index) => {
+    const newAwards = [...awards];
+    newAwards[index] = event.target.value;
+    setAwards(newAwards);
+    console.log(awards);
+  };
+
+  const handleAddAward = () => {
+    const newAwards = [...awards];
+    newAwards.push("");
+    setAwards(newAwards);
+    console.log(awards);
+  };
+
+  const handleDeleteAward = (index) => {
+    const newAwards = [...awards];
+    newAwards.splice(index, 1);
+    setAwards(newAwards);
+    console.log(awards);
+  };
+
+  const handleInduxChange = (event, index) => {
+    const newIndux = [...indux];
+    newIndux[index] = event.target.value;
+    setIndux(newIndux);
+    console.log(indux);
+  };
+
+  const handleAddIndux = () => {
+    const newIndux = [...indux];
+    newIndux.push("");
+    setIndux(newIndux);
+    console.log(indux);
+  };
+
+  const handleDeleteIndux = (index) => {
+    const newIndux = [...indux];
+    newIndux.splice(index, 1);
+    setIndux(newIndux);
+    console.log(indux);
+  };
+
+  const handlePubsChange = (event, index) => {
+    const newPubs = [...pubs];
+    newPubs[index] = event.target.value;
+    setPubs(newPubs);
+    console.log(pubs);
+  };
+
+  const handleAddPubs = () => {
+    const newPubs = [...pubs];
+    newPubs.push("");
+    setPubs(newPubs);
+    console.log(pubs);
+  };
+
+  const handleDeletePubs = (index) => {
+    const newPubs = [...pubs];
+    newPubs.splice(index, 1);
+    setPubs(newPubs);
+    console.log(pubs);
+  };
+
+  const handleProjsChange = (event, index) => {
+    const newProjs = [...projs];
+    newProjs[index] = event.target.value;
+    setProjs(newProjs);
+    console.log(projs);
+  };
+
+  const handleAddProjs = () => {
+    const newProjs = [...projs];
+    newProjs.push("");
+    setProjs(newProjs);
+    console.log(projs);
+  };
+
+  const handleDeleteProjs = (index) => {
+    const newProjs = [...projs];
+    newProjs.splice(index, 1);
+    setProjs(newProjs);
+    console.log(projs);
   };
 
   return (
@@ -122,15 +252,24 @@ export const EditMyProfile = () => {
           display: "flex",
           flexDirection: "column",
           alignSelf: "center",
-          // alignItems: 'center',
           width: "50%",
         }}
       >
-        <Typography component="h1" variant="h5">
-          Edit Profile
-        </Typography>
+        <FormLabel>
+          <h1>Edit Profile</h1>
+        </FormLabel>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <FormLabel id="role">Name</FormLabel>
+        <FormLabel id="role">
+            <h3>Profile Image</h3>
+          </FormLabel>
+          <img src={image}  width="25%"/>
+          <FormLabel id="role">
+            <h3>Update Profile Image</h3>
+          </FormLabel>
+          <input type="file" onChange={handleImageChange} />
+          <FormLabel id="role">
+            <h3>Name</h3>
+          </FormLabel>
           <TextField
             margin="normal"
             required
@@ -140,7 +279,9 @@ export const EditMyProfile = () => {
             autoFocus
           />
           <br />
-          <FormLabel id="role">User Email</FormLabel>
+          <FormLabel id="role">
+            <h3>User Email</h3>
+          </FormLabel>
           <TextField
             margin="normal"
             required
@@ -150,8 +291,36 @@ export const EditMyProfile = () => {
             autoFocus
           />
 
+          <FormLabel id="role">
+            <h3>Set New Password</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={pass}
+            type="password"
+            onChange={(event) => setPass(event.target.value)}
+            autoFocus
+          />
+
+          <FormLabel id="role">
+            <h3>Confirm Password</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={cpass}
+            type="password"
+            onChange={(event) => setCpass(event.target.value)}
+            autoFocus
+          />
+
           <br />
-          <FormLabel id="role">University</FormLabel>
+          <FormLabel id="role">
+            <h3>University</h3>
+          </FormLabel>
           <TextField
             margin="normal"
             required
@@ -162,7 +331,9 @@ export const EditMyProfile = () => {
           />
 
           <br />
-          <FormLabel id="role">Mobile Number</FormLabel>
+          <FormLabel id="role">
+            <h3>Mobile Number</h3>
+          </FormLabel>
           <TextField
             margin="normal"
             required
@@ -173,7 +344,9 @@ export const EditMyProfile = () => {
           />
 
           <br />
-          <FormLabel id="role">Role</FormLabel>
+          <FormLabel id="role">
+            <h3>Role</h3>
+          </FormLabel>
           <TextField
             margin="normal"
             required
@@ -182,8 +355,226 @@ export const EditMyProfile = () => {
             autoFocus
             disabled
           />
+          <br />
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Specialization</h3>
+            </FormLabel>
+          )}
+          {role === "Faculty" && (
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              value={spec}
+              onChange={(event) => setSpec(event.target.value)}
+              autoFocus
+            />
+          )}
 
-          {role==="Faculty" && <div>Faculty details...</div>}
+          <br />
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Experience</h3>
+            </FormLabel>
+          )}
+          {role === "Faculty" && (
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              value={exper}
+              onChange={(event) => setExper(event.target.value)}
+              autoFocus
+            />
+          )}
+
+          {role === "Faculty" && (
+            <div>
+              <br />
+              <br />
+              <br />
+            </div>
+          )}
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Awards and Honours</h3>
+            </FormLabel>
+          )}
+
+          {role === "Faculty" &&
+            awards !== null &&
+            awards.map((friend, index) => (
+              <div key={index}>
+                <TextField
+                  // className={classes.textField}
+                  // label={`Friend ${index + 1}`}
+                  variant="outlined"
+                  value={friend}
+                  onChange={(event) => handleAwardsChange(event, index)}
+                />
+                <Button
+                  // className={classes.button}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleDeleteAward(index)}
+                >
+                  Delete
+                </Button>
+              </div>
+            ))}
+
+          {role === "Faculty" && (
+            <Button
+              // className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={handleAddAward}
+            >
+              Add Award
+            </Button>
+          )}
+
+          {role === "Faculty" && (
+            <div>
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          )}
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Industrial Experience</h3>
+            </FormLabel>
+          )}
+
+          {role === "Faculty" &&
+            indux !== null &&
+            indux.map((friend, index) => (
+              <div key={index}>
+                <TextField
+                  // className={classes.textField}
+                  // label={`Friend ${index + 1}`}
+                  variant="outlined"
+                  value={friend}
+                  onChange={(event) => handleInduxChange(event, index)}
+                />
+                <Button
+                  // className={classes.button}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleDeleteIndux(index)}
+                >
+                  Delete
+                </Button>
+              </div>
+            ))}
+
+          {role === "Faculty" && (
+            <Button
+              // className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={handleAddIndux}
+            >
+              Add Industrial Experience
+            </Button>
+          )}
+
+          {role === "Faculty" && (
+            <div>
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          )}
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Publications</h3>
+            </FormLabel>
+          )}
+
+          {role === "Faculty" &&
+            pubs !== null &&
+            pubs.map((friend, index) => (
+              <div key={index}>
+                <TextField
+                  // className={classes.textField}
+                  // label={`Friend ${index + 1}`}
+                  variant="outlined"
+                  value={friend}
+                  onChange={(event) => handlePubsChange(event, index)}
+                />
+                <Button
+                  // className={classes.button}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleDeletePubs(index)}
+                >
+                  Delete
+                </Button>
+              </div>
+            ))}
+
+          {role === "Faculty" && (
+            <Button
+              // className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={handleAddPubs}
+            >
+              Add Publications
+            </Button>
+          )}
+
+          {role === "Faculty" && (
+            <div>
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          )}
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Projects</h3>
+            </FormLabel>
+          )}
+
+          {role === "Faculty" &&
+            projs !== null &&
+            projs.map((friend, index) => (
+              <div key={index}>
+                <TextField
+                  // className={classes.textField}
+                  // label={`Friend ${index + 1}`}
+                  variant="outlined"
+                  value={friend}
+                  onChange={(event) => handleProjsChange(event, index)}
+                />
+                <Button
+                  // className={classes.button}
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleDeleteProjs(index)}
+                >
+                  Delete
+                </Button>
+              </div>
+            ))}
+
+          {role === "Faculty" && (
+            <Button
+              // className={classes.button}
+              variant="contained"
+              color="primary"
+              onClick={handleAddProjs}
+            >
+              Add Project
+            </Button>
+          )}
 
           <Button
             type="submit"
@@ -193,6 +584,8 @@ export const EditMyProfile = () => {
           >
             Save Changes
           </Button>
+
+          {/* <Button onClick={()=> console.log(awards)}>Show awards</Button> */}
         </Box>
       </Box>
     </ThemeProvider>
