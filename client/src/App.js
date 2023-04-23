@@ -9,6 +9,7 @@ import { Universitypg } from './pages/Universitypg';
 import { UnivAbout } from './pages/UnivAbout';
 import { Myprofile } from './pages/Myprofile';
 import { EditMyProfile } from './pages/EditMyProfile';
+// import  {UniversityDetails}  from './pages/universityList';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/university/about" element={<UnivAbout />} />
           <Route path="/myprofile" element={<Myprofile />} />
           <Route path="/editmyprofile" element={<EditMyProfile />} />
+          {/* <Route path="/UniversityDetails" element={<UniversityDetails />} /> */}
         </Routes>
       </Router>
     </div>

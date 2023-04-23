@@ -1,6 +1,7 @@
 const authorize = require("./authController");
 const studentCollection = require("../models/studentModel");
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
+const UniversityDetailsCollection = require("../models/universityModel");
 
 function getProfile(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
@@ -160,10 +161,22 @@ function verifyUser(req, res) {
     });
 }
 
+function getUniversities(req, res) {
+
+	UniversityDetailsCollection.find(function (err, universities) {
+		if (err) {
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
+		// Send all the faculties in the response
+		res.status(200).json(universities);
+	});
+}
 module.exports = {
 	getProfile: getProfile,
 	getFaculties: getFaculties,
 	editProfile: editProfile,
 	verifyUser: verifyUser,
 	deleteProfile: deleteProfile,
+	getUniversities: getUniversities,
 };
