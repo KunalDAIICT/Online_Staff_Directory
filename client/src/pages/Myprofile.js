@@ -70,11 +70,19 @@ export const Myprofile = () => {
                 My Profile
               </Typography>
               <Box component="form" sx={{ mt: 1 }}>
+              if(data.Image !== null){
                 <img
-                  src="https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000"
+                  src= {data.Image}
                   alt="img"
                   width="25%"
                 />
+              }:else{
+                <img
+                src= "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+                alt="img"
+                width="25%"
+              />
+              }
                 <br />
 
                 <Typography variant="h5" align="center">

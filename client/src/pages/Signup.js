@@ -93,7 +93,8 @@ export const Signup = () => {
       "confirmpassword" : data.get('confirm password'),
       "mobile_number": data.get('mobile'),
       "university": data.get('university'),
-      "role": a
+      "role": a,
+      "Image":"",
     };
     }
     else{
@@ -111,6 +112,7 @@ export const Signup = () => {
         "Awards_and_Honors": [],
         "Industrial_experience": [],
         "Publications": [],
+        "Image":"",
         "__v": {"$numberInt":"0"}
       };
     }

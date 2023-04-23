@@ -52,7 +52,7 @@ export const Loginpg = () => {
     
     if(response.status === 200){
       alert("Logged in successfully");
-      navigate('/');
+      navigate('/myprofile');
     }
     else if(response.status === 401){
       alert("Invalid Username and Password, Please try again!");
