@@ -26,6 +26,14 @@ const studentSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		verified: {
+			type: Boolean,
+            required: true,
+        },
+		Image: {
+			type: String,
+			required: false,
+		},
 	},
 	{ collection: "users" }
   );

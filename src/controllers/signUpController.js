@@ -1,41 +1,44 @@
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const studentCollection = require("../models/studentModel");
 const facultyCollection = require("../models/facultyModel");
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
 
 module.exports = function (req, res) {
+	let userInstance;
 	if (req.body.role == 0) {
 		//student
 		studentCollection.exists({ _id: req.body.userEmail }, function (err, doc) {
 			if (doc) {
 				console.log("User already exist");
-				res.statusMessage =
-					'This e-mail address is already in use, <a href="./login.html">login</a>';
-				res.sendStatus(400);
+				res.status(400).json({
+					message: "This e-mail address is already in use!",
+				});
 			} else {
-				studentInstance = new studentCollection({
+				userInstance = new studentCollection({
 					_id: req.body.userEmail,
 					name: req.body.name,
 					password: req.body.password,
 					mobile_number: req.body.mobile_number,
 					university: req.body.university,
 					role: req.body.role,
+					verified: false,
+					Image: req.body.Image,
 				});
-				studentInstance.save();
+				userInstance.save();
 				console.log("New Student added");
-				res.statusMessage =
-					'You are registered, head to the <a href="./login.html">login</a> page';
-				res.sendStatus(200);
+				res.status(200).json({ message: "You are registered successfully" });
 			}
 		});
 	} else {
 		facultyCollection.exists({ _id: req.body.userEmail }, function (err, doc) {
 			if (doc) {
 				console.log("User already exist");
-				res.statusMessage =
-					'This e-mail address is already in use, <a href="./login.html">login</a>';
-				res.sendStatus(400);
+				res.status(400).json({
+					message: "This e-mail address is already in use!",
+				});
 			} else {
-				facultyInstance = new facultyCollection({
+				userInstance = new facultyCollection({
 					_id: req.body.userEmail,
 					name: req.body.name,
 					password: req.body.password,
@@ -48,8 +51,10 @@ module.exports = function (req, res) {
 					Awards_and_Honors: req.body.Awards_and_Honors,
 					Industrial_experience: req.body.Industrial_experience,
 					Publications: req.body.Publications,
+					verified: false,
+					Image: req.body.Image,
 				});
-				facultyInstance.save();
+				userInstance.save();
 				facultyDetailsInstance = new facultyDetailsCollection({
 					_id: req.body.userEmail,
 					name: req.body.name,
@@ -62,13 +67,16 @@ module.exports = function (req, res) {
 					Industrial_experience: req.body.Industrial_experience,
 					Publications: req.body.Publications,
 					isApproved: false,
+					Image: req.body.Image,
 				});
 				facultyDetailsInstance.save();
 				console.log("New Faculty added");
-				res.statusMessage =
-					'You are registered, head to the <a href="./login.html">login</a> page';
-				res.sendStatus(200);
+				res.status(200).json({ message: "You are registered successfully" });
 			}
 		});
 	}
+	const token = jwt.sign(
+		{ _id: req.body.userEmail },
+		process.env.ACESS_TOKEN_SECRET
+	);
 };

@@ -47,6 +47,10 @@ const facultyDetailschema = new mongoose.Schema(
 			type: Boolean,
             required: true,
         },
+		Image: {
+			type: String,
+			required: false,
+		},
 	},
     { collection: "Faculties" }
 );

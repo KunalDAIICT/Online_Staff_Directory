@@ -17,7 +17,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
-import '../App.css';
 
 const theme = createTheme();
 
@@ -53,6 +52,9 @@ export const Loginpg = () => {
     if(response.status === 200){
       alert("Logged in successfully");
       navigate('/');
+    }
+    else if(response.status === 402){
+      alert("Email not verified, Please verify your email!");
     }
     else if(response.status === 401){
       alert("Invalid Username and Password, Please try again!");
