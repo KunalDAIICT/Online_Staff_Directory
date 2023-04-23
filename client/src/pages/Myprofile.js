@@ -1,31 +1,28 @@
-import { Link } from "react-router-dom";
 import * as React from "react";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+import FormLabel from "@mui/material/FormLabel";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useEffect, useState } from "react";
-import '../App.css';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../App.css";
 
 const theme = createTheme();
 
 export const Myprofile = () => {
   const token = localStorage.getItem("token");
-
-  // var data=null;
-  const [data, setData] = useState(null);
-
-  const myStyle = {
-    borderStyle: "solid",
-    borderColor:"#dedede",
-    borderWidth:"1px",
-    borderRadius:"5px",
-    padding:"5px 8px 5px 10px",
-    margin:"5px",
-    backgroundColor:"white",
-  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [univ, setUniv] = useState("");
+  const [mob, setMob] = useState("");
+  const [role, setRole] = useState("");
+  const [spec, setSpec] = useState("");
+  const [exper, setExper] = useState("");
+  const [awards, setAwards] = useState(null);
+  const [indux, setIndux] = useState(null);
+  const [pubs, setPubs] = useState(null);
+  const [projs, setProjs] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +36,26 @@ export const Myprofile = () => {
         console.log(response);
         const json = await response.json();
         console.log(json);
-        setData(json);
+        console.log(json.role);
+        if (json.role === "0") {
+          setName(json.name);
+          setEmail(json._id);
+          setUniv(json.university);
+          setMob(json.mobile_number);
+          setRole("Student");
+        } else {
+          setName(json.name);
+          setEmail(json._id);
+          setUniv(json.university);
+          setMob(json.mobile_number);
+          setRole("Faculty");
+          setSpec(json.specialization);
+          setExper(json.experience);
+          setAwards(json.Awards_and_Honors);
+          setIndux(json.Industrial_experience);
+          setPubs(json.Publications);
+          setProjs(json.projects);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -49,198 +65,266 @@ export const Myprofile = () => {
   }, []);
 
   return (
-    <div className="App">
-      {token === "null" && <div>You have not logged in</div>}
-      {token !== "null" && (
-        <ThemeProvider theme={theme}>
-          <Container component="main">
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 2,
-                marginLeft: "20%",
-                display: "flex",
-                flexDirection: "column",
-                alignSelf: "center",
-                // alignItems: 'center',
-                width: "60%",
-              }}
-            >
-              <Typography component="h1" variant="h5">
-                My Profile
-              </Typography>
-              <Box component="form" sx={{ mt: 1 }}>
-                <img
-                  src="https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000"
-                  alt="img"
-                  width="25%"
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          marginTop: 8,
+          marginLeft: "25%",
+          display: "flex",
+          flexDirection: "column",
+          alignSelf: "center",
+          // alignItems: 'center',
+          width: "50%",
+        }}
+      >
+        <FormLabel>
+          <h1>My Profile</h1>
+        </FormLabel>
+
+        <Box component="form" noValidate sx={{ mt: 1 }}>
+          <img
+            src="https://img.freepik.com/free-icon/user_318-159711.jpg?w=2000"
+            alt="img"
+            width="25%"
+          />
+          <FormLabel id="role">
+            <h3>Name</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={name}
+            autoFocus
+            disabled
+          />
+          <br />
+          <FormLabel id="role">
+            <h3>User Email</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={email}
+            autoFocus
+            disabled
+          />
+
+          <br />
+          <FormLabel id="role">
+            <h3>University</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={univ}
+            autoFocus
+            disabled
+          />
+
+          <br />
+          <FormLabel id="role">
+            <h3>Mobile Number</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={mob}
+            autoFocus
+            disabled
+          />
+
+          <br />
+          <FormLabel id="role">
+            <h3>Role</h3>
+          </FormLabel>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={role}
+            autoFocus
+            disabled
+          />
+          <br />
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Specialization</h3>
+            </FormLabel>
+          )}
+          {role === "Faculty" && (
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              value={spec}
+              autoFocus
+              disabled
+            />
+          )}
+
+          <br />
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Experience</h3>
+            </FormLabel>
+          )}
+          {role === "Faculty" && (
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              value={exper}
+              autoFocus
+              disabled
+            />
+          )}
+
+          {role === "Faculty" && (
+            <div>
+              <br />
+              <br />
+              <br />
+            </div>
+          )}
+
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Awards and Honours</h3>
+            </FormLabel>
+          )}
+
+          {role === "Faculty" &&
+            awards !== null &&
+            awards.length > 0 &&
+            awards.map((friend, index) => (
+              <div key={index}>
+                <TextField
+                  // className={classes.textField}
+                  // label={`Friend ${index + 1}`}
+                  variant="outlined"
+                  value={friend}
+                  disabled
                 />
-                <br />
+              </div>
+            ))}
 
-                <Typography variant="h5" align="center">
-                  Name
-                </Typography>
-                <Typography variant="subtitle1" align="center">
-                  {data !== null && <div style={myStyle}>{data.name}</div>}
-                </Typography>
+          {role === "Faculty" && awards !== null && awards.length === 0 && (
+            <div>Empty</div>
+          )}
 
-                <br />
+          {role === "Faculty" && (
+            <div>
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          )}
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Industrial Experience</h3>
+            </FormLabel>
+          )}
 
-                <Typography variant="h5" align="center">
-                  User Email
-                </Typography>
-                <Typography variant="subtitle1" align="center">
-                  {data !== null && <div style={myStyle}>{data._id}</div>}
-                </Typography>
+          {role === "Faculty" &&
+            indux !== null &&
+            indux.length > 0 &&
+            indux.map((friend, index) => (
+              <div key={index}>
+                <TextField
+                  // className={classes.textField}
+                  // label={`Friend ${index + 1}`}
+                  variant="outlined"
+                  value={friend}
+                  disabled
+                />
+              </div>
+            ))}
 
-                <br />
+          {role === "Faculty" && indux !== null && indux.length === 0 && (
+            <div>Empty</div>
+          )}
 
-                <Typography variant="h5" align="center">
-                  University
-                </Typography>
-                <Typography variant="subtitle1" align="center">
-                  {data !== null && (
-                    <div style={myStyle}>{data.university}</div>
-                  )}
-                </Typography>
+          {role === "Faculty" && (
+            <div>
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          )}
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Publications</h3>
+            </FormLabel>
+          )}
 
-                <br />
+          {role === "Faculty" &&
+            pubs !== null &&
+            pubs.length > 0 &&
+            pubs.map((friend, index) => (
+              <div key={index}>
+                <TextField
+                  // className={classes.textField}
+                  // label={`Friend ${index + 1}`}
+                  variant="outlined"
+                  value={friend}
+                  disabled
+                />
+              </div>
+            ))}
 
-                <Typography variant="h5" align="center">
-                  Role
-                </Typography>
-                <Typography variant="subtitle1" align="center">
-                  {data !== null && (
-                    <div>
-                      {data.role === "0" && <div style={myStyle}>Student</div>}
-                      {data.role === "1" && <div style={myStyle}>Faculty</div>}
-                    </div>
-                  )}
-                </Typography>
+          {role === "Faculty" && pubs !== null && pubs.length === 0 && (
+            <div>Empty</div>
+          )}
 
-                <br />
 
-                Mobile number
+          
+          {role === "Faculty" && (
+            <div>
+              <br />
+              <br />
+              <br />
+              <br />
+            </div>
+          )}
+          {role === "Faculty" && (
+            <FormLabel id="role">
+              <h3>Projects</h3>
+            </FormLabel>
+          )}
 
-                {data !== null && data.role === "1" && (
-                  <div>
-                    <Typography variant="h5" align="center">
-                      Specialization
-                    </Typography>
-                    <Typography variant="subtitle1" align="center">
-                      {data !== null && (
-                        <div style={myStyle}>{data.specialization}</div>
-                      )}
-                    </Typography>
+          {role === "Faculty" &&
+            projs !== null &&
+            projs.length > 0 &&
+            projs.map((friend, index) => (
+              <div key={index}>
+                <TextField
+                  // className={classes.textField}
+                  // label={`Friend ${index + 1}`}
+                  variant="outlined"
+                  value={friend}
+                  disabled
+                />
+              </div>
+            ))}
+          {role === "Faculty" && projs !== null && projs.length === 0 && (
+            <div>Empty</div>
+          )}
 
-                    <br />
+          <Link to={"/editmyprofile"}>
+            <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              Edit Profile
+            </Button>
+          </Link>
 
-                    <Typography variant="h5" align="center">
-                      Experience
-                    </Typography>
-                    <Typography variant="subtitle1" align="center">
-                      {data !== null && (
-                        <div style={myStyle}>{data.experience}</div>
-                      )}
-                    </Typography>
-
-                    <br />
-
-                    <Typography variant="h5" align="center">
-                      Awards and Honours
-                    </Typography>
-                    <Typography variant="subtitle1" align="center">
-                      {data !== null && (
-                        <div style={myStyle}>
-                          {data.Awards_and_Honors.map((str, index) => (
-                            <p key={index}>{str}</p>
-                          )).map((str, index) => (
-                            <p key={index}>{str}</p>
-                          ))}
-                        </div>
-                      )}
-                    </Typography>
-
-                    <br />
-
-                    <Typography variant="h5" align="center">
-                      Industrial Experience
-                    </Typography>
-                    <Typography variant="subtitle1" align="center">
-                      {data !== null && (
-                        <div style={myStyle}>
-                          {data.Industrial_experience.map((str, index) => (
-                            <p key={index}>{str}</p>
-                          )).map((str, index) => (
-                            <p key={index}>{str}</p>
-                          ))}
-                        </div>
-                      )}
-                    </Typography>
-
-                    <br />
-
-                    <Typography variant="h5" align="center">
-                      Publications
-                    </Typography>
-                    <Typography variant="subtitle1" align="center">
-                      {data !== null && (
-                        <div style={myStyle}>
-                          {data.Industrial_experience.map((str, index) => (
-                            <p key={index}>{str}</p>
-                          )).map((str, index) => (
-                            <p key={index}>{str}</p>
-                          ))}
-                        </div>
-                      )}
-                    </Typography>
-
-                    <br />
-
-                    <Typography variant="h5" align="center">
-                      Publications
-                    </Typography>
-                    <Typography variant="subtitle1" align="center">
-                      {data !== null && (
-                        <div style={myStyle}>
-                          {data.Publications.map((str, index) => (
-                            <p key={index}>{str}</p>
-                          )).map((str, index) => (
-                            <p key={index}>{str}</p>
-                          ))}
-                        </div>
-                      )}
-                    </Typography>
-
-                    <br />
-
-                    <Typography variant="h5" align="center">
-                      Projects
-                    </Typography>
-                    <Typography variant="subtitle1" align="center">
-                      {data !== null && (
-                        <div style={myStyle}>
-                          {data.projects.map((str, index) => (
-                            <p key={index}>{str}</p>
-                          )).map((str, index) => (
-                            <p key={index}>{str}</p>
-                          ))}
-                        </div>
-                      )}
-                    </Typography>
-                  </div>
-                )}
-
-                <Link to={"/editmyprofile"}>
-                  <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                    Edit Profile
-                  </Button>
-                </Link>
-              </Box>
-            </Box>
-          </Container>
-        </ThemeProvider>
-      )}
-    </div>
+          {/* <Button onClick={()=> console.log(awards)}>Show awards</Button> */}
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 };
