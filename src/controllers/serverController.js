@@ -8,7 +8,8 @@ const loginController = require("../controllers/loginController");
 const signUpController = require("../controllers/signUpController");
 const reqHandler = require("../controllers/requestHandler");
 const adminReqHandler = require("../controllers/adminRequestHandler");
-const addUniversityController = require("./addUniversityController");
+const universityController = require("../controllers/universityController");
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,8 +27,10 @@ async function startServer() {
 	app.get("/deleteProfile", reqHandler.deleteProfile);
 	app.get("/pendingRequests", adminReqHandler.getPendingFaculties);
 	app.post("/approveFaculty", adminReqHandler.approveFaculty);
-	app.post("/addUniversity", addUniversityController);
+	app.post("/addUniversity", universityController.addUniversity);
 	app.get("/getUniversities",reqHandler.getUniversities);
+	app.post("/editUniversity", universityController.editUniversity);
+	app.post("/deleteUniversity",universityController.deleteUniversity);
 
 	let server = app.listen(process.env.PORT_NUM, function (req, res) {
 		console.log("Server setup complete, Listening on Port 3000");
