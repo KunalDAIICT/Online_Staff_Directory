@@ -23,6 +23,7 @@ module.exports = function (req, res) {
 					university: req.body.university,
 					role: req.body.role,
 					verified: false,
+					Image: req.body.Image,
 				});
 				userInstance.save();
 				console.log("New Student added");
@@ -51,6 +52,7 @@ module.exports = function (req, res) {
 					Industrial_experience: req.body.Industrial_experience,
 					Publications: req.body.Publications,
 					verified: false,
+					Image: req.body.Image,
 				});
 				userInstance.save();
 				facultyDetailsInstance = new facultyDetailsCollection({
@@ -65,6 +67,7 @@ module.exports = function (req, res) {
 					Industrial_experience: req.body.Industrial_experience,
 					Publications: req.body.Publications,
 					isApproved: false,
+					Image: req.body.Image,
 				});
 				facultyDetailsInstance.save();
 				console.log("New Faculty added");

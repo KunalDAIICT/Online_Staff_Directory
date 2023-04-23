@@ -5,7 +5,7 @@ const studentCollection = require("../models/studentModel");
 
 module.exports = function (req, res) {
 	studentCollection.findOne(
-		{ _id: req.body.userEmail, password: req.body.password, verified: true },
+		{ _id: req.body.userEmail, password: req.body.password},
 		function (err, user) {
 			if (user) {
 				// User exists and password is correct, generate a JWT

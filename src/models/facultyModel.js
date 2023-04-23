@@ -55,6 +55,10 @@ const facultySchema = new mongoose.Schema(
 			type: Boolean,
             required: true,
         },
+		Image: {
+			type: String,
+			required: false,
+		},
 	},
 	{ collection: "users" }
 );
