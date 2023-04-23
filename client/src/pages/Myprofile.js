@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect, useState } from "react";
+import '../App.css';
 
 const theme = createTheme();
 
@@ -118,6 +119,8 @@ export const Myprofile = () => {
                 </Typography>
 
                 <br />
+
+                Mobile number
 
                 {data !== null && data.role === "1" && (
                   <div>

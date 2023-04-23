@@ -177,6 +177,6 @@ input[type="submit"]:hover {
   background-repeat: no-repeat;
 }
 
-input[type="file"] {
-  margin-bottom: 1rem;
+input[type="text"] {
+  margin-bottom: 0;
 }

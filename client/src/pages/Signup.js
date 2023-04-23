@@ -18,6 +18,7 @@ import FormLabel from '@mui/material/FormLabel';
 //import MuiPhoneNumber from "material-ui-phone-number";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
+import '../App.css';
 
 
 const theme = createTheme();
