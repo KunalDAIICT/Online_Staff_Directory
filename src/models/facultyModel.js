@@ -51,14 +51,10 @@ const facultySchema = new mongoose.Schema(
 			type: [String],
 			required: true,
 		},
-		verified: {
+		isVerified: {
 			type: Boolean,
-            required: true,
-        },
-		Image: {
-			type: String,
-			required: false,
-		},
+			default: false,
+		}
 	},
 	{ collection: "users" }
 );

@@ -47,10 +47,10 @@ const facultyDetailschema = new mongoose.Schema(
 			type: Boolean,
             required: true,
         },
-		Image: {
-			type: String,
-			required: false,
-		},
+		isVerified: {
+			type: Boolean,
+			default: false,
+		}
 	},
     { collection: "Faculties" }
 );

@@ -1,5 +1,6 @@
 const authorize = require("./authController");
 const studentCollection = require("../models/studentModel");
+const facultyCollection = require("../models/facultyModel");
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
 
 function getProfile(req, res) {
@@ -73,7 +74,7 @@ function editProfile(req, res) {
 			}
 
 			console.log("User updated");
-			res.status(200).json({ message: "user updated" });
+			res.sendStatus(200);
 		}
 	);
 }
@@ -97,48 +98,60 @@ function getFaculties(req, res) {
 	});
 }
 
-function verifyUser(req, res) {
-	const token = req.headers.authorization.split(" ")[1];
-    const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
-    if (!user) {
-        return res.status(401).json({ error: "Invalid token" });
+function verifyemail(req, res) {
+
+	const email = req.query.id;
+    const role = req.query.role;
+
+    // Check if the email belongs to a student
+    if (role == 0) {
+        studentCollection.findOneAndUpdate(
+            { _id: email },
+            { $set: { isVerified: true } },
+            { new: true },
+            function(err, doc) {
+                if (err) {
+                    console.log("Error updating student document: ", err);
+                    res.sendStatus(500);
+                } else if (!doc) {
+                    console.log("No student found with email: ", email);
+                    res.sendStatus(404);
+                } else {
+                    console.log("Student verified: ", doc);
+					res.sendStatus(200);
+                    // res.redirect('/login.html');
+                }
+            }
+        );
     }
-
-    studentCollection.findOne(user, function (err, user) {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ error: "Internal server error" });
-        }
-
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
-        user.verified = true;
-		studentCollection.findByIdAndUpdate(
-			user._id,
-			user,
-			{ new: true },
-			function (err, updatedUser) {
-				if (err) {
-					console.error(err);
-					return res.status(500).json({ error: "Internal server error" });
-				}
-	
-				if (!updatedUser) {
-					return res.status(404).json({ error: "User not found" });
-				}
-	
-				console.log("User updated");
-				res.status(200).json({ message: "user verification done!!" });
-			}
-		);
-    });
+    // Check if the email belongs to a faculty
+    else {
+        facultyCollection.findOneAndUpdate(
+            { _id: email },
+            { $set: { isVerified: true } },
+            { new: true },
+            function(err, doc) {
+                if (err) {
+                    console.log("Error updating faculty document: ", err);
+                    res.sendStatus(500);
+                } else if (!doc) {
+                    console.log("No faculty found with email: ", email);
+                    res.sendStatus(404);
+                } else {
+                    console.log("Faculty verified: ", doc);
+					res.sendStatus(200);
+                    // res.redirect('/login.html');
+                }
+            }
+        );
+    }
 }
+	
+
 
 module.exports = {
 	getProfile: getProfile,
 	getFaculties: getFaculties,
 	editProfile: editProfile,
-	verifyUser: verifyUser,
+	verifyemail: verifyemail,
 };
