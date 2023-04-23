@@ -5,7 +5,7 @@ const studentCollection = require("../models/studentModel");
 
 module.exports = function (req, res) {
 	studentCollection.findOne(
-		{ _id: req.body.userEmail, password: req.body.password },
+		{ _id: req.body.userEmail, password: req.body.password, verified: true },
 		function (err, user) {
 			if (user) {
 				// User exists and password is correct, generate a JWT
@@ -19,7 +19,7 @@ module.exports = function (req, res) {
 			} else {
 				// User does not exist or password is incorrect
 				console.log("Login Failed");
-				res.status(401).json({ error: "Wrong username or password" });
+				res.status(401).json({ error: "Wrong username or password, Make sure you have verified yourself via the link sent to your email!" });
 			}
 		}
 	);
