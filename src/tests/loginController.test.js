@@ -39,9 +39,8 @@ describe("POST /login", () => {
 	test("should return status 401 for invalid credentials(wrong role)", async () => {
 		const req = {
 			body: {
-				userEmail: "jay@gmail.com",
+				userEmail: "jay1@gmail.com",
 				password: "p",
-				role: "0",
 			},
 		};
 		const res = await request(baseURL).post("/login").send(req.body);
@@ -51,7 +50,7 @@ describe("POST /login", () => {
 	test("should return status 401 for invalid credentials(wrong password)", async () => {
 		const req = {
 			body: {
-				userEmail: "dp@gmail.com",
+				userEmail: "dp1@gmail.com",
 				password: "a",
 				role: "1",
 			},

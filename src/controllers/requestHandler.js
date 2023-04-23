@@ -73,7 +73,7 @@ function editProfile(req, res) {
 			}
 
 			console.log("User updated");
-			res.sendStatus(200);
+			res.status(200).json({ message: "user updated" });
 		}
 	);
 }
@@ -97,8 +97,48 @@ function getFaculties(req, res) {
 	});
 }
 
+function verifyUser(req, res) {
+	const token = req.headers.authorization.split(" ")[1];
+    const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
+    if (!user) {
+        return res.status(401).json({ error: "Invalid token" });
+    }
+
+    studentCollection.findOne(user, function (err, user) {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        user.verified = true;
+		studentCollection.findByIdAndUpdate(
+			user._id,
+			user,
+			{ new: true },
+			function (err, updatedUser) {
+				if (err) {
+					console.error(err);
+					return res.status(500).json({ error: "Internal server error" });
+				}
+	
+				if (!updatedUser) {
+					return res.status(404).json({ error: "User not found" });
+				}
+	
+				console.log("User updated");
+				res.status(200).json({ message: "user verification done!!" });
+			}
+		);
+    });
+}
+
 module.exports = {
 	getProfile: getProfile,
 	getFaculties: getFaculties,
 	editProfile: editProfile,
+	verifyUser: verifyUser,
 };
