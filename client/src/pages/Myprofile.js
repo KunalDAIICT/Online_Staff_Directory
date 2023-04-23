@@ -73,7 +73,6 @@ export const Myprofile = () => {
           display: "flex",
           flexDirection: "column",
           alignSelf: "center",
-          // alignItems: 'center',
           width: "50%",
         }}
       >

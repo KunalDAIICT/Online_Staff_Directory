@@ -15,28 +15,12 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-//import MuiPhoneNumber from "material-ui-phone-number";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import '../App.css';
 
 
 const theme = createTheme();
-
-
-
-
-
-
-// export const Signup = () => {
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const data = new FormData(event.currentTarget);
-//     console.log({
-//       email: data.get('email'),
-//       password: data.get('password'),
-//     });
-//   };
 
 export const Signup = () => {
   let navigate=useNavigate();
@@ -74,16 +58,6 @@ export const Signup = () => {
       a="1";
     }
     console.log(a);
-    // const userData = 
-    //   {
-    //     "confirmpassword": "p",
-    //     "mobile_number": "07623065210",
-    //     "name": "Kunal Hotwani",
-    //     "password": "p",
-    //     "role": "0",
-    //     "university": "DAIICT",
-    //     "userEmail": "kunal.hotwani1@gmail.com"
-    //   };
     var userData={};
     if(a===0){
     userData = {...userData,
@@ -195,12 +169,6 @@ export const Signup = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                {/* <MuiPhoneNumber
-                    defaultCountry={"us"}
-                    variant="outlined"
-                    label="Phone Number"
-                    disableAreaCodes
-                /> */}
                 <TextField
                   required
                   fullWidth

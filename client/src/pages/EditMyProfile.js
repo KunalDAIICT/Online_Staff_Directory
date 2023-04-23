@@ -2,7 +2,6 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import FormLabel from "@mui/material/FormLabel";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,6 @@ const theme = createTheme();
 
 export const EditMyProfile = () => {
   const token = localStorage.getItem("token");
-  const [data, setData] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [univ, setUniv] = useState("");
@@ -40,7 +38,6 @@ export const EditMyProfile = () => {
         console.log(response);
         const json = await response.json();
         console.log(json);
-        setData(json);
         if (json.role === "0") {
           setName(json.name);
           setEmail(json._id);
@@ -228,7 +225,6 @@ export const EditMyProfile = () => {
           display: "flex",
           flexDirection: "column",
           alignSelf: "center",
-          // alignItems: 'center',
           width: "50%",
         }}
       >
