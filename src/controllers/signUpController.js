@@ -20,6 +20,7 @@ module.exports = function (req, res) {
                     mobile_number: req.body.mobile_number,
                     university: req.body.university,
                     role: req.body.role,
+                    Image:"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
 					verified: false,
                 });
                 studentInstance.save();
@@ -51,6 +52,7 @@ module.exports = function (req, res) {
                     Awards_and_Honors: req.body.Awards_and_Honors,
                     Industrial_experience: req.body.Industrial_experience,
                     Publications: req.body.Publications,
+                    Image:"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
 					verified: false,
                 });
                 facultyInstance.save();
@@ -65,6 +67,7 @@ module.exports = function (req, res) {
                     Awards_and_Honors: req.body.Awards_and_Honors,
                     Industrial_experience: req.body.Industrial_experience,
                     Publications: req.body.Publications,
+                    Image:"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
                     isApproved: false,
                 });
                 facultyDetailsInstance.save();
