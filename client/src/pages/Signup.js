@@ -18,14 +18,35 @@ import FormLabel from '@mui/material/FormLabel';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+import { useEffect, useState } from 'react';
+
 
 
 const theme = createTheme();
 
 export const Signup = () => {
+
+  const [allUni, setAllUni] = useState([]);
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await fetch("http://localhost:3000/getUniversities", {
+                  method: "GET",
+              });
+              console.log(response);
+              const json = await response.json();
+              setAllUni(json);
+              console.log(json);
+          }
+          catch (error) {
+              console.error("Error fetching data:", error);
+          }
+      };
+      fetchData();
+  }, []);
+
   let navigate=useNavigate();
   const handleUserSignup = async (userData) => {
-    
     const response = await fetch("http://localhost:3000/signUp", {
       method: "POST",
       headers: {
@@ -187,10 +208,11 @@ export const Signup = () => {
                     label='University'
                     select
                 >
-                    <MenuItem value='Dhirubhai Ambani Institute of Information and Communication Technology'>Dhirubhai Ambani Institute of Information and Communication Technology</MenuItem>
-                    <MenuItem value='IIT Bombay'>IIT Bombay</MenuItem>
-                    <MenuItem value='Indian Institute of Science'>Indian Institute of Science</MenuItem>
-                    <MenuItem value='Nirma University'>Nirma University</MenuItem>
+                  {allUni.map(university => (
+                <MenuItem value={university.name}> {university.name} </MenuItem>
+                  ))}
+                    {/* <MenuItem value='Dhirubhai Ambani Institute of Information and Communication Technology'>Dhirubhai Ambani Institute of Information and Communication Technology</MenuItem> */}
+                  
                 </TextField>
               </Grid>
               <Grid item xs={12}>
