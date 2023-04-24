@@ -25,13 +25,19 @@ import FacultyDetails from "./pages/faculty";
 
 function App() {
   var token=localStorage.getItem("token");
+  let navigate=useNavigate();
   
-
+  const logOut = () => {
+    localStorage.setItem("token","null");
+    token=null;
+    alert("Logged out successfully");
+    navigate("/");
+  }
 
 
   return (
     <div className="App">
-      <Router>
+      {/* <Router> */}
         <Box padding={1} border sx={{flexGrow: 1}}>
           <AppBar position="static" className="Navbar">
             <Toolbar>
@@ -72,7 +78,7 @@ function App() {
                 </Button>
               </Link>}
               {(token.length>4)   &&
-                <Button color="warning" variant="contained">
+                <Button color="warning" variant="contained" onClick={logOut}>
                   Log out
                 </Button>
               }
@@ -95,7 +101,7 @@ function App() {
           <Route path="/Faculties" element={<FacultyDetails />} />
           <Route path="/adminhome" element={<AdminHome />} />
         </Routes>
-      </Router>
+      {/* </Router> */}
     </div>
   );
 }
