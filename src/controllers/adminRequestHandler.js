@@ -2,8 +2,13 @@ const facultyDetailsCollection = require("../models/facultyDetailsModel");
 const facultyCollection = require("../models/facultyModel");
 
 function getallFaculties(req, res) {
+	const token = req.headers.authorization.split(" ")[1];
+	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
+	if (secretOBJ.role != "admin") {
+		return res.status(401).json({ error: "Unauthorized" });
+	}
 
-	facultyDetailsCollection.find(function (err, faculties) {
+	facultyDetailsCollection.find({}, function (err, faculties) {
 		if (err) {
 			console.error(err);
 			return res.status(500).json({ error: "Internal server error" });
@@ -15,6 +20,12 @@ function getallFaculties(req, res) {
 }
 
 function approveFaculty(req, res) {
+	const token = req.headers.authorization.split(" ")[1];
+	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
+	if (secretOBJ.role != "admin") {
+		return res.status(401).json({ error: "Unauthorized" });
+	}
+
 	const user = {
 		_id: req.body.email,
 	};
@@ -52,31 +63,37 @@ function approveFaculty(req, res) {
 }
 
 function disapproveFaculty(req, res) {
+	const token = req.headers.authorization.split(" ")[1];
+	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
+	if (secretOBJ.role != "admin") {
+		return res.status(401).json({ error: "Unauthorized" });
+	}
+
 	const user = {
-        _id: req.body.email,
-    };
+		_id: req.body.email,
+	};
 	facultyDetailsCollection.findOne(user, function (err, user) {
 		if (err) {
-            console.error(err);
-            return res.status(500).json({ error: "Internal server error" });
-        }
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
 		if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
+			return res.status(404).json({ error: "User not found" });
+		}
 
 		user.remove();
 	});
-	facultyCollection.findOne(user, function (err,user) {
+	facultyCollection.findOne(user, function (err, user) {
 		if (err) {
-            console.error(err);
-            return res.status(500).json({ error: "Internal server error" });
-        }
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
 		if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
+			return res.status(404).json({ error: "User not found" });
+		}
 
 		user.remove();
-    });
+	});
 }
 
 module.exports = {
