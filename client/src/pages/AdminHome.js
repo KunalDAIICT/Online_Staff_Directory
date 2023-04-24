@@ -72,7 +72,7 @@ const FacultyCardNotApproved = ({ faculty }) => (
                     <LinkIcon />
                 </IconButton>
             </p>
-            <Stack direction="row" spacing={1.5}>
+            <Stack direction="row" spacing={1}>
                 <Button variant="contained" color="success" startIcon={<DoneIcon />}>Approve</Button>
                 <Button variant="contained" color="error" startIcon={<ClearIcon />}>Delete</Button>
             </Stack>
