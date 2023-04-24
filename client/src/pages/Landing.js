@@ -3,7 +3,7 @@ import '../Landing.css'; // import CSS styles
 import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField, Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
  // array of all universities
 import { useEffect } from 'react';
 
@@ -36,8 +36,22 @@ export function SearchBar() {
     );
   }
 
-const UniversityCard = ({ university }) => (
-    <>
+
+ 
+  const handleClick =(id) => {
+        
+    return () => {
+        console.log(id);
+        window.location.href = `http://localhost:3002/Faculties?id=${id}`;
+    }
+}
+export function UniversityCard ({ university }) {
+    let navigate = useNavigate();
+   
+   
+    return (
+   <>
+
         <Stack className="university-card" direction="row" marginLeft={40} marginTop={10} alignItems={'center'}>
             <Box display='flex' height='100%' width='25%' alignItems='center' justifyContent='center' justifyItems='center'>
                 <img className="university-image" src={university.Image} alt={'logo'} />
@@ -49,15 +63,17 @@ const UniversityCard = ({ university }) => (
                 </Typography>
             </Box>
             <Box display='flex' height='100%' width="10%" alignItems='center' justifyContent='center'>
-                <Fab color='info' size='medium'>
-                    <Link to={"/Faculties"}><ArrowForwardIosIcon /></Link>
+                <Fab color='info' size='medium' onClick={handleClick(university.name)} >
+                   <ArrowForwardIosIcon />
                 </Fab>
             </Box>
         </Stack>
-    </>
-)
+        </>
+    );
+}
 
 export const UniversityDetails = () => {
+
     const [allUni, setAllUni] = useState([]);
     useEffect(() => {
         const fetchData = async () => {

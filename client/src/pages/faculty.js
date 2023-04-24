@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import '../faculty.css'; // import CSS styles
 import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField, Drawer } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -7,52 +7,12 @@ import SchoolIcon from '@mui/icons-material/School';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 // faculty data
-const facultyData = [
-  {
-    id: 1,
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    mobile: '+1 123-456-7890',
-    specialization: 'Computer Science',
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    email: 'janesmith@example.com',
-    mobile: '+1 234-567-8901',
-    specialization: "Mathematics",
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-  {
-    id: 3,
-    name: 'Jane Smith',
-    email: 'janesmith@example.com',
-    mobile: '+1 234-567-8901',
-    specialization: 'Mathematics',
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-  {
-    id: 4,
-    name: 'Jane Smith',
-    email: 'janesmith@example.com',
-    mobile: '+1 234-567-8901',
-    specialization: 'Mathematics',
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-  {
-    id: 5,
-    name: 'Jane Smith',
-    email: 'janesmith@example.com',
-    mobile: '+1 234-567-8901',
-    specialization: 'Mathematics',
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-];
+
 
 
 
@@ -91,12 +51,12 @@ const FacultyCard = ({ faculty }) => (
 
   <Box className="faculty-card">
     <div className="faculty-image-container">
-      <img className="faculty-image" src={faculty.imageUrl} alt={faculty.name} />
+      <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
     </div>
     <div className="faculty-details">
       <h3 className="faculty-name">{faculty.name}</h3>
-      <p className="faculty-email">{faculty.email}</p>
-      <p className="faculty-mobile">{faculty.mobile}</p>
+      <p className="faculty-email">{faculty._id}</p>
+      <p className="faculty-mobile">{faculty.mobile_number}</p>
       <p className="faculty-specialization">{faculty.specialization}</p>
       <p>
         <IconButton>
@@ -116,23 +76,56 @@ const FacultyCard = ({ faculty }) => (
 
 // faculty details page component
 const FacultyDetails = () => {
+  
+  const [faculties, setfaculties] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const queryParameters = new URLSearchParams(window.location.search);
+  const [uni, setuni] = useState("");
+// console.log("Uni ", uni);
 
-  const toggleDrawer = (newOpen) => (event) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-    setOpen(newOpen);
-  };
+    useEffect(() => {    
+      setuni(queryParameters.get("id"));
+        const univ = {
+       university: uni,
+}
+      console.log(univ);
+ 
+        const fetchData = async () => {
+          try {
+            
+           
+            const response = await fetch("http://localhost:3000/filter/faculties", {
+              method: "POST",
+              body: JSON.stringify(univ),
+            });
+            console.log(response);
+            const json = await response.json();
+            setfaculties(json);
+            console.log(faculties);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+        fetchData();
+    }, []);
+
+ console.log(faculties);
+
+  // const toggleDrawer = (newOpen) => (event) => {
+  //   if (
+  //     event &&
+  //     event.type === 'keydown' &&
+  //     (event.key === 'Tab' || event.key === 'Shift')
+  //   ) {
+  //     return;
+  //   }
+  //   setOpen(newOpen);
+  // };
 
 
   return (
     <div>
-      <Stack marginLeft={50} direction="row" alignItems="center" spacing={5}>
+      {/* <Stack marginLeft={50} direction="row" alignItems="center" spacing={5}>
         <item>
           <SearchBar />
         </item>
@@ -151,11 +144,12 @@ const FacultyDetails = () => {
 
           </SwipeableDrawer>
         </item>
-      </Stack>
+      </Stack> */}
+
       <div className="faculty-details-page">
         <div className="faculty-cards-box">
           <div className="faculty-cards-container">
-            {facultyData.map(faculty => (
+            {faculties.map(faculty => (
               <FacultyCard key={faculty.id} faculty={faculty} />
             ))}
           </div>

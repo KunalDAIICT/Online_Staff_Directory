@@ -129,16 +129,12 @@ function deleteProfile(req, res) {
 }
 
 function getFaculties(req, res) {
-	let filter = {
-		isApproved: true,
-	};
-	if (req.body.university != null) {
-		filter.university = req.body.university;
-	}
-	if (req.body.userEmail != null) {
-		filter._id = req.body.userEmail;
-	}
 
+	let filter = {
+		"university": req.body.university,
+	};
+
+	console.log(filter);
 	facultyDetailsCollection.find(filter, function (err, faculties) {
 		if (err) {
 			console.error(err);

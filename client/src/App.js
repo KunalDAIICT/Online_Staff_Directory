@@ -98,6 +98,7 @@ function App() {
           <Route path="/myprofile" element={<Myprofile />} />
           <Route path="/editmyprofile" element={<EditMyProfile />} />
           <Route path="/UniversityDetails" element={<UniversityDetails />} />
+          <Route path="/Faculties/:id" element={<FacultyDetails /> } />
           <Route path="/Faculties" element={<FacultyDetails />} />
           <Route path="/adminhome" element={<AdminHome />} />
         </Routes>

@@ -21,7 +21,7 @@ async function startServer() {
 	app.post("/signUp", signUpController);
 	app.post("/login", loginController);
 	app.post("/profile", reqHandler.getProfile);
-	app.get("/faculties", reqHandler.getFaculties);
+	app.post("/filter/faculties", reqHandler.getFaculties);
 	app.post("/editProfile", reqHandler.editProfile);
 	app.get("/verify-email", reqHandler.verifyemail);
 	app.get("/deleteProfile", reqHandler.deleteProfile);
