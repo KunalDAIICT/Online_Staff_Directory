@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from 'react-router-dom';
  // array of all universities
-
+import { useEffect } from 'react';
 
 
 export function SearchBar() {
@@ -58,24 +58,24 @@ const UniversityCard = ({ university }) => (
 )
 
 export const UniversityDetails = () => {
-
     const [allUni, setAllUni] = useState([]);
-    const fetchData = async () => {
-        try {
-            const response = await fetch("http://localhost:3000/getUniversities", {
-                method: "GET",
-            });
-            console.log(response);
-            const json = await response.json();
-            setAllUni(json);
-            console.log(json);
-        }
-        catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-    fetchData();
-    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch("http://localhost:3000/getUniversities", {
+                    method: "GET",
+                });
+                console.log(response);
+                const json = await response.json();
+                setAllUni(json);
+                console.log(json);
+            }
+            catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        fetchData();
+    }, []);
     return (
         <div>
             <Stack marginLeft={65} direction="row" alignItems="center" spacing={5}>
