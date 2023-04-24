@@ -157,7 +157,7 @@ const FacultyDetails = (isapproved) => {
     );
 };
 
-export default function AdminHome() {
+export default function LabTabs() {
     const [value, setValue] = React.useState('1');
 
     const handleChange = (event, newValue) => {
@@ -166,12 +166,32 @@ export default function AdminHome() {
 
     return (
         <Box sx={{ width: '100%', typography: 'body1' }}>
+
+            <AppBar position="static" className='Navbar'>
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              {/* <MenuIcon /> */}
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Online Faculty-Staff Directory
+            </Typography>
+            <Button color="inherit">Profile</Button>
+            <Button color="inherit" variant='outlined' sx={{ mr: 1 }}>LogOut</Button>
+          </Toolbar>
+        </AppBar>
+
             <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
                         <Tab label="Approved Faculties" value="1" />
                         <Tab label="Pending Approvals" value="2" />
-                        <Tab label="Add University" value="3" />
+                        <Tab label="Universities" value="3" />
                     </TabList>
                 </Box>
                 <TabPanel value="1">
@@ -181,7 +201,7 @@ export default function AdminHome() {
                     {FacultyDetails(false)}
                 </TabPanel>
                 <TabPanel value="3">
-                    {/* {FacultyDetails(false)} */}
+                    
                 </TabPanel>
             </TabContext>
         </Box>
