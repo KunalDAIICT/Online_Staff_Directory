@@ -30,12 +30,7 @@ import { useNavigate } from "react-router-dom";
 
 // faculty data
 
-
-
-
-
 const FacultyCardApproved = ({ faculty }) => (
-
   <Box className="faculty-card">
     <div className="faculty-image-container">
       <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
@@ -65,10 +60,8 @@ const FacultyCardApproved = ({ faculty }) => (
   </Box>
 );
 
-
 // faculty card component
 const FacultyCardNotApproved = ({ faculty }) => (
-
   <Box className="faculty-card">
     <div className="faculty-image-container">
       <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
@@ -100,7 +93,6 @@ const FacultyCardNotApproved = ({ faculty }) => (
     </div>
   </Box>
 );
-
 
 // faculty details page component
 const FacultyDetails = (isapproved, allfaculties) => {
@@ -159,6 +151,7 @@ export default function LabTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   var token=localStorage.getItem("token");
   let navigate=useNavigate();
   
@@ -206,3 +199,4 @@ export default function LabTabs() {
     </Box>
   );
 }
+

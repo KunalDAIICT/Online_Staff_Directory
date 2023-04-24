@@ -6,6 +6,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from 'react-router-dom';
  // array of all universities
 import { useEffect } from 'react';
+import { Navbar } from './Navbar';
 
 
 export function SearchBar() {
@@ -78,6 +79,7 @@ export const UniversityDetails = () => {
     }, []);
     return (
         <div>
+            <Navbar />
             <Stack marginLeft={65} direction="row" alignItems="center" spacing={5}>
                 <item>
                     <SearchBar />
