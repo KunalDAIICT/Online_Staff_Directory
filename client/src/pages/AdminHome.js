@@ -134,6 +134,9 @@ export default function LabTabs() {
     try {
       const response = await fetch("http://localhost:3000/admin/allfaculties", {
         method: "GET",
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+        },
       });
       console.log(response);
       const json = await response.json();
@@ -196,3 +199,4 @@ export default function LabTabs() {
     </Box>
   );
 }
+

@@ -54,11 +54,11 @@ export const Loginpg = () => {
       console.log(json.role);
         if(json.role === "user"){
         alert("Logged in successfully");
-        navigate('/');
+        navigate('/', {state: {role: "user"}});
         }
         else if(json.role === "admin"){
         alert("Logged in successfully as admin");
-        navigate('/adminhome');
+        navigate('/adminhome',{state: {role: "admin"}});
         }
     }
     else if(response.status === 402){

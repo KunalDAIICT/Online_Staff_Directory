@@ -254,6 +254,7 @@ module.exports = {
 	verifyemail: verifyemail,
 	deleteProfile: deleteProfile,
 	getUniversities: getUniversities,
+	verifyUser: verifyUser
 };
 
 
