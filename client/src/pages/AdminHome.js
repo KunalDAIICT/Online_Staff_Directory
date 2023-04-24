@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../admin_home.css"; // import CSS styles
 import {
   AppBar,
@@ -138,6 +138,8 @@ const FacultyDetails = (isapproved, allfaculties) => {
 export default function LabTabs() {
   const [value, setValue] = React.useState("1");
   const [allfaculties, setAllfaculties] = useState([]);
+
+  useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:3000/admin/allfaculties", {
@@ -154,7 +156,9 @@ export default function LabTabs() {
       console.error("Error fetching data:", error);
     }
   };
+
   fetchData();
+}, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
