@@ -76,76 +76,46 @@ const FacultyCard = ({ faculty }) => (
 
 // faculty details page component
 const FacultyDetails = () => {
-  
+  const [uni, setuni] = useState("");
   const [faculties, setfaculties] = useState([]);
   const [open, setOpen] = React.useState(false);
+  // const {state} = useLocation();
   const queryParameters = new URLSearchParams(window.location.search);
-  const [uni, setuni] = useState("");
-// console.log("Uni ", uni);
-
-    useEffect(() => {    
-      setuni(queryParameters.get("id"));
+  
+  useEffect(() => {    
+    setuni(queryParameters.get("id"));
+    const fetchData = async () => {
+      try {
         const univ = {
-       university: uni,
-}
-      console.log(univ);
- 
-        const fetchData = async () => {
-          try {
-            
-           
-            const response = await fetch("http://localhost:3000/filter/faculties", {
-              method: "POST",
-              body: JSON.stringify(univ),
-            });
-            console.log(response);
-            const json = await response.json();
-            setfaculties(json);
-            console.log(faculties);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
+          university: uni,
+
         };
-        fetchData();
-    }, []);
+        const vari = JSON.stringify(univ);
+        const data =  {
+          method: "POST",
+          body: vari,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        };
+        console.log(data);
+        const response = await fetch("http://localhost:3000/filter/faculties",data);
 
- console.log(faculties);
+        const json = await response.json();
+        console.log("json is", json);
+        setfaculties(json);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [uni]);
 
-  // const toggleDrawer = (newOpen) => (event) => {
-  //   if (
-  //     event &&
-  //     event.type === 'keydown' &&
-  //     (event.key === 'Tab' || event.key === 'Shift')
-  //   ) {
-  //     return;
-  //   }
-  //   setOpen(newOpen);
-  // };
-
+  
 
   return (
     <div>
-      {/* <Stack marginLeft={50} direction="row" alignItems="center" spacing={5}>
-        <item>
-          <SearchBar />
-        </item>
-        <item>
-          <Fab size="small" color="secondary" aria-label="add" onClick={toggleDrawer(true)}>
-            <FilterListIcon />
-          </Fab>
-          <SwipeableDrawer
-            anchor='left'
-            open={open}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
-          >
-
-            Hello world
-
-          </SwipeableDrawer>
-        </item>
-      </Stack> */}
-
       <div className="faculty-details-page">
         <div className="faculty-cards-box">
           <div className="faculty-cards-container">

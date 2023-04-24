@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 
 
 export function SearchBar() {
+    const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
     const handleChange = (event) => {
       setSearchTerm(event.target.value);
@@ -36,18 +37,21 @@ export function SearchBar() {
     );
   }
 
-
- 
-  const handleClick =(id) => {
-        
-    return () => {
-        console.log(id);
-        window.location.href = `http://localhost:3002/Faculties?id=${id}`;
-    }
-}
 export function UniversityCard ({ university }) {
     let navigate = useNavigate();
-   
+    
+    const handleClick =(id) => {
+        
+        return () => {
+            console.log(id);
+            window.location.href = `http://localhost:3001/Faculties?id=${id}`;
+            // navigate(`/Faculties`,{
+            //     state : {
+            //         name : id
+            //     }
+            // });
+        }
+    }
    
     return (
    <>

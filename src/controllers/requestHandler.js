@@ -5,6 +5,7 @@ const facultyDetailsCollection = require("../models/facultyDetailsModel");
 const UniversityDetailsCollection = require("../models/universityModel");
 
 function getProfile(req, res) {
+	
 	const token = req.headers.authorization.split(" ")[1];
 	const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
 	if (!user) {

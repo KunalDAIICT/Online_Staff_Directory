@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 
 const dbConnection = require("../db/dbConnection");
 const loginController = require("../controllers/loginController");
@@ -10,9 +10,10 @@ const reqHandler = require("../controllers/requestHandler");
 const adminReqHandler = require("../controllers/adminRequestHandler");
 const universityController = require("../controllers/universityController");
 
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 async function startServer() {
