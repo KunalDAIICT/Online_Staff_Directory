@@ -7,6 +7,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { Navbar } from './Navbar';
 
 
 
@@ -132,6 +133,7 @@ const FacultyDetails = () => {
 
   return (
     <div>
+      <Navbar />
       <Stack marginLeft={50} direction="row" alignItems="center" spacing={5}>
         <item>
           <SearchBar />
