@@ -20,7 +20,7 @@ module.exports = function (req, res) {
                     mobile_number: req.body.mobile_number,
                     university: req.body.university,
                     role: req.body.role,
-					isVerified: false,
+					verified: false,
                 });
                 studentInstance.save();
                 console.log("New Student added");

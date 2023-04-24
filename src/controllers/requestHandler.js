@@ -85,6 +85,8 @@ function editProfile(req, res) {
 			Awards_and_Honors: req.body.Awards_and_Honors,
 			Industrial_experience: req.body.Industrial_experience,
 			Publications: req.body.Publications,
+			Image: req.body.Image,
+			isApproved: false,
 		});
 		facultyDetailsCollection.findByIdAndUpdate(
 			req.body.userEmail,
