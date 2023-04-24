@@ -51,7 +51,7 @@ const facultySchema = new mongoose.Schema(
 			type: [String],
 			required: true,
 		},
-		verified: {
+		isVerified: {
 			type: Boolean,
             required: true,
         },
