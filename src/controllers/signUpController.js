@@ -51,6 +51,7 @@ module.exports = function (req, res) {
                     Awards_and_Honors: req.body.Awards_and_Honors,
                     Industrial_experience: req.body.Industrial_experience,
                     Publications: req.body.Publications,
+					verified: false,
                 });
                 facultyInstance.save();
                 facultyDetailsInstance = new facultyDetailsCollection({
@@ -65,12 +66,11 @@ module.exports = function (req, res) {
                     Industrial_experience: req.body.Industrial_experience,
                     Publications: req.body.Publications,
                     isApproved: false,
-					isVerified: false,
                 });
                 facultyDetailsInstance.save();
                 console.log("New Faculty added");
 
-                sendAuthMail(req.body.userEmail,req.body.name,req.body.role);
+                // sendAuthMail(req.body.userEmail,req.body.name,req.body.role);
 
                 res.statusMessage =
                     'You are registered, head to the <a href="./login.html">login</a> page';
