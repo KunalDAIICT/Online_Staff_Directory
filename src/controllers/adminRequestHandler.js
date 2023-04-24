@@ -1,4 +1,5 @@
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
+const facultyCollection = require("../models/facultyModel");
 
 function getPendingFaculties(req, res) {
 	let filter = {
@@ -53,7 +54,36 @@ function approveFaculty(req, res) {
 	});
 }
 
+function disapproveFaculty(req, res) {
+	const user = {
+        _id: req.body.email,
+    };
+	facultyDetailsCollection.findOne(user, function (err, user) {
+		if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+		if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+		user.remove();
+	});
+	facultyCollection.findOne(user, function (err,user) {
+		if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal server error" });
+        }
+		if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+		user.remove();
+    });
+}
+
 module.exports = {
 	getPendingFaculties: getPendingFaculties,
 	approveFaculty: approveFaculty,
+	disapproveFaculty: disapproveFaculty,
 };
