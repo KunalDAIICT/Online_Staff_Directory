@@ -15,65 +15,21 @@ import TabPanel from '@mui/lab/TabPanel';
 // This page will show the data of the approved faculty members to the admin. The admin can delete the faculty members from this page.
 
 // faculty data
-const facultyData = [
-    {
-        id: 1,
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        mobile: '+1 123-456-7890',
-        specialization: 'Computer Science',
-        isapproved: true,
-        imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-    },
-    {
-        id: 2,
-        name: 'Saurabh Tiwari',
-        email: 'janesmith@example.com',
-        mobile: '+1 234-567-8901',
-        specialization: "Mathematics",
-        isapproved: false,
-        imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-    },
-    {
-        id: 3,
-        name: 'Anil Roy',
-        email: 'janesmith@example.com',
-        mobile: '+1 234-567-8901',
-        specialization: 'Mathematics',
-        isapproved: false,
-        imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-    },
-    {
-        id: 4,
-        name: 'Jane Smith',
-        email: 'janesmith@example.com',
-        mobile: '+1 234-567-8901',
-        specialization: 'Mathematics',
-        isapproved: true,
-        imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-    },
-    {
-        id: 5,
-        name: 'Jane Smith',
-        email: 'janesmith@example.com',
-        mobile: '+1 234-567-8901',
-        specialization: 'Mathematics',
-        isapproved: true,
-        imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-    },
-];
+
+
+
 
 
 const FacultyCardApproved = ({ faculty }) => (
 
     <Box className="faculty-card">
         <div className="faculty-image-container">
-            <img className="faculty-image" src={faculty.imageUrl} alt={faculty.name} />
+            <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
         </div>
         <div className="faculty-details">
             <h3 className="faculty-name">{faculty.name}</h3>
-            <p className="faculty-email">{faculty.email}</p>
-            <p className="faculty-mobile">{faculty.mobile}</p>
+            <p className="faculty-email">{faculty._id}</p>
+            <p className="faculty-mobile">{faculty.mobile_number}</p>
             <p className="faculty-specialization">{faculty.specialization}</p>
             <p>
                 <IconButton>
@@ -97,13 +53,13 @@ const FacultyCardNotApproved = ({ faculty }) => (
 
     <Box className="faculty-card">
         <div className="faculty-image-container">
-            <img className="faculty-image" src={faculty.imageUrl} alt={faculty.name} />
+            <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
         </div>
         <div className="faculty-details">
             <h3 className="faculty-name">{faculty.name}
             </h3>
-            <p className="faculty-email">{faculty.email}</p>
-            <p className="faculty-mobile">{faculty.mobile}</p>
+            <p className="faculty-email">{faculty._id}</p>
+            <p className="faculty-mobile">{faculty.mobile_number}</p>
             <p className="faculty-specialization">{faculty.specialization}</p>
             <p>
                 <IconButton>
@@ -126,7 +82,7 @@ const FacultyCardNotApproved = ({ faculty }) => (
 
 
 // faculty details page component
-const FacultyDetails = (isapproved) => {
+const FacultyDetails = (isapproved , allfaculties) => {
     // const checkapproved = isapproved;
     return (
         <div>
@@ -134,17 +90,17 @@ const FacultyDetails = (isapproved) => {
                 <div className="faculty-cards-box">
                     <div className="faculty-cards-container">
                         {isapproved ? (
-                            facultyData.filter(faculty => {
+                            allfaculties.filter(faculty => {
                                 return(
-                                    faculty.isapproved === true
+                                    faculty.isApproved === true
                                 );
                             }).map((faculty) => (
                                 <FacultyCardApproved key={faculty.id} faculty={faculty} />
                             ))
                         ) : (
-                            facultyData.filter(faculty => {
+                            allfaculties.filter(faculty => {
                                 return(
-                                    faculty.isapproved === false
+                                    faculty.isApproved === false
                                 );
                             }).map((faculty) => (
                                 <FacultyCardNotApproved key={faculty.id} faculty={faculty} />
@@ -159,6 +115,22 @@ const FacultyDetails = (isapproved) => {
 
 export default function LabTabs() {
     const [value, setValue] = React.useState('1');
+    const [allfaculties, setAllfaculties] = useState([]);
+    const fetchData = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/admin/allfaculties", {
+                method: "GET",
+            });
+            console.log(response);
+            const json = await response.json();
+            setAllfaculties(json);
+            console.log(json);
+        }
+        catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+    fetchData();
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -195,10 +167,10 @@ export default function LabTabs() {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    {FacultyDetails(true)}
+                    {FacultyDetails(true , allfaculties)}
                 </TabPanel>
                 <TabPanel value="2">
-                    {FacultyDetails(false)}
+                    {FacultyDetails(false, allfaculties)}
                 </TabPanel>
                 <TabPanel value="3">
                     

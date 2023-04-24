@@ -1,12 +1,9 @@
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
 const facultyCollection = require("../models/facultyModel");
 
-function getPendingFaculties(req, res) {
-	let filter = {
-		isApproved: false,
-	};
+function getallFaculties(req, res) {
 
-	facultyDetailsCollection.find(filter, function (err, faculties) {
+	facultyDetailsCollection.find(function (err, faculties) {
 		if (err) {
 			console.error(err);
 			return res.status(500).json({ error: "Internal server error" });
@@ -83,7 +80,7 @@ function disapproveFaculty(req, res) {
 }
 
 module.exports = {
-	getPendingFaculties: getPendingFaculties,
+	getallFaculties: getallFaculties,
 	approveFaculty: approveFaculty,
 	disapproveFaculty: disapproveFaculty,
 };
