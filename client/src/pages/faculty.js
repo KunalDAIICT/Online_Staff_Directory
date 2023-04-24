@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import './faculty.css'; // import CSS styles
-import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField} from '@mui/material';
+import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField, Drawer } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LinkIcon from '@mui/icons-material/Link';
 import SchoolIcon from '@mui/icons-material/School';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
-// import { MuiDrawer } from './filter';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
+
 
 // faculty data
 const facultyData = [
@@ -23,7 +25,7 @@ const facultyData = [
     name: 'Jane Smith',
     email: 'janesmith@example.com',
     mobile: '+1 234-567-8901',
-    specialization: 'Mathematics',
+    specialization: "Mathematics",
     imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
   },
   {
@@ -51,6 +53,8 @@ const facultyData = [
     imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
   },
 ];
+
+
 
 export function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -81,6 +85,7 @@ export function SearchBar() {
   );
 }
 
+
 // faculty card component
 const FacultyCard = ({ faculty }) => (
 
@@ -108,53 +113,82 @@ const FacultyCard = ({ faculty }) => (
   </Box>
 );
 
+
 // faculty details page component
-const FacultyDetails = () => (
-  <div>
-    <Box sx={{ flexGrow: 1 }} padding={1} border>
-      <AppBar position="static" className='Navbar'>
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
+const FacultyDetails = () => {
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+    setOpen(newOpen);
+  };
+
+
+  return (
+    <div>
+      <Box sx={{ flexGrow: 1 }} padding={1} border>
+        <AppBar position="static" className='Navbar'>
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              {/* <MenuIcon /> */}
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Online Faculty-Staff Directory
+            </Typography>
+            <Button color="inherit"><b>Details</b></Button>
+            <Button color="inherit">Academics</Button>
+            <Button color="inherit">Profile</Button>
+            <Button color="inherit">About Us</Button>
+            <Button color="inherit" variant='outlined' sx={{ mr: 1 }}>Sign In</Button>
+            <Button color="warning" variant='contained'>Sign Up</Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Stack marginLeft={50} direction="row" alignItems="center" spacing={5}>
+        <item>
+          <SearchBar />
+        </item>
+        <item>
+          <Fab size="small" color="secondary" aria-label="add" onClick={toggleDrawer(true)}>
+            <FilterListIcon />
+          </Fab>
+          <SwipeableDrawer
+            anchor='left'
+            open={open}
+            onClose={toggleDrawer(false)}
+            onOpen={toggleDrawer(true)}
           >
-            {/* <MenuIcon /> */}
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Online Faculty-Staff Directory
-          </Typography>
-          <Button color="inherit"><b>Details</b></Button>
-          <Button color="inherit">Academics</Button>
-          <Button color="inherit">Profile</Button>
-          <Button color="inherit">About Us</Button>
-          <Button color="inherit" variant='outlined' sx={{ mr: 1 }}>Sign In</Button>
-          <Button color="warning" variant='contained'>Sign Up</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
-    <Stack marginLeft={50} direction="row" alignItems="center" spacing={5}>
-      <item>
-        <SearchBar />
-      </item>
-      <item>
-        <Fab size="small" color="secondary" aria-label="add" onClick={() => alert('Hello')}>
-          <FilterListIcon />
-        </Fab>
-      </item>
-    </Stack>
-    <div className="faculty-details-page">
-      <div className="faculty-cards-box">
-        <div className="faculty-cards-container">
-          {facultyData.map(faculty => (
-            <FacultyCard key={faculty.id} faculty={faculty} />
-          ))}
+
+            Hello world
+
+          </SwipeableDrawer>
+        </item>
+      </Stack>
+      <div className="faculty-details-page">
+        <div className="faculty-cards-box">
+          <div className="faculty-cards-container">
+            {facultyData.map(faculty => (
+              <FacultyCard key={faculty.id} faculty={faculty} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
+
+
 
 export default FacultyDetails;
