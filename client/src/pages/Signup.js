@@ -68,7 +68,7 @@ export const Signup = () => {
       "mobile_number": data.get('mobile'),
       "university": data.get('university'),
       "role": a,
-      "Image":"",
+      "Image":"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
     };
     }
     else{
@@ -86,7 +86,7 @@ export const Signup = () => {
         "Awards_and_Honors": [],
         "Industrial_experience": [],
         "Publications": [],
-        "Image":"",
+        "Image":"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
         "__v": {"$numberInt":"0"}
       };
     }

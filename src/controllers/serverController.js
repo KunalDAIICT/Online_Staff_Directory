@@ -25,8 +25,7 @@ async function startServer() {
 	app.post("/editProfile", reqHandler.editProfile);
 	app.get("/verifyUser", reqHandler.verifyUser);
 	app.get("/deleteProfile", reqHandler.deleteProfile);
-	app.get("/pendingRequests", adminReqHandler.getPendingFaculties);
-	app.post("/approveFaculty", adminReqHandler.approveFaculty);
+	app.get("/admin/allfaculties", adminReqHandler.getallFaculties);
 	app.post("/addUniversity", universityController.addUniversity);
 	app.get("/getUniversities",reqHandler.getUniversities);
 	app.post("/editUniversity", universityController.editUniversity);
