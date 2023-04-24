@@ -21,7 +21,7 @@ module.exports = function (req, res) {
                     university: req.body.university,
                     role: req.body.role,
                     Image:"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
-					verified: false,
+					isVerified: false,
                 });
                 studentInstance.save();
                 console.log("New Student added");
@@ -53,7 +53,7 @@ module.exports = function (req, res) {
                     Industrial_experience: req.body.Industrial_experience,
                     Publications: req.body.Publications,
                     Image:"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
-					verified: false,
+					isVerified: false,
                 });
                 facultyInstance.save();
                 facultyDetailsInstance = new facultyDetailsCollection({
@@ -73,7 +73,7 @@ module.exports = function (req, res) {
                 facultyDetailsInstance.save();
                 console.log("New Faculty added");
 
-                // sendAuthMail(req.body.userEmail,req.body.name,req.body.role);
+                sendAuthMail(req.body.userEmail,req.body.name,req.body.role);
 
                 res.statusMessage =
                     'You are registered, head to the <a href="./login.html">login</a> page';
@@ -82,4 +82,3 @@ module.exports = function (req, res) {
         });
     }
 };
-

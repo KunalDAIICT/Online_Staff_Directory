@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer');
+const authorize = require('./authController');
 
-module.exports = async function sendAuthMail(userEmail,name,role) {
+
+module.exports = async function sendAuthMail(userEmail,role,name) {
   try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -25,5 +27,4 @@ module.exports = async function sendAuthMail(userEmail,name,role) {
   } catch (error) {
     console.error(error);
   }
-}
-
+};

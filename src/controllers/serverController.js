@@ -23,7 +23,7 @@ async function startServer() {
 	app.post("/profile", reqHandler.getProfile);
 	app.get("/faculties", reqHandler.getFaculties);
 	app.post("/editProfile", reqHandler.editProfile);
-	app.get("/verifyUser", reqHandler.verifyUser);
+	app.get("/verify-email", reqHandler.verifyemail);
 	app.get("/deleteProfile", reqHandler.deleteProfile);
 	app.get("/admin/allfaculties", adminReqHandler.getallFaculties);
 	app.post("/addUniversity", universityController.addUniversity);
@@ -48,3 +48,5 @@ module.exports = {
 	startServer,
 	stopServer,
 };
+
+

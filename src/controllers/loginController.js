@@ -9,6 +9,9 @@ module.exports = function (req, res) {
 		{ _id: req.body.userEmail, password: req.body.password},
 		function (err, user) {
 			if (user) {
+
+				// if (user.isVerified) {
+					if(true){
 				// User exists and password is correct, generate a JWT
 				const token = jwt.sign(
 					{ _id: user._id },
@@ -23,6 +26,12 @@ module.exports = function (req, res) {
 				console.log("Login Success");
 				res.status(200).json({ "token": token , "role" : "user"});
 				}
+			}
+			else{
+				console.log("Login Failed");
+				res.status(401).json({ error: "Make sure you have verified yourself via the link sent to your email!" });
+			}
+
 			} else {
 				// User does not exist or password is incorrect
 				console.log("Login Failed");

@@ -189,6 +189,54 @@ function verifyUser(req, res) {
 	});
 }
 
+function verifyemail(req, res) {
+	const email = req.query.id;
+    const role = req.query.role;
+
+    // Check if the email belongs to a student
+    if (role == 0) {
+        studentCollection.findOneAndUpdate(
+            { _id: email },
+            { $set: { isVerified: true } },
+            { new: true },
+            function(err, doc) {
+                if (err) {
+                    console.log("Error updating student document: ", err);
+                    res.sendStatus(500);
+                } else if (!doc) {
+                    console.log("No student found with email: ", email);
+                    res.sendStatus(404);
+                } else {
+                    console.log("Student verified: ", doc);
+					res.sendStatus(200);
+                    // res.redirect('/login.html');
+                }
+            }
+        );
+    }
+    // Check if the email belongs to a faculty
+    else {
+        facultyCollection.findOneAndUpdate(
+            { _id: email },
+            { $set: { isVerified: true } },
+            { new: true },
+            function(err, doc) {
+                if (err) {
+                    console.log("Error updating faculty document: ", err);
+                    res.sendStatus(500);
+                } else if (!doc) {
+                    console.log("No faculty found with email: ", email);
+                    res.sendStatus(404);
+                } else {
+                    console.log("Faculty verified: ", doc);
+					res.sendStatus(200);
+                    // res.redirect('/login.html');
+                }
+            }
+        );
+    }
+}
+
 function getUniversities(req, res) {
 	UniversityDetailsCollection.find(function (err, universities) {
 		if (err) {
@@ -203,7 +251,11 @@ module.exports = {
 	getProfile: getProfile,
 	getFaculties: getFaculties,
 	editProfile: editProfile,
-	verifyUser: verifyUser,
+	verifyemail: verifyemail,
 	deleteProfile: deleteProfile,
 	getUniversities: getUniversities,
 };
+
+
+
+
