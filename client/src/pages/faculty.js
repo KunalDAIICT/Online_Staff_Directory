@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './faculty.css'; // import CSS styles
+import '../faculty.css'; // import CSS styles
 import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField, Drawer } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LinkIcon from '@mui/icons-material/Link';
@@ -132,30 +132,6 @@ const FacultyDetails = () => {
 
   return (
     <div>
-      <Box sx={{ flexGrow: 1 }} padding={1} border>
-        <AppBar position="static" className='Navbar'>
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              {/* <MenuIcon /> */}
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Online Faculty-Staff Directory
-            </Typography>
-            <Button color="inherit"><b>Details</b></Button>
-            <Button color="inherit">Academics</Button>
-            <Button color="inherit">Profile</Button>
-            <Button color="inherit">About Us</Button>
-            <Button color="inherit" variant='outlined' sx={{ mr: 1 }}>Sign In</Button>
-            <Button color="warning" variant='contained'>Sign Up</Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
       <Stack marginLeft={50} direction="row" alignItems="center" spacing={5}>
         <item>
           <SearchBar />

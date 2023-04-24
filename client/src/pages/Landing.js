@@ -3,6 +3,7 @@ import '../Landing.css'; // import CSS styles
 import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField, Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Link } from 'react-router-dom';
  // array of all universities
 
 
@@ -49,7 +50,7 @@ const UniversityCard = ({ university }) => (
             </Box>
             <Box display='flex' height='100%' width="10%" alignItems='center' justifyContent='center'>
                 <Fab color='info' size='medium'>
-                    <ArrowForwardIosIcon />
+                    <Link to={"/Faculties"}><ArrowForwardIosIcon /></Link>
                 </Fab>
             </Box>
         </Stack>
@@ -76,31 +77,7 @@ export const UniversityDetails = () => {
     fetchData();
     
     return (
-        <>
-            <Box sx={{ flexGrow: 1 }} padding={1} border>
-                <AppBar position="static" className='Navbar'>
-                    <Toolbar>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{ mr: 2 }}
-                        >
-                            {/* <MenuIcon /> */}
-                        </IconButton>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            <b>Online Faculty-Staff Directory</b>
-                        </Typography>
-                        <Button color="inherit">Details</Button>
-                        <Button color="inherit">Academics</Button>
-                        <Button color="inherit">Profile</Button>
-                        <Button color="inherit">About Us</Button>
-                        <Button color="inherit" variant='outlined' sx={{ mr: 1 }}>Sign In</Button>
-                        <Button color="warning" variant='contained'>Sign Up</Button>
-                    </Toolbar>
-                </AppBar>
-            </Box>
+        <div>
             <Stack marginLeft={65} direction="row" alignItems="center" spacing={5}>
                 <item>
                     <SearchBar />
@@ -114,7 +91,7 @@ export const UniversityDetails = () => {
             {allUni.map(university => (
                 <UniversityCard key={university.id} university={university} />
             ))}
-        </>
+        </div>
     );
 };
 
