@@ -16,12 +16,7 @@ module.exports = function (req, res) {
 						{ _id: user._id },
 						process.env.ACESS_TOKEN_SECRET
 					);
-					if (req.body.role == "admin") {
-						token = jwt.sign(
-							{ _id: user._id, role: "admin" },
-							process.env.ACESS_TOKEN_SECRET
-						);
-					}
+					
 					if (user._id === admin) {
 						console.log("Login Success as admin");
 						res.status(200).json({ token: token, role: "admin" });
