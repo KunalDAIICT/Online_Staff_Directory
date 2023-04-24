@@ -11,6 +11,7 @@ import { Myprofile } from "./pages/Myprofile";
 import { EditMyProfile } from "./pages/EditMyProfile";
 import { UniversityDetails } from "./pages/Landing";
 import { useNavigate } from "react-router-dom";
+import AdminHome from "./pages/AdminHome";
 import {
   AppBar,
   Toolbar,
@@ -92,6 +93,7 @@ function App() {
           <Route path="/editmyprofile" element={<EditMyProfile />} />
           <Route path="/UniversityDetails" element={<UniversityDetails />} />
           <Route path="/Faculties" element={<FacultyDetails />} />
+          <Route path="/adminhome" element={<AdminHome />} />
         </Routes>
       </Router>
     </div>

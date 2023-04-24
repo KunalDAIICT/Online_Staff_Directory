@@ -6,7 +6,7 @@
   "scripts": {
     "test": "src/tests/runTests.sh",
     "dev": "npx nodemon src/app.js",
-    "start": "node src/app.js"
+    "start": "nodemon src/app.js"
   },
   "repository": {
     "type": "git",

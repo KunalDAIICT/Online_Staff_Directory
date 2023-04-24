@@ -50,8 +50,15 @@ export const Loginpg = () => {
     localStorage.setItem("token", json.token);
     
     if(response.status === 200){
-      alert("Logged in successfully");
-      navigate('/myprofile');
+      console.log(json.role);
+        if(json.role === "user"){
+        alert("Logged in successfully");
+        navigate('/');
+        }
+        else if(json.role === "admin"){
+        alert("Logged in successfully as admin");
+        navigate('/adminhome');
+        }
     }
     else if(response.status === 402){
       alert("Email not verified, Please verify your email!");
