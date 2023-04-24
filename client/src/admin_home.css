@@ -1,4 +1,4 @@
-   .faculty-details-page {
+.faculty-details-page {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,12 +25,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 80%;
+    background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 1rem;
+    padding-top: 1.5rem;
+    padding-right: 1rem;
+    padding-bottom: 1.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
   
   .faculty-image-container {
@@ -47,12 +52,13 @@
   }
   
   .faculty-details {
-    margin-top: 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
     flex: 1;
   }
   
   .faculty-name {
-    margin: 0;
+    margin: 0.5rem;
     color: #3f51b5; /* blue */
   }
   
@@ -84,7 +90,9 @@
     color: #4caf50; /* green */
   }
 
-.Navbar{
-  padding: 0;
-  border-radius: 10px;
+  .faculty-card:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.05);
+     
 }
