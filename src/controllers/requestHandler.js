@@ -110,6 +110,9 @@ function getFaculties(req, res) {
 	if (req.body.university != null) {
 		filter.university = req.body.university;
 	}
+	if (req.body.userEmail != null) {
+		filter._id = req.body.userEmail;
+	}
 	
 	facultyDetailsCollection.find(filter, function (err, faculties) {
 		if (err) {
