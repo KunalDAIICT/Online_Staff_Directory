@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../university.css'; // import CSS styles
+import '../Landing.css'; // import CSS styles
 import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField, Divider } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';

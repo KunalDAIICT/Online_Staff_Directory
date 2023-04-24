@@ -9,7 +9,7 @@ import { Universitypg } from './pages/Universitypg';
 import { UnivAbout } from './pages/UnivAbout';
 import { Myprofile } from './pages/Myprofile';
 import { EditMyProfile } from './pages/EditMyProfile';
-// import  {UniversityDetails}  from './pages/universityList';
+import  {UniversityDetails}  from './pages/Landing';
 
 function App() {
 
@@ -19,7 +19,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Landing />}></Route>
+          <Route path="/" element={<UniversityDetails />}></Route>
           <Route path="/loginpage" element={<Loginpg />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="*" element={<Notfound />}></Route>
@@ -28,7 +28,7 @@ function App() {
           <Route path="/university/about" element={<UnivAbout />} />
           <Route path="/myprofile" element={<Myprofile />} />
           <Route path="/editmyprofile" element={<EditMyProfile />} />
-          {/* <Route path="/UniversityDetails" element={<UniversityDetails />} /> */}
+          <Route path="/UniversityDetails" element={<UniversityDetails />} />
         </Routes>
       </Router>
     </div>
