@@ -34,8 +34,35 @@ import { useNavigate } from "react-router-dom";
 
 
 
-const FacultyCardApproved = ({ faculty }) => (
+export function FacultyCardApproved  ({ faculty }) {
 
+
+  const handleDelete = (id) => async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/admin/deleteFaculty", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ email: id }),
+      });
+      console.log(response);
+      const json = await response.json();
+      console.log(json);
+      if (json.success) {
+        alert("Faculty Deleted successfully");
+        window.location.reload();
+      } else {
+        alert("Faculty Deleted failed");
+      }
+    } catch (error) {
+      console.error("Error adding data:", error);
+    }
+  };
+
+return (
   <Box className="faculty-card">
     <div className="faculty-image-container">
       <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
@@ -57,13 +84,14 @@ const FacultyCardApproved = ({ faculty }) => (
         </IconButton>
       </p>
       <p>
-        <Button variant="contained" color="error">
+        <Button variant="contained" color="error" onClick={handleDelete(faculty._id)}>
           Delete
         </Button>
       </p>
     </div>
   </Box>
 );
+};
 
 
 
@@ -89,6 +117,34 @@ export function FacultyCardNotApproved ({ faculty }) {
         window.location.reload();
       } else {
         alert("Faculty approval failed");
+      }
+    } catch (error) {
+      console.error("Error adding data:", error);
+    }
+
+    
+  };
+
+  
+  const handleDelete = (id) => async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/admin/deleteFaculty", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ email: id }),
+      });
+      console.log(response);
+      const json = await response.json();
+      console.log(json);
+      if (json.success) {
+        alert("Faculty Deleted successfully");
+        window.location.reload();
+      } else {
+        alert("Faculty Deleted failed");
       }
     } catch (error) {
       console.error("Error adding data:", error);
@@ -121,7 +177,7 @@ export function FacultyCardNotApproved ({ faculty }) {
         <Button variant="contained" color="success" startIcon={<DoneIcon />} onClick={handleApprove(faculty._id)}>
           Approve
         </Button>
-        <Button variant="contained" color="error" startIcon={<ClearIcon />}>
+        <Button variant="contained" color="error" startIcon={<ClearIcon />} onClick={handleDelete(faculty._id)}>
           Delete
         </Button>
       </Stack>
