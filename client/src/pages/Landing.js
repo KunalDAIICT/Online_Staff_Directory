@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 // array of all universities
 import { useEffect } from "react";
 import { Navbar } from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 export function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -46,7 +47,18 @@ export function SearchBar() {
   );
 }
 
-const UniversityCard = ({ university }) => (
+export function UniversityCard  ({ university }) {
+let navigate = useNavigate();
+
+
+  const handleClick = (name) => () => {
+    navigate("/Faculties",
+    {
+      state: { name: name },
+    });
+  };
+
+  return (
   <>
     <Stack
       className="university-card"
@@ -86,15 +98,14 @@ const UniversityCard = ({ university }) => (
         alignItems="center"
         justifyContent="center"
       >
-        <Fab color="info" size="medium">
-          <Link to={"/Faculties"}>
+        <Fab color="info" size="medium" onClick={handleClick(university.name)}>
             <ArrowForwardIosIcon />
-          </Link>
         </Fab>
       </Box>
     </Stack>
   </>
-);
+  );
+  };
 
 export const UniversityDetails = () => {
   const [allUni, setAllUni] = useState([]);

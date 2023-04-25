@@ -38,9 +38,9 @@ export const Navbar = () => {
                 Home
               </Button>
             </Link>
-            <Button color="inherit" style={{ color: "white" }}>
+            {/* <Button color="inherit" style={{ color: "white" }}>
               Academics
-            </Button>
+            </Button> */}
             <Button color="inherit" style={{ color: "white" }}>
               About Us
             </Button>

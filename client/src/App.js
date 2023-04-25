@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Landing } from "./pages/Landing";
 import { Loginpg } from "./pages/Loginpg";
 import { Notfound } from "./pages/Notfound";
 import { Signup } from "./pages/Signup";
@@ -11,6 +12,7 @@ import { SendResetLink } from "./pages/SendResetLink";
 import { useNavigate } from "react-router-dom";
 import AdminHome from "./pages/AdminHome";
 import UniversityForm from "./pages/addUniversity";
+import {Navbar} from "./pages/Navbar";
 import {
   AppBar,
   Toolbar,
@@ -37,7 +39,6 @@ function App() {
   return (
     <div className="App">
       {/* <Router> */}
-
         {/* {token.length>4 && token} */}
         <Routes>
           <Route path="/" element={<UniversityDetails />}></Route>
@@ -49,8 +50,7 @@ function App() {
           <Route path="/UniversityDetails" element={<UniversityDetails />} />
           <Route path="/Faculties" element={<FacultyDetails />} />
           <Route path="/adminhome" element={<AdminHome />} />
-
-
+          <Route path="/adduniversity" element={<UniversityForm />} />
           {/* <Route path="/resetpassword" element={<ResetPassword />} /> */}
           <Route path="/resetpassword/:token" element={<ResetPassword />} />
           <Route path="/sendresetlink" element={< SendResetLink />} />

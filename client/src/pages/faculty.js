@@ -10,6 +10,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { Navbar } from './Navbar';
 
 
 // faculty data
@@ -86,10 +87,10 @@ const FacultyDetails = () => {
   useEffect(() => {    
     // setuni(queryParameters.get("id"));
     const fetchData = async () => {
+
       try {
         const univ = {
-          university: state.name,
-
+          university: state.name
         };
         // console.log(univ);
         const vari = JSON.stringify(univ);
@@ -118,6 +119,7 @@ const FacultyDetails = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="faculty-details-page">
         <div className="faculty-cards-box">
           <div className="faculty-cards-container">
