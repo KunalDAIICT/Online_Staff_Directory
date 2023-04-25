@@ -240,7 +240,7 @@ export const Signup = () => {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to={"/loginpage"} variant="body2">
-                  Already have an account? Sign in
+                  {<a href='/loginpage'>Already have an account? Sign in</a>}
                 </Link>
               </Grid>
             </Grid>

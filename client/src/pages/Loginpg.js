@@ -157,13 +157,13 @@ export const Loginpg = () => {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link variant="body2">
-                  Forgot password?
+                <Link to={'/sendresetlink'} variant="body2">
+                  {<a href='/sendresetlink'>Forgot password?</a>}
                 </Link>
               </Grid>
               <Grid item>
                 <Link to={'/signup'} variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  {<a href='/sendresetlink'>Don't have an account? Sign Up</a>}
                 </Link>
               </Grid>
             </Grid>
