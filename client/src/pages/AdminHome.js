@@ -25,6 +25,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useNavigate } from "react-router-dom";
+import { AdminUniversityDetails } from "./adminUniversityDetails.js";
 
 // This page will show the data of the approved faculty members to the admin. The admin can delete the faculty members from this page.
 
@@ -290,7 +291,7 @@ export default function LabTabs() {
         </Box>
         <TabPanel value="1">{FacultyDetails(true, allfaculties)}</TabPanel>
         <TabPanel value="2">{FacultyDetails(false, allfaculties)}</TabPanel>
-        <TabPanel value="3"></TabPanel>
+        <TabPanel value="3">{AdminUniversityDetails()}</TabPanel>
       </TabContext>
     </Box>
   );
