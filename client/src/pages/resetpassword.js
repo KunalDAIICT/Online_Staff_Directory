@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from 'react';
+import { Navbar } from './Navbar';
 // import { useParams, useHyistory } from 'react-router-dom';
 
 // const theme = createTheme();
@@ -40,6 +41,7 @@ export const ResetPassword = () => {
 
     return (
         <div className="container">
+            <Navbar />
         <h1>Reset Password</h1>
         <form onSubmit={handleSubmit}>
             <div className="form-group">

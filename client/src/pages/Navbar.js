@@ -54,12 +54,12 @@ export const Navbar = () => {
                 Sign Up
               </Button>
             </Link>}
-            {(token.length>4)  && <Link to={"/myprofile"}>
+            {(token!==null && token.length>4)  && <Link to={"/myprofile"}>
               <Button color="inherit" variant="outlined" sx={{ mr: 1, color: "white" }}>
                 My Profile
               </Button>
             </Link>}
-            {(token.length>4)   &&
+            {(token!==null && token.length>4)   &&
               <Button color="warning" variant="contained" onClick={logOut}>
                 Log out
               </Button>

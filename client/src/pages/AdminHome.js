@@ -3,22 +3,16 @@ import "../admin_home.css"; // import CSS styles
 import {
   AppBar,
   Toolbar,
-  Tabs,
   Tab,
   Stack,
   Typography,
   Button,
   IconButton,
   Box,
-  Container,
-  InputAdornment,
-  TextField,
-  Drawer,
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LinkIcon from "@mui/icons-material/Link";
 import SchoolIcon from "@mui/icons-material/School";
-import SearchIcon from "@mui/icons-material/Search";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import TabContext from "@mui/lab/TabContext";
@@ -152,12 +146,10 @@ export default function LabTabs() {
     setValue(newValue);
   };
 
-  var token=localStorage.getItem("token");
   let navigate=useNavigate();
   
   const logOut = () => {
     localStorage.setItem("token","null");
-    token=null;
     alert("Logged out successfully");
     navigate("/");
   }

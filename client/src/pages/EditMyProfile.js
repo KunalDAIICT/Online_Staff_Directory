@@ -264,7 +264,7 @@ export const EditMyProfile = () => {
         <FormLabel id="role">
             <h3>Profile Image</h3>
           </FormLabel>
-          <img src={image}  width="25%"/>
+          <img src={image} alt="profile-img" width="25%"/>
           <FormLabel id="role">
             <h3>Update Profile Image</h3>
           </FormLabel>
