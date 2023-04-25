@@ -25,7 +25,8 @@ module.exports = function (req, res) {
                 });
                 studentInstance.save();
                 console.log("New Student added");
-                sendAuthMail(req.body.userEmail,req.body.name,req.body.role);
+
+                sendAuthMail(req.body.userEmail, req.body.name);
                 res.statusMessage =
                     'You are registered, head to the <a href="./login.html">login</a> page';
                 res.sendStatus(200);
@@ -72,9 +73,7 @@ module.exports = function (req, res) {
                 });
                 facultyDetailsInstance.save();
                 console.log("New Faculty added");
-
-                sendAuthMail(req.body.userEmail,req.body.name,req.body.role);
-
+                sendAuthMail(req.body.userEmailreq.body.name);
                 res.statusMessage =
                     'You are registered, head to the <a href="./login.html">login</a> page';
                 res.sendStatus(200);
