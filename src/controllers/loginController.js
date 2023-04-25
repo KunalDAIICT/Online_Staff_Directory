@@ -26,9 +26,9 @@ module.exports = function (req, res) {
 						res.status(200).json({ token: token, role: "user" });
 					}
 				} else {
-					console.log("Login Failed");
+					console.log("Login Failed, Make sure you have verified yourself via the link sent to your email!");
 					res
-						.status(401)
+						.status(402)
 						.json({
 							error:
 								"Make sure you have verified yourself via the link sent to your email!",
@@ -41,7 +41,7 @@ module.exports = function (req, res) {
 					.status(401)
 					.json({
 						error:
-							"Wrong username or password, Make sure you have verified yourself via the link sent to your email!",
+							"Wrong username or password!",
 					});
 			}
 		}
