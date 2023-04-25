@@ -83,7 +83,10 @@ function disapproveFaculty(req, res) {
 		}
 
 		user.remove();
+		res.status(200).json({ message: "Faculty Deletion done!!" });
+
 	});
+
 	facultyCollection.findOne(user, function (err, user) {
 		if (err) {
 			console.error(err);

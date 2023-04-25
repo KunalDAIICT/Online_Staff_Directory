@@ -66,8 +66,36 @@ const FacultyCardApproved = ({ faculty }) => (
 );
 
 
+
 // faculty card component
-const FacultyCardNotApproved = ({ faculty }) => (
+export function FacultyCardNotApproved ({ faculty }) {
+
+  const handleApprove = (id) => async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/admin/approveFaculty", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ email: id }),
+      });
+      console.log(response);
+      const json = await response.json();
+      console.log(json);
+      if (json.success) {
+        alert("Faculty approved successfully");
+        window.location.reload();
+      } else {
+        alert("Faculty approval failed");
+      }
+    } catch (error) {
+      console.error("Error adding data:", error);
+    }
+  };
+
+  return (
 
   <Box className="faculty-card">
     <div className="faculty-image-container">
@@ -90,7 +118,7 @@ const FacultyCardNotApproved = ({ faculty }) => (
         </IconButton>
       </p>
       <Stack direction="row" spacing={1}>
-        <Button variant="contained" color="success" startIcon={<DoneIcon />}>
+        <Button variant="contained" color="success" startIcon={<DoneIcon />} onClick={handleApprove(faculty._id)}>
           Approve
         </Button>
         <Button variant="contained" color="error" startIcon={<ClearIcon />}>
@@ -99,8 +127,9 @@ const FacultyCardNotApproved = ({ faculty }) => (
       </Stack>
     </div>
   </Box>
-);
+  );
 
+};
 
 // faculty details page component
 const FacultyDetails = (isapproved, allfaculties) => {
@@ -120,7 +149,7 @@ const FacultyDetails = (isapproved, allfaculties) => {
                   ))
               : allfaculties
                   .filter((faculty) => {
-                    return faculty.isApproved === false;
+                    return (faculty.isApproved !== true);
                   })
                   .map((faculty) => (
                     <FacultyCardNotApproved
@@ -166,7 +195,7 @@ export default function LabTabs() {
   var token=localStorage.getItem("token");
   let navigate=useNavigate();
   
-  const logOut = () => {
+  const logOut = (token) => {
     localStorage.setItem("token","null");
     token=null;
     alert("Logged out successfully");

@@ -31,6 +31,8 @@ async function startServer() {
 	app.get("/getUniversities",reqHandler.getUniversities);
 	app.post("/editUniversity", universityController.editUniversity);
 	app.post("/deleteUniversity",universityController.deleteUniversity);
+	app.post("/admin/approveFaculty", adminReqHandler.approveFaculty);
+	app.post("/admin/deleteFaculty", adminReqHandler.disapproveFaculty);
 
 	let server = app.listen(process.env.PORT_NUM, function (req, res) {
 		console.log("Server setup complete, Listening on Port 3000");
