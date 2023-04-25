@@ -25,11 +25,8 @@ module.exports = function (req, res) {
                 });
                 studentInstance.save();
                 console.log("New Student added");
-<<<<<<< HEAD
-                // sendAuthMail(req.body.userEmail,req.body.name,req.body.role);
-=======
+
                 sendAuthMail(req.body.userEmail,req.body.roll, req.body.name);
->>>>>>> 2b4febf22227400c64a9a2400cc2b26fb5d2dce0
                 res.statusMessage =
                     'You are registered, head to the <a href="./login.html">login</a> page';
                 res.sendStatus(200);
@@ -76,13 +73,7 @@ module.exports = function (req, res) {
                 });
                 facultyDetailsInstance.save();
                 console.log("New Faculty added");
-
-<<<<<<< HEAD
-                // sendAuthMail(req.body.userEmail,req.body.name,req.body.role);
-=======
                 sendAuthMail(req.body.userEmail,req.body.roll, req.body.name);
->>>>>>> 2b4febf22227400c64a9a2400cc2b26fb5d2dce0
-
                 res.statusMessage =
                     'You are registered, head to the <a href="./login.html">login</a> page';
                 res.sendStatus(200);

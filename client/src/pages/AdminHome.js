@@ -187,7 +187,7 @@ export default function LabTabs() {
   };
 
   fetchData();
-}, []);
+}, [allfaculties]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
