@@ -19,7 +19,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import '../App.css';
 import { useEffect, useState } from 'react';
-import { Navbar } from './Navbar';
 
 
 
@@ -119,7 +118,6 @@ export const Signup = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navbar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -242,7 +240,7 @@ export const Signup = () => {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link to={"/loginpage"} variant="body2">
-                  Already have an account? Sign in
+                  {<a href='/loginpage'>Already have an account? Sign in</a>}
                 </Link>
               </Grid>
             </Grid>
