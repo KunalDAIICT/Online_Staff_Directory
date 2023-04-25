@@ -3,22 +3,16 @@ import "../admin_home.css"; // import CSS styles
 import {
   AppBar,
   Toolbar,
-  Tabs,
   Tab,
   Stack,
   Typography,
   Button,
   IconButton,
   Box,
-  Container,
-  InputAdornment,
-  TextField,
-  Drawer,
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LinkIcon from "@mui/icons-material/Link";
 import SchoolIcon from "@mui/icons-material/School";
-import SearchIcon from "@mui/icons-material/Search";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import TabContext from "@mui/lab/TabContext";
@@ -30,6 +24,7 @@ import { AdminUniversityDetails } from "./adminUniversityDetails.js";
 // This page will show the data of the approved faculty members to the admin. The admin can delete the faculty members from this page.
 
 // faculty data
+
 
 
 
@@ -64,6 +59,7 @@ export function FacultyCardApproved  ({ faculty }) {
   };
 
 return (
+
   <Box className="faculty-card">
     <div className="faculty-image-container">
       <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
@@ -95,8 +91,8 @@ return (
 };
 
 
-
 // faculty card component
+
 export function FacultyCardNotApproved ({ faculty }) {
 
   const handleApprove = (id) => async (e) => {
@@ -186,7 +182,9 @@ export function FacultyCardNotApproved ({ faculty }) {
   </Box>
   );
 
+
 };
+
 
 // faculty details page component
 const FacultyDetails = (isapproved, allfaculties) => {
@@ -249,12 +247,11 @@ export default function LabTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  var token=localStorage.getItem("token");
+
   let navigate=useNavigate();
   
   const logOut = (token) => {
     localStorage.setItem("token","null");
-    token=null;
     alert("Logged out successfully");
     navigate("/");
   }
@@ -296,3 +293,4 @@ export default function LabTabs() {
     </Box>
   );
 }
+

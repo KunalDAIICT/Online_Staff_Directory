@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
+import { Navbar } from "./Navbar";
 
 const theme = createTheme();
 
@@ -69,6 +70,7 @@ export const Myprofile = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Navbar />
       <Box
         sx={{
           marginTop: 8,

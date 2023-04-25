@@ -1,3 +1,4 @@
+
 import React, { useState , useEffect } from 'react';
 import '../faculty.css'; // import CSS styles
 import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField, Drawer } from '@mui/material';
@@ -12,7 +13,6 @@ import { useLocation } from 'react-router-dom';
 
 
 // faculty data
-
 
 
 
@@ -45,13 +45,13 @@ export function SearchBar() {
   );
 }
 
-
 // faculty card component
 const FacultyCard = ({ faculty }) => (
-
   <Box className="faculty-card">
     <div className="faculty-image-container">
+
       <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
+
     </div>
     <div className="faculty-details">
       <h3 className="faculty-name">{faculty.name}</h3>
@@ -73,12 +73,12 @@ const FacultyCard = ({ faculty }) => (
   </Box>
 );
 
-
 // faculty details page component
 const FacultyDetails = () => {
   const [uni, setuni] = useState("");
   const [faculties, setfaculties] = useState([]);
   const [open, setOpen] = React.useState(false);
+
   const {state} = useLocation();
 
   // const queryParameters = new URLSearchParams(window.location.search);
@@ -122,6 +122,7 @@ const FacultyDetails = () => {
         <div className="faculty-cards-box">
           <div className="faculty-cards-container">
             {faculties.map(faculty => (
+
               <FacultyCard key={faculty.id} faculty={faculty} />
             ))}
           </div>
@@ -130,7 +131,5 @@ const FacultyDetails = () => {
     </div>
   );
 };
-
-
 
 export default FacultyDetails;

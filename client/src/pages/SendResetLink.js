@@ -2,6 +2,9 @@ import * as React from 'react';
 import { Navigate } from "react-router-dom";
 import { useState } from 'react';
 
+import { Navbar } from './Navbar';
+
+
 // import { useParams, useHistory } from 'react-router-dom';
 
 // const theme = createTheme();
@@ -29,6 +32,9 @@ export const SendResetLink = () => {
 
     return (
         <div className="container">
+
+            <Navbar />
+
         <h1>Send Reset Link</h1>
         <form onSubmit={handleSubmit}>
             <div className="form-group">

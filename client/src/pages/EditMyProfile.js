@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../App.css";
+import { Navbar } from "./Navbar";
 
 const theme = createTheme();
 
@@ -245,6 +246,7 @@ export const EditMyProfile = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Navbar />
       <Box
         sx={{
           marginTop: 8,
@@ -262,7 +264,7 @@ export const EditMyProfile = () => {
         <FormLabel id="role">
             <h3>Profile Image</h3>
           </FormLabel>
-          <img src={image}  width="25%"/>
+          <img src={image} alt="profile-img" width="25%"/>
           <FormLabel id="role">
             <h3>Update Profile Image</h3>
           </FormLabel>

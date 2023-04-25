@@ -19,6 +19,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import '../App.css';
 import { useEffect, useState } from 'react';
+import { Navbar } from './Navbar';
 
 
 
@@ -118,6 +119,7 @@ export const Signup = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Navbar />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
