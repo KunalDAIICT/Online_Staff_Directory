@@ -1,0 +1,97 @@
+.university-details-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .university-cards-box {
+    width: 80%;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
+  
+  .unversity-cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 4rem;
+  }
+  
+  .university-card {
+    /* display: flex; */
+    /* flex-direction: row; */
+    background: lightcyan;
+    justify-content: center;
+    align-items: center;
+    width: 900px;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 100px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 1%;
+  }
+  
+  .university-image-container {
+    width: 150px;
+    height: 100px;
+    align-items: center;
+    /* margin-top: 25px; */
+  }
+  
+  .university-text-container {
+  
+    margin-left: 1rem;
+    padding: 1rem;
+  }
+  
+  .university-image {
+    width: 40%;
+    height: auto;
+  }
+  
+  .university-details {
+    margin-top: 50px;
+    flex: 1;
+  }
+  
+  .university-name {
+    margin: 0;
+    color: #3f51b5; /* blue */
+  }
+  
+  .university-email,
+  .university-mobile,
+  .university-specialization {
+    margin: 0.5rem 0;
+    color: #333; /* dark gray */
+  }
+  
+  .university-email::before,
+  .university-mobile::before,
+  .university-specialization::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 0.5rem;
+    text-transform: capitalize;
+  }
+  
+  .university-email::before {
+    color: #ff5722; /* orange */
+  }
+  
+  .university-mobile::before {
+    color: #f44336; /* red */
+  }
+  
+  .university-specialization::before {
+    color: #4caf50; /* green */
+  }
+  
+  .Navbar{
+    padding: 0;
+    border-radius: 10px;
+  }
