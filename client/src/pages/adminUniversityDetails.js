@@ -10,6 +10,7 @@ import nirma_logo from '../data/nirma_logo.png'
 import iitb_logo from '../data/iitb_logo.png'
 import au_logo from '../data/au_logo.png'
 import pdeu_logo from '../data/pdeu_logo.png'
+import { useNavigate } from 'react-router-dom';
 
 const universityData = [
     {
@@ -39,36 +40,11 @@ const universityData = [
     },
 ];
 
-export function SearchBar() {
-    const [searchTerm, setSearchTerm] = useState("");
-  
-    const handleChange = (event) => {
-      setSearchTerm(event.target.value);
-    };
-  
-    return (
-      <Container>
-        <TextField
-          id="search"
-          type="search"
-          label="Search"
-          value={searchTerm}
-          onChange={handleChange}
-          sx={{ width: 500 }}
-          margin="normal"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Container>
-    );
-  }
+export function UniversityCard ({ university })  {
 
-const UniversityCard = ({ university }) => (
+
+
+  return(
     <>
         <Stack className="university-card" direction="row" marginLeft={30} marginTop={10} alignItems={'center'}>
             <Box display='flex' height='100%' width='25%' alignItems='center' justifyContent='center' justifyItems='center'>
@@ -81,52 +57,28 @@ const UniversityCard = ({ university }) => (
                 </Typography>
             </Box>
             <Box display='flex' height='100%' width="10%" alignItems='center' justifyContent='center'>
-                <Fab color='error' size='medium'>
+                <Fab color='error' size='medium' >
                     <DeleteIcon />
                 </Fab>
             </Box>
         </Stack>
     </>
-)
+  );
+}
 
 export const AdminUniversityDetails = () => {
+    let navigate = useNavigate();
+
+const handelClick = () => {
+    navigate('/adduniversity');
+  }
     return (
         <>
-            <Box sx={{ flexGrow: 1 }} padding={1} border>
-                <AppBar position="static" className='Navbar'>
-                    <Toolbar>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            sx={{ mr: 2 }}
-                        >
-                            {/* <MenuIcon /> */}
-                        </IconButton>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            <b>Online Faculty-Staff Directory</b>
-                        </Typography>
-                        <Button color="inherit">Details</Button>
-                        <Button color="inherit">Academics</Button>
-                        <Button color="inherit">Profile</Button>
-                        <Button color="inherit">About Us</Button>
-                        <Button color="inherit" variant='outlined' sx={{ mr: 1 }}>Sign In</Button>
-                        <Button color="warning" variant='contained'>Sign Up</Button>
-                        {/* <Link to={'/loginpage'}><Button color="inherit" variant='outlined' sx={{ mr: 1 }}>Sign In</Button></Link>
-                        <Link to={'/signup'}><Button color="warning" variant='contained'>Sign Up</Button></Link> */}
-                        
-                    </Toolbar>
-                </AppBar>
-            </Box>
             <Stack marginLeft={5} direction="row" alignItems="center" spacing={30}>
-                <Fab variant="extended" color="error">
+                <Fab variant="extended" color="error" onClick={handelClick}>
                     <AddIcon sx={{ mr: 1 }} />
                     Add University
                 </Fab>
-                <item>
-                    <SearchBar />
-                </item>
             </Stack>
             {universityData.map(university => (
                 <UniversityCard key={university.id} university={university} />

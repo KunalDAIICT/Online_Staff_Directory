@@ -45,12 +45,16 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Typography, Card, CardActionArea, CardMedia, CardContent, AppBar, Toolbar, IconButton } from '@mui/material';
-import '../css/addUniversity.css'
-import default_logo from '../data/upload_image.png'
-
+import '../addUniversity.css'
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+// import default_logo from '../data/upload_image.png'
+const default_logo = "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
 const theme = createTheme();
 
 export default function UniversityForm() {
+
+let navigate = useNavigate();
   const [image, setImage] = useState(default_logo);
   const [name, setName] = useState("");
 
@@ -73,34 +77,12 @@ export default function UniversityForm() {
     });
   };
 
+ 
+
 
   return (
     <ThemeProvider theme={theme}>
       <>
-        <Box sx={{ flexGrow: 1 }} padding={1} border>
-            <AppBar position="static" className='Navbar'>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        {/* <MenuIcon /> */}
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Online Faculty-Staff Directory
-                    </Typography>
-                    <Button color="inherit"><b>Details</b></Button>
-                    <Button color="inherit">Academics</Button>
-                    <Button color="inherit">Profile</Button>
-                    <Button color="inherit">About Us</Button>
-                    <Button color="inherit" variant='outlined' sx={{ mr: 1 }}>Sign In</Button>
-                    <Button color="warning" variant='contained'>Sign Up</Button>
-                </Toolbar>
-            </AppBar>
-        </Box>
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box
@@ -168,7 +150,7 @@ export default function UniversityForm() {
                 //   fullWidth
 
                 variant="contained"
-                sx={{ mt: 2, mb: 2, ml: 13}}
+                sx={{ mt: 2, mb: 2, ml: 13}} 
                 >
                 Add
                 </Button>

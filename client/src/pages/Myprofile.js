@@ -45,7 +45,7 @@ export const Myprofile = () => {
           setMob(json.mobile_number);
           setRole("Student");
           setImage(json.Image);
-        } else {
+        } else if(json.role === "1"){
           setName(json.name);
           setEmail(json._id);
           setUniv(json.university);
