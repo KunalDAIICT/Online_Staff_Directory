@@ -90,6 +90,7 @@ const FacultyDetails = () => {
           university: uni,
 
         };
+        // console.log(univ);
         const vari = JSON.stringify(univ);
         const data =  {
           method: "POST",
