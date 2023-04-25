@@ -79,15 +79,16 @@ const FacultyDetails = () => {
   const [uni, setuni] = useState("");
   const [faculties, setfaculties] = useState([]);
   const [open, setOpen] = React.useState(false);
-  // const {state} = useLocation();
-  const queryParameters = new URLSearchParams(window.location.search);
+  const {state} = useLocation();
+
+  // const queryParameters = new URLSearchParams(window.location.search);
   
   useEffect(() => {    
-    setuni(queryParameters.get("id"));
+    // setuni(queryParameters.get("id"));
     const fetchData = async () => {
       try {
         const univ = {
-          university: uni,
+          university: state.name,
 
         };
         // console.log(univ);

@@ -43,13 +43,13 @@ export function UniversityCard ({ university }) {
     const handleClick =(id) => {
         
         return () => {
-            console.log(id);
-            window.location.href = `http://localhost:3001/Faculties?id=${id}`;
-            // navigate(`/Faculties`,{
-            //     state : {
-            //         name : id
-            //     }
-            // });
+            // console.log(id);
+            // window.location.href = `http://localhost:3001/Faculties?id=${id}`;
+            navigate(`/Faculties`,{
+                state : {
+                    name : id
+                }
+            });
         }
     }
    
