@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../admin_home.css"; // import CSS styles
 import {
   AppBar,
   Toolbar,
-  Tabs,
   Tab,
   Stack,
   Typography,
   Button,
   IconButton,
   Box,
-  Container,
-  InputAdornment,
-  TextField,
-  Drawer,
 } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import LinkIcon from "@mui/icons-material/Link";
 import SchoolIcon from "@mui/icons-material/School";
-import SearchIcon from "@mui/icons-material/Search";
 import DoneIcon from "@mui/icons-material/Done";
 import ClearIcon from "@mui/icons-material/Clear";
 import TabContext from "@mui/lab/TabContext";
@@ -31,7 +25,41 @@ import { AdminUniversityDetails } from "./adminUniversityDetails.js";
 
 // faculty data
 
-const FacultyCardApproved = ({ faculty }) => (
+
+
+
+
+
+export function FacultyCardApproved  ({ faculty }) {
+
+
+  const handleDelete = (id) => async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/admin/deleteFaculty", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ email: id }),
+      });
+      console.log(response);
+      const json = await response.json();
+      console.log(json);
+      if (json.success) {
+        alert("Faculty Deleted successfully");
+        window.location.reload();
+      } else {
+        alert("Faculty Deleted failed");
+      }
+    } catch (error) {
+      console.error("Error adding data:", error);
+    }
+  };
+
+return (
+
   <Box className="faculty-card">
     <div className="faculty-image-container">
       <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
@@ -53,16 +81,75 @@ const FacultyCardApproved = ({ faculty }) => (
         </IconButton>
       </p>
       <p>
-        <Button variant="contained" color="error">
+        <Button variant="contained" color="error" onClick={handleDelete(faculty._id)}>
           Delete
         </Button>
       </p>
     </div>
   </Box>
 );
+};
+
 
 // faculty card component
-const FacultyCardNotApproved = ({ faculty }) => (
+
+export function FacultyCardNotApproved ({ faculty }) {
+
+  const handleApprove = (id) => async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/admin/approveFaculty", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ email: id }),
+      });
+      console.log(response);
+      const json = await response.json();
+      console.log(json);
+      if (json.success) {
+        alert("Faculty approved successfully");
+        window.location.reload();
+      } else {
+        alert("Faculty approval failed");
+      }
+    } catch (error) {
+      console.error("Error adding data:", error);
+    }
+
+    
+  };
+
+  
+  const handleDelete = (id) => async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/admin/deleteFaculty", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ email: id }),
+      });
+      console.log(response);
+      const json = await response.json();
+      console.log(json);
+      if (json.success) {
+        alert("Faculty Deleted successfully");
+        window.location.reload();
+      } else {
+        alert("Faculty Deleted failed");
+      }
+    } catch (error) {
+      console.error("Error adding data:", error);
+    }
+  };
+
+  return (
+
   <Box className="faculty-card">
     <div className="faculty-image-container">
       <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
@@ -84,16 +171,20 @@ const FacultyCardNotApproved = ({ faculty }) => (
         </IconButton>
       </p>
       <Stack direction="row" spacing={1}>
-        <Button variant="contained" color="success" startIcon={<DoneIcon />}>
+        <Button variant="contained" color="success" startIcon={<DoneIcon />} onClick={handleApprove(faculty._id)}>
           Approve
         </Button>
-        <Button variant="contained" color="error" startIcon={<ClearIcon />}>
+        <Button variant="contained" color="error" startIcon={<ClearIcon />} onClick={handleDelete(faculty._id)}>
           Delete
         </Button>
       </Stack>
     </div>
   </Box>
-);
+  );
+
+
+};
+
 
 // faculty details page component
 const FacultyDetails = (isapproved, allfaculties) => {
@@ -113,7 +204,7 @@ const FacultyDetails = (isapproved, allfaculties) => {
                   ))
               : allfaculties
                   .filter((faculty) => {
-                    return faculty.isApproved === false;
+                    return (faculty.isApproved !== true);
                   })
                   .map((faculty) => (
                     <FacultyCardNotApproved
@@ -131,6 +222,8 @@ const FacultyDetails = (isapproved, allfaculties) => {
 export default function LabTabs() {
   const [value, setValue] = React.useState("1");
   const [allfaculties, setAllfaculties] = useState([]);
+
+  useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:3000/admin/allfaculties", {
@@ -147,18 +240,18 @@ export default function LabTabs() {
       console.error("Error fetching data:", error);
     }
   };
+
   fetchData();
+}, [allfaculties]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  var token=localStorage.getItem("token");
   let navigate=useNavigate();
   
-  const logOut = () => {
+  const logOut = (token) => {
     localStorage.setItem("token","null");
-    token=null;
     alert("Logged out successfully");
     navigate("/");
   }
@@ -195,11 +288,7 @@ export default function LabTabs() {
         </Box>
         <TabPanel value="1">{FacultyDetails(true, allfaculties)}</TabPanel>
         <TabPanel value="2">{FacultyDetails(false, allfaculties)}</TabPanel>
-        <TabPanel value="3"></TabPanel>
-        <TabPanel value="3">
-            // Admin Unversity Page yet to connected with backend ...
-            {AdminUniversityDetails()}
-        </TabPanel>
+        <TabPanel value="3">{AdminUniversityDetails()}</TabPanel>
       </TabContext>
     </Box>
   );

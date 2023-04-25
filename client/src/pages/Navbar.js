@@ -38,12 +38,14 @@ export const Navbar = () => {
                 Home
               </Button>
             </Link>
-            <Button color="inherit" style={{ color: "white" }}>
+            {/* <Button color="inherit" style={{ color: "white" }}>
               Academics
-            </Button>
+            </Button> */}
+            <Link to="/AboutUs">
             <Button color="inherit" style={{ color: "white" }}>
               About Us
             </Button>
+            </Link>
             {(token===null || token==="null")  && <Link to={"/loginpage"}>
               <Button color="inherit" variant="outlined" sx={{ mr: 1, color: "white" }}>
                 Sign In
@@ -54,12 +56,12 @@ export const Navbar = () => {
                 Sign Up
               </Button>
             </Link>}
-            {(token.length>4)  && <Link to={"/myprofile"}>
+            {(token!==null && token.length>4)  && <Link to={"/myprofile"}>
               <Button color="inherit" variant="outlined" sx={{ mr: 1, color: "white" }}>
                 My Profile
               </Button>
             </Link>}
-            {(token.length>4)   &&
+            {(token!==null && token.length>4)   &&
               <Button color="warning" variant="contained" onClick={logOut}>
                 Log out
               </Button>

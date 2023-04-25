@@ -8,65 +8,14 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import { Navbar } from "./Navbar";
+import {useLocation} from "react-router-dom";
 
 const theme = createTheme();
 
-export const Myprofile = () => {
-  const token = localStorage.getItem("token");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [univ, setUniv] = useState("");
-  const [mob, setMob] = useState("");
-  const [role, setRole] = useState("");
-  const [spec, setSpec] = useState("");
-  const [exper, setExper] = useState("");
-  const [awards, setAwards] = useState(null);
-  const [indux, setIndux] = useState(null);
-  const [pubs, setPubs] = useState(null);
-  const [projs, setProjs] = useState(null);
-  const [image, setImage] = useState(null);
+export const FacultyProfile = () => {
+    const {state} = useLocation();
+    const faculty = state.faculty;  
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/profile", {
-          method: "POST",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        console.log(response);
-        const json = await response.json();
-        console.log(json);
-        console.log(json.role);
-        if (json.role === "0") {
-          setName(json.name);
-          setEmail(json._id);
-          setUniv(json.university);
-          setMob(json.mobile_number);
-          setRole("Student");
-          setImage(json.Image);
-        } else if(json.role === "1"){
-          setName(json.name);
-          setEmail(json._id);
-          setUniv(json.university);
-          setMob(json.mobile_number);
-          setRole("Faculty");
-          setSpec(json.specialization);
-          setExper(json.experience);
-          setAwards(json.Awards_and_Honors);
-          setIndux(json.Industrial_experience);
-          setPubs(json.Publications);
-          setProjs(json.projects);
-          setImage(json.Image);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,38 +30,35 @@ export const Myprofile = () => {
           width: "50%",
         }}
       >
+
         <FormLabel>
-          <h1>My Profile</h1>
+          <h1>{faculty.name}</h1>
         </FormLabel>
 
         <Box component="form" noValidate sx={{ mt: 1 }}>
           <img
-            src={image}
+            src={faculty.Image}
             alt="img"
             width="25%"
           />
-          <FormLabel id="role">
-            <h3>Name</h3>
-          </FormLabel>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            value={name}
-            autoFocus
-            disabled
-          />
           <br />
           <FormLabel id="role">
-            <h3>User Email</h3>
+            <h3>Email</h3>
           </FormLabel>
           <TextField
             margin="normal"
             required
             fullWidth
-            value={email}
+            value={faculty._id}
             autoFocus
             disabled
+            sx={{input: {cursor: 'pointer'}}}
+                to='#'
+                onClick={(e) => {
+                    const url = "mailto:"+faculty._id;
+                window.location.href = url;
+                e.preventDefault();
+                }}
           />
 
           <br />
@@ -123,7 +69,7 @@ export const Myprofile = () => {
             margin="normal"
             required
             fullWidth
-            value={univ}
+            value={faculty.university}
             autoFocus
             disabled
           />
@@ -136,12 +82,12 @@ export const Myprofile = () => {
             margin="normal"
             required
             fullWidth
-            value={mob}
+            value={faculty.mobile_number}
             autoFocus
             disabled
           />
 
-          <br />
+          {/* <br />
           <FormLabel id="role">
             <h3>Role</h3>
           </FormLabel>
@@ -152,59 +98,60 @@ export const Myprofile = () => {
             value={role}
             autoFocus
             disabled
-          />
+          /> */}
+
           <br />
-          {role === "Faculty" && (
+          {/* {role === "Faculty" && ( */}
             <FormLabel id="role">
               <h3>Specialization</h3>
             </FormLabel>
-          )}
-          {role === "Faculty" && (
+          {/* )} */}
+          {/* {role === "Faculty" && ( */}
             <TextField
               margin="normal"
               required
               fullWidth
-              value={spec}
+              value={faculty.specialization}
               autoFocus
               disabled
             />
-          )}
+          {/* )} */}
 
           <br />
-          {role === "Faculty" && (
+          {/* {role === "Faculty" && ( */}
             <FormLabel id="role">
               <h3>Experience</h3>
             </FormLabel>
-          )}
-          {role === "Faculty" && (
+          {/* )} */}
+          {/* {role === "Faculty" && ( */}
             <TextField
               margin="normal"
               required
               fullWidth
-              value={exper}
+              value={faculty.experience}
               autoFocus
               disabled
             />
-          )}
+          {/* )} */}
 
-          {role === "Faculty" && (
+          {/* {role === "Faculty" && ( */}
             <div>
               <br />
               <br />
               <br />
             </div>
-          )}
+          {/* )} */}
 
-          {role === "Faculty" && (
+          {/* {role === "Faculty" && ( */}
             <FormLabel id="role">
               <h3>Awards and Honours</h3>
             </FormLabel>
-          )}
+          {/* )} */}
 
-          {role === "Faculty" &&
-            awards !== null &&
-            awards.length > 0 &&
-            awards.map((friend, index) => (
+          
+            {faculty.Awards_and_Honors !== null &&
+            faculty.Awards_and_Honors > 0 &&
+            faculty.Awards_and_Honors.map((friend, index) => (
               <div key={index}>
                 <TextField
                   // className={classes.textField}
@@ -216,11 +163,11 @@ export const Myprofile = () => {
               </div>
             ))}
 
-          {role === "Faculty" && awards !== null && awards.length === 0 && (
+          {faculty.Awards_and_Honors !== null && faculty.Awards_and_Honors.length === 0 && (
             <div>Empty</div>
           )}
 
-          {role === "Faculty" && (
+          { (
             <div>
               <br />
               <br />
@@ -228,16 +175,17 @@ export const Myprofile = () => {
               <br />
             </div>
           )}
-          {role === "Faculty" && (
+
+          { (
             <FormLabel id="role">
               <h3>Industrial Experience</h3>
             </FormLabel>
           )}
 
-          {role === "Faculty" &&
-            indux !== null &&
-            indux.length > 0 &&
-            indux.map((friend, index) => (
+          
+            {faculty.Industrial_experience !== null &&
+            faculty.Industrial_experience.length > 0 &&
+            faculty.Industrial_experience.map((friend, index) => (
               <div key={index}>
                 <TextField
                   // className={classes.textField}
@@ -249,11 +197,11 @@ export const Myprofile = () => {
               </div>
             ))}
 
-          {role === "Faculty" && indux !== null && indux.length === 0 && (
+          {faculty.Industrial_experience !== null && faculty.Industrial_experience.length === 0 && (
             <div>Empty</div>
           )}
 
-          {role === "Faculty" && (
+          {(
             <div>
               <br />
               <br />
@@ -261,16 +209,17 @@ export const Myprofile = () => {
               <br />
             </div>
           )}
-          {role === "Faculty" && (
+
+          {(
             <FormLabel id="role">
               <h3>Publications</h3>
             </FormLabel>
           )}
 
-          {role === "Faculty" &&
-            pubs !== null &&
-            pubs.length > 0 &&
-            pubs.map((friend, index) => (
+        
+            {faculty.Publications !== null &&
+            faculty.Publications.length > 0 &&
+            faculty.Publications.map((friend, index) => (
               <div key={index}>
                 <TextField
                   // className={classes.textField}
@@ -282,13 +231,13 @@ export const Myprofile = () => {
               </div>
             ))}
 
-          {role === "Faculty" && pubs !== null && pubs.length === 0 && (
+          {faculty.Publications !== null && faculty.Publications.length === 0 && (
             <div>Empty</div>
           )}
 
 
           
-          {role === "Faculty" && (
+          { (
             <div>
               <br />
               <br />
@@ -296,16 +245,17 @@ export const Myprofile = () => {
               <br />
             </div>
           )}
-          {role === "Faculty" && (
+
+          { (
             <FormLabel id="role">
               <h3>Projects</h3>
             </FormLabel>
           )}
 
-          {role === "Faculty" &&
-            projs !== null &&
-            projs.length > 0 &&
-            projs.map((friend, index) => (
+          
+            {faculty.projects !== null &&
+            faculty.projects.length > 0 &&
+            faculty.projects.map((friend, index) => (
               <div key={index}>
                 <TextField
                   // className={classes.textField}
@@ -316,16 +266,19 @@ export const Myprofile = () => {
                 />
               </div>
             ))}
-          {role === "Faculty" && projs !== null && projs.length === 0 && (
+
+          {faculty.projects !== null && faculty.projects.length === 0 && (
             <div>Empty</div>
           )}
-
-          <Link to={"/editmyprofile"}>
-            <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Edit Profile
-            </Button>
-          </Link>
-
+        
+        <Button fullWidth variant="contained"
+            sx={{ mt: 3, mb: 2 , input: {cursor: 'pointer'}}}
+            to='#'
+            onClick={(e) => {
+                const url = "mailto:"+faculty._id;
+            window.location.href = url;
+            e.preventDefault();
+            }}>Email</Button>
           {/* <Button onClick={()=> console.log(awards)}>Show awards</Button> */}
         </Box>
       </Box>

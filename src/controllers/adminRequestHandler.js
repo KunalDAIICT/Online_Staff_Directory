@@ -1,10 +1,12 @@
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
 const facultyCollection = require("../models/facultyModel");
+const authorize = require("../controllers/authController");
+const admin = "admin@gmail.com";
 
 function getallFaculties(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
-	if (secretOBJ.role != "admin") {
+	if (secretOBJ._id != admin) {
 		return res.status(401).json({ error: "Unauthorized" });
 	}
 
@@ -22,7 +24,7 @@ function getallFaculties(req, res) {
 function approveFaculty(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
-	if (secretOBJ.role != "admin") {
+	if (secretOBJ._id != admin) {
 		return res.status(401).json({ error: "Unauthorized" });
 	}
 
@@ -65,7 +67,7 @@ function approveFaculty(req, res) {
 function disapproveFaculty(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
-	if (secretOBJ.role != "admin") {
+	if (secretOBJ._id != admin) {
 		return res.status(401).json({ error: "Unauthorized" });
 	}
 
@@ -82,7 +84,10 @@ function disapproveFaculty(req, res) {
 		}
 
 		user.remove();
+		res.status(200).json({ message: "Faculty Deletion done!!" });
+
 	});
+
 	facultyCollection.findOne(user, function (err, user) {
 		if (err) {
 			console.error(err);

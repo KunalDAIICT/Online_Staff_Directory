@@ -38,6 +38,7 @@ async function startServer() {
 	app.post("/sendresetlink",reqHandler.sendresetlink);
 	app.post("/resetpassword",reqHandler.resetpassword);
 
+
 	let server = app.listen(process.env.PORT_NUM, function (req, res) {
 		console.log("Server setup complete, Listening on Port 3000");
 	});

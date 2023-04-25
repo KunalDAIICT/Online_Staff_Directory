@@ -1,0 +1,78 @@
+/* AboutUs.css */
+/* Set the background color of the component */
+.Container {
+    background-color: #6e6eff;
+    padding: 40px;
+    border-radius: 10px;
+  }
+  
+  team {
+    font-size: 48px;
+    font-weight: bold;
+    color: #0088f8;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  p {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #000000;
+    text-align: justify;
+    margin-bottom: 20px;
+  }
+  
+  
+  /* Add some color to the first paragraph */
+  p:first-of-type {
+    color: #000000;
+  }
+  
+  /* Add some color to the last paragraph */
+  p:last-of-type {
+    color: #000000;
+  }
+  
+  /* Add some animation to the heading */
+
+  .table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  td {
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #ddd;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .table {
+      width: 100%;
+    }
+    
+    th, td {
+      font-size: 14px;
+      padding: 8px;
+    }
+  }
+  
+  

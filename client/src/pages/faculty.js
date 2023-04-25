@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState , useEffect } from 'react';
 import '../faculty.css'; // import CSS styles
 import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Container, InputAdornment, TextField, Drawer } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -7,53 +8,12 @@ import SchoolIcon from '@mui/icons-material/School';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Navbar } from './Navbar';
 
 
-
 // faculty data
-const facultyData = [
-  {
-    id: 1,
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    mobile: '+1 123-456-7890',
-    specialization: 'Computer Science',
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    email: 'janesmith@example.com',
-    mobile: '+1 234-567-8901',
-    specialization: "Mathematics",
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-  {
-    id: 3,
-    name: 'Jane Smith',
-    email: 'janesmith@example.com',
-    mobile: '+1 234-567-8901',
-    specialization: 'Mathematics',
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-  {
-    id: 4,
-    name: 'Jane Smith',
-    email: 'janesmith@example.com',
-    mobile: '+1 234-567-8901',
-    specialization: 'Mathematics',
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-  {
-    id: 5,
-    name: 'Jane Smith',
-    email: 'janesmith@example.com',
-    mobile: '+1 234-567-8901',
-    specialization: 'Mathematics',
-    imageUrl: 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
-  },
-];
 
 
 
@@ -86,18 +46,31 @@ export function SearchBar() {
   );
 }
 
-
 // faculty card component
-const FacultyCard = ({ faculty }) => (
+export function FacultyCard ({ faculty }) {  
+  let navigate = useNavigate();
 
-  <Box className="faculty-card">
+
+  const handleClick = () => () => {
+    console.log("clicked");
+    navigate("/FacultyProfile",
+    {
+      state: {faculty: faculty}
+    });
+  };
+ 
+  return (
+
+  <Box className="faculty-card" onClick={handleClick()}>
     <div className="faculty-image-container">
-      <img className="faculty-image" src={faculty.imageUrl} alt={faculty.name} />
+
+      <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
+
     </div>
     <div className="faculty-details">
       <h3 className="faculty-name">{faculty.name}</h3>
-      <p className="faculty-email">{faculty.email}</p>
-      <p className="faculty-mobile">{faculty.mobile}</p>
+      <p className="faculty-email">{faculty._id}</p>
+      <p className="faculty-mobile">{faculty.mobile_number}</p>
       <p className="faculty-specialization">{faculty.specialization}</p>
       <p>
         <IconButton>
@@ -110,55 +83,64 @@ const FacultyCard = ({ faculty }) => (
           <LinkIcon />
         </IconButton>
       </p>
+        {/* <Button }>View Profile</Button> */}
     </div>
   </Box>
-);
 
+  );
+};
 
 // faculty details page component
 const FacultyDetails = () => {
+  const [uni, setuni] = useState("");
+  const [faculties, setfaculties] = useState([]);
   const [open, setOpen] = React.useState(false);
 
-  const toggleDrawer = (newOpen) => (event) => {
-    if (
-      event &&
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return;
-    }
-    setOpen(newOpen);
-  };
+  const {state} = useLocation();
 
+  // const queryParameters = new URLSearchParams(window.location.search);
+  
+  useEffect(() => {    
+    // setuni(queryParameters.get("id"));
+    const fetchData = async () => {
+
+      try {
+        const univ = {
+          university: state.name
+        };
+        // console.log(univ);
+        const vari = JSON.stringify(univ);
+        const data =  {
+          method: "POST",
+          body: vari,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        };
+        console.log(data);
+        const response = await fetch("http://localhost:3000/filter/faculties",data);
+
+        const json = await response.json();
+        console.log("json is", json);
+        setfaculties(json);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [uni]);
+
+  
 
   return (
     <div>
       <Navbar />
-      <Stack marginLeft={50} direction="row" alignItems="center" spacing={5}>
-        <item>
-          <SearchBar />
-        </item>
-        <item>
-          <Fab size="small" color="secondary" aria-label="add" onClick={toggleDrawer(true)}>
-            <FilterListIcon />
-          </Fab>
-          <SwipeableDrawer
-            anchor='left'
-            open={open}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
-          >
-
-            Hello world
-
-          </SwipeableDrawer>
-        </item>
-      </Stack>
       <div className="faculty-details-page">
         <div className="faculty-cards-box">
           <div className="faculty-cards-container">
-            {facultyData.map(faculty => (
-              <FacultyCard key={faculty.id} faculty={faculty} />
+            {faculties.map(faculty => (
+              <FacultyCard key={faculty._id} faculty={faculty} />
             ))}
           </div>
         </div>
@@ -166,7 +148,5 @@ const FacultyDetails = () => {
     </div>
   );
 };
-
-
 
 export default FacultyDetails;
