@@ -10,6 +10,8 @@ import { UnivAbout } from "./pages/UnivAbout";
 import { Myprofile } from "./pages/Myprofile";
 import { EditMyProfile } from "./pages/EditMyProfile";
 import { UniversityDetails } from "./pages/Landing";
+import { ResetPassword } from "./pages/resetpassword";
+import { SendResetLink } from "./pages/SendResetLink";
 import { useNavigate } from "react-router-dom";
 import AdminHome from "./pages/AdminHome";
 import {
@@ -98,9 +100,11 @@ function App() {
           <Route path="/myprofile" element={<Myprofile />} />
           <Route path="/editmyprofile" element={<EditMyProfile />} />
           <Route path="/UniversityDetails" element={<UniversityDetails />} />
-          <Route path="/Faculties/:id" element={<FacultyDetails /> } />
           <Route path="/Faculties" element={<FacultyDetails />} />
           <Route path="/adminhome" element={<AdminHome />} />
+          {/* <Route path="/resetpassword" element={<ResetPassword />} /> */}
+          <Route path="/resetpassword/:token" element={<ResetPassword />} />
+          <Route path="/sendresetlink" element={< SendResetLink />} />
         </Routes>
       {/* </Router> */}
     </div>
