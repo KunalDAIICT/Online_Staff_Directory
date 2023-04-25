@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import AdminHome from "./pages/AdminHome";
 import UniversityForm from "./pages/addUniversity";
 import { FacultyProfile } from "./pages/FacultyProfile";
+import AboutUs from './pages/AboutUs'
 import {Navbar} from "./pages/Navbar";
 import {
   AppBar,
@@ -56,6 +57,7 @@ function App() {
           <Route path="/resetpassword/:token" element={<ResetPassword />} />
           <Route path="/sendresetlink" element={< SendResetLink />} />
           <Route path="/FacultyProfile" element={<FacultyProfile/>}></Route>
+          <Route path="/AboutUs" element={<AboutUs />} />
         </Routes>
       {/* </Router> */}
     </div>

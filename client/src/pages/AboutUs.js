@@ -1,11 +1,13 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
-import './AboutUs.css';
-
+import '../AboutUs.css';
+import {Navbar} from './Navbar.js';
 const AboutUs = () => {
   return (
+    <>
+    <Navbar />
     <Container maxWidth="md">
-      <Typography variant="h3" component="h1" align="center" sx={{ mb: 4 }}>
+      <Typography variant="h3" component="team" align="center" sx={{ mb: 4 }}>
         About Us
       </Typography>
       <Typography variant="body1" align="justify" sx={{ mb: 2 }}>
@@ -18,7 +20,7 @@ const AboutUs = () => {
         Thank you for choosing our online faculty directory for multi-university. We hope you find our website useful and informative, and welcome any feedback or suggestions you may have.
       </Typography>
       
-      <Typography variant="h3" component="h1" align="center" sx={{ mb: 4 }}>
+      <Typography variant="h3" component="team" align="center" sx={{ mb: 4 }}>
         Team members
       </Typography>
       <table className="table" align="center">
@@ -76,6 +78,7 @@ const AboutUs = () => {
         </tbody>
       </table>
     </Container>
+  </>
   );
 };
 

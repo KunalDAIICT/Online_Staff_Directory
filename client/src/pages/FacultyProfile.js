@@ -30,6 +30,7 @@ export const FacultyProfile = () => {
           width: "50%",
         }}
       >
+
         <FormLabel>
           <h1>{faculty.name}</h1>
         </FormLabel>
@@ -44,13 +45,14 @@ export const FacultyProfile = () => {
           <FormLabel id="role">
             <h3>Email</h3>
           </FormLabel>
-          <TextField sx={{"&: hover": {cursor: 'pointer'}}}
+          <TextField
             margin="normal"
             required
             fullWidth
             value={faculty._id}
             autoFocus
             disabled
+            sx={{input: {cursor: 'pointer'}}}
                 to='#'
                 onClick={(e) => {
                     const url = "mailto:"+faculty._id;
@@ -268,7 +270,15 @@ export const FacultyProfile = () => {
           {faculty.projects !== null && faculty.projects.length === 0 && (
             <div>Empty</div>
           )}
-
+        
+        <Button fullWidth variant="contained"
+            sx={{ mt: 3, mb: 2 , input: {cursor: 'pointer'}}}
+            to='#'
+            onClick={(e) => {
+                const url = "mailto:"+faculty._id;
+            window.location.href = url;
+            e.preventDefault();
+            }}>Email</Button>
           {/* <Button onClick={()=> console.log(awards)}>Show awards</Button> */}
         </Box>
       </Box>

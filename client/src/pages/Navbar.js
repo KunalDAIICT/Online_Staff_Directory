@@ -41,9 +41,11 @@ export const Navbar = () => {
             {/* <Button color="inherit" style={{ color: "white" }}>
               Academics
             </Button> */}
+            <Link to="/AboutUs">
             <Button color="inherit" style={{ color: "white" }}>
               About Us
             </Button>
+            </Link>
             {(token===null || token==="null")  && <Link to={"/loginpage"}>
               <Button color="inherit" variant="outlined" sx={{ mr: 1, color: "white" }}>
                 Sign In

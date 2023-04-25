@@ -1,7 +1,4 @@
 /* AboutUs.css */
-body {
-    background-color: #dbefff;
-  }
 /* Set the background color of the component */
 .Container {
     background-color: #6e6eff;
@@ -9,7 +6,7 @@ body {
     border-radius: 10px;
   }
   
-  h1 {
+  team {
     font-size: 48px;
     font-weight: bold;
     color: #0088f8;
@@ -37,10 +34,6 @@ body {
   }
   
   /* Add some animation to the heading */
-  h1:hover {
-    transform: rotate(360deg);
-    transition: transform 0.77s ease-in-out;
-  }
 
   .table {
     border-collapse: collapse;
