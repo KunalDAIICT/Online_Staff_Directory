@@ -3,6 +3,7 @@ const studentCollection = require("../models/studentModel");
 const facultyCollection = require("../models/facultyModel");
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
 const UniversityDetailsCollection = require("../models/universityModel");
+const sendResetMail = require("./passwordResetMail");
 
 function getProfile(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
@@ -21,6 +22,25 @@ function getProfile(req, res) {
 		}
 
 		// Send the user profile in the response
+		res.status(200).json(user);
+	});
+}
+
+function getFacultyProfile(req, res) {
+
+	if (!req.body.email) {
+		return res.status(401).json({ error: "Invalid Request" });
+	}
+	facultyDetailsCollection.findById(req.body.email, function (err, user) {
+		if (err) {
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
+		if (!user) {
+			return res.status(404).json({ error: "User not found" });
+		}
+		// Send the user profile in the response
+
 		res.status(200).json(user);
 	});
 }
@@ -247,6 +267,66 @@ function getUniversities(req, res) {
 		res.status(200).json(universities);
 	});
 }
+
+function sendresetlink(req,res) {
+	const email = req.body.email;
+
+
+	studentCollection.findById(email, function (err, user) {
+		if (err) {
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
+
+		if (!user) {
+			return res.status(404).json({ error: "User not found" });
+		}
+
+		const name = user.name;
+
+		sendResetMail(email,name)
+		.then((result) => {
+			res.status(200).json({ message: "reset link sent" });
+		}
+		)
+		.catch((err) => {
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
+		);
+	});
+}
+
+function resetpassword(req,res){
+	const token = req.headers.authorization.split(" ")[1];
+	const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
+
+	if (!user) {
+		return res.status(401).json({ error: "Invalid token" });
+	}
+
+	if (req.body.newpassword == null) {
+		return res.status(400).json({ error: "Password not provided" });
+	}
+
+	studentCollection.findById(user._id, function (err, user) {
+		if (err) {
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
+
+		if (!user) {
+			return res.status(404).json({ error: "User not found" });
+		}
+
+		user.password = req.body.newpassword;
+		user.save();
+		console.log("User updated");
+		res.status(200).json({ message: "user updated" });
+	});
+}
+
+
 module.exports = {
 	getProfile: getProfile,
 	getFaculties: getFaculties,
@@ -254,9 +334,8 @@ module.exports = {
 	verifyemail: verifyemail,
 	deleteProfile: deleteProfile,
 	getUniversities: getUniversities,
-	verifyUser: verifyUser
-};
-
-
-
-
+	verifyUser: verifyUser,
+	sendresetlink: sendresetlink,
+	resetpassword: resetpassword,
+	getFacultyProfile: getFacultyProfile,
+}

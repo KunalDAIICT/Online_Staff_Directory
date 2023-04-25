@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 
 const dbConnection = require("../db/dbConnection");
 const loginController = require("../controllers/loginController");
@@ -10,9 +10,10 @@ const reqHandler = require("../controllers/requestHandler");
 const adminReqHandler = require("../controllers/adminRequestHandler");
 const universityController = require("../controllers/universityController");
 
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 async function startServer() {
@@ -21,7 +22,8 @@ async function startServer() {
 	app.post("/signUp", signUpController);
 	app.post("/login", loginController);
 	app.post("/profile", reqHandler.getProfile);
-	app.get("/faculties", reqHandler.getFaculties);
+
+	app.post("/filter/faculties", reqHandler.getFaculties);
 	app.post("/editProfile", reqHandler.editProfile);
 	app.get("/verify-email", reqHandler.verifyemail);
 	app.get("/deleteProfile", reqHandler.deleteProfile);
@@ -30,6 +32,9 @@ async function startServer() {
 	app.get("/getUniversities",reqHandler.getUniversities);
 	app.post("/editUniversity", universityController.editUniversity);
 	app.post("/deleteUniversity",universityController.deleteUniversity);
+	app.post("/admin/approveFaculty", adminReqHandler.approveFaculty);
+	app.post("/admin/deleteFaculty", adminReqHandler.disapproveFaculty);
+	app.post("/getFaculty",reqHandler.getFacultyProfile);
 
 	let server = app.listen(process.env.PORT_NUM, function (req, res) {
 		console.log("Server setup complete, Listening on Port 3000");

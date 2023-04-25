@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import "../Landing.css"; // import CSS styles
 import {
@@ -121,6 +122,7 @@ export const UniversityDetails = () => {
           <SearchBar />
         </item>
         {/* <item>
+
                     <Fab size="small" color="secondary" aria-label="add" onClick={() => alert('Hello')}>
                         <FilterListIcon />
                     </Fab>
