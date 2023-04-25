@@ -22,6 +22,7 @@ async function startServer() {
 	app.post("/signUp", signUpController);
 	app.post("/login", loginController);
 	app.post("/profile", reqHandler.getProfile);
+
 	app.post("/filter/faculties", reqHandler.getFaculties);
 	app.post("/editProfile", reqHandler.editProfile);
 	app.get("/verify-email", reqHandler.verifyemail);
@@ -33,6 +34,7 @@ async function startServer() {
 	app.post("/deleteUniversity",universityController.deleteUniversity);
 	app.post("/admin/approveFaculty", adminReqHandler.approveFaculty);
 	app.post("/admin/deleteFaculty", adminReqHandler.disapproveFaculty);
+	app.post("/getFaculty",reqHandler.getFacultyProfile);
 
 	let server = app.listen(process.env.PORT_NUM, function (req, res) {
 		console.log("Server setup complete, Listening on Port 3000");

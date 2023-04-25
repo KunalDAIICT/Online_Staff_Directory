@@ -2,6 +2,7 @@ const facultyDetailsCollection = require("../models/facultyDetailsModel");
 const facultyCollection = require("../models/facultyModel");
 const authorize = require("../controllers/authController");
 const admin = "admin@gmail.com";
+
 function getallFaculties(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);

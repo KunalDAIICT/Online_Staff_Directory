@@ -26,6 +26,25 @@ function getProfile(req, res) {
 	});
 }
 
+function getFacultyProfile(req, res) {
+
+	if (!req.body.email) {
+		return res.status(401).json({ error: "Invalid Request" });
+	}
+	facultyDetailsCollection.findById(req.body.email, function (err, user) {
+		if (err) {
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
+		if (!user) {
+			return res.status(404).json({ error: "User not found" });
+		}
+		// Send the user profile in the response
+
+		res.status(200).json(user);
+	});
+}
+
 function editProfile(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
@@ -318,4 +337,5 @@ module.exports = {
 	verifyUser: verifyUser,
 	sendresetlink: sendresetlink,
 	resetpassword: resetpassword,
-};
+	getFacultyProfile: getFacultyProfile,
+}
