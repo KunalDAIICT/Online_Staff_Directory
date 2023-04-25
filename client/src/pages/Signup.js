@@ -27,6 +27,9 @@ const theme = createTheme();
 
 export const Signup = () => {
 
+const [mobile, setMobile] = useState("");
+const [isError, setIsError] = useState(false);
+
   const [allUni, setAllUni] = useState([]);
   useEffect(() => {
       const fetchData = async () => {
@@ -197,9 +200,21 @@ export const Signup = () => {
                   fullWidth
                   name="mobile"
                   label="Mobile"
-                  type="number"
+                  type="tel"
                   id="mobile"
                   autoComplete="new-mobile"
+                  error={isError}
+                  value={mobile}
+                  onChange={(e) => {
+                    setMobile(e.target.value);
+                    if (e.target.value[0] === "0" || e.target.value.length !== 10) {
+                      setIsError(true);
+                    }
+                    else
+                    {
+                      setIsError(false)
+                    }
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
