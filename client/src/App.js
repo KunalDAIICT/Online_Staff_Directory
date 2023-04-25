@@ -12,6 +12,7 @@ import { SendResetLink } from "./pages/SendResetLink";
 import { useNavigate } from "react-router-dom";
 import AdminHome from "./pages/AdminHome";
 import UniversityForm from "./pages/addUniversity";
+import { FacultyProfile } from "./pages/FacultyProfile";
 import {Navbar} from "./pages/Navbar";
 import {
   AppBar,
@@ -54,6 +55,7 @@ function App() {
           {/* <Route path="/resetpassword" element={<ResetPassword />} /> */}
           <Route path="/resetpassword/:token" element={<ResetPassword />} />
           <Route path="/sendresetlink" element={< SendResetLink />} />
+          <Route path="/FacultyProfile" element={<FacultyProfile/>}></Route>
         </Routes>
       {/* </Router> */}
     </div>

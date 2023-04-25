@@ -47,8 +47,21 @@ export function SearchBar() {
 }
 
 // faculty card component
-const FacultyCard = ({ faculty }) => (
-  <Box className="faculty-card">
+export function FacultyCard ({ faculty }) {  
+  let navigate = useNavigate();
+
+
+  const handleClick = () => () => {
+    console.log("clicked");
+    navigate("/FacultyProfile",
+    {
+      state: {faculty: faculty}
+    });
+  };
+ 
+  return (
+
+  <Box className="faculty-card" onClick={handleClick()}>
     <div className="faculty-image-container">
 
       <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
@@ -70,9 +83,12 @@ const FacultyCard = ({ faculty }) => (
           <LinkIcon />
         </IconButton>
       </p>
+        {/* <Button }>View Profile</Button> */}
     </div>
   </Box>
-);
+
+  );
+};
 
 // faculty details page component
 const FacultyDetails = () => {
@@ -124,8 +140,7 @@ const FacultyDetails = () => {
         <div className="faculty-cards-box">
           <div className="faculty-cards-container">
             {faculties.map(faculty => (
-
-              <FacultyCard key={faculty.id} faculty={faculty} />
+              <FacultyCard key={faculty._id} faculty={faculty} />
             ))}
           </div>
         </div>
