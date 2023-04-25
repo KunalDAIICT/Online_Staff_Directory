@@ -81,9 +81,9 @@ const UniversityCard = ({ university }) => (
                 </Typography>
             </Box>
             <Box display='flex' height='100%' width="10%" alignItems='center' justifyContent='center'>
-                <Fab color='error' size='medium'>
-                    <DeleteIcon />
-                </Fab>
+//                 <Fab color='error' size='medium'>
+//                     <DeleteIcon />
+//                 </Fab>
             </Box>
         </Stack>
     </>
