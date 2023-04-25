@@ -78,4 +78,6 @@ const handelClick = () => {
     );
 };
 
+
 export default AdminUniversityDetails;
+

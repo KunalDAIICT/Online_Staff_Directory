@@ -170,7 +170,7 @@ function getFaculties(req, res) {
 	});
 }
 
-function verifyUser(req, res) {
+function verifyemail(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
 	if (!user) {
@@ -187,7 +187,7 @@ function verifyUser(req, res) {
 			return res.status(404).json({ error: "User not found" });
 		}
 
-		user.verified = true;
+		user.isVerified = true;
 		studentCollection.findByIdAndUpdate(
 			user._id,
 			user,
@@ -209,53 +209,58 @@ function verifyUser(req, res) {
 	});
 }
 
-function verifyemail(req, res) {
-	const email = req.query.id;
-    const role = req.query.role;
+// function verifyemail(req, res) {
+	
+// 	const token = req.headers.authorization.split(" ")[1];
+// 	const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
+// 	if (!user) {
+// 		return res.status(401).json({ error: "Invalid token" });
+// 	}
 
-    // Check if the email belongs to a student
-    if (role == 0) {
-        studentCollection.findOneAndUpdate(
-            { _id: email },
-            { $set: { isVerified: true } },
-            { new: true },
-            function(err, doc) {
-                if (err) {
-                    console.log("Error updating student document: ", err);
-                    res.sendStatus(500);
-                } else if (!doc) {
-                    console.log("No student found with email: ", email);
-                    res.sendStatus(404);
-                } else {
-                    console.log("Student verified: ", doc);
-					res.sendStatus(200);
-                    // res.redirect('/login.html');
-                }
-            }
-        );
-    }
-    // Check if the email belongs to a faculty
-    else {
-        facultyCollection.findOneAndUpdate(
-            { _id: email },
-            { $set: { isVerified: true } },
-            { new: true },
-            function(err, doc) {
-                if (err) {
-                    console.log("Error updating faculty document: ", err);
-                    res.sendStatus(500);
-                } else if (!doc) {
-                    console.log("No faculty found with email: ", email);
-                    res.sendStatus(404);
-                } else {
-                    console.log("Faculty verified: ", doc);
-					res.sendStatus(200);
-                    // res.redirect('/login.html');
-                }
-            }
-        );
-    }
-}
+
+//     // Check if the email belongs to a student
+//     if (role == 0) {
+//         studentCollection.findOneAndUpdate(
+//             { _id: email },
+//             { $set: { isVerified: true } },
+//             { new: true },
+//             function(err, doc) {
+//                 if (err) {
+//                     console.log("Error updating student document: ", err);
+//                     res.sendStatus(500);
+//                 } else if (!doc) {
+//                     console.log("No student found with email: ", email);
+//                     res.sendStatus(404);
+//                 } else {
+//                     console.log("Student verified: ", doc);
+// 					res.sendStatus(200);
+//                     // res.redirect('/login.html');
+//                 }
+//             }
+//         );
+//     }
+//     // Check if the email belongs to a faculty
+//     else {
+//         facultyCollection.findOneAndUpdate(
+//             { _id: email },
+//             { $set: { isVerified: true } },
+//             { new: true },
+//             function(err, doc) {
+//                 if (err) {
+//                     console.log("Error updating faculty document: ", err);
+//                     res.sendStatus(500);
+//                 } else if (!doc) {
+//                     console.log("No faculty found with email: ", email);
+//                     res.sendStatus(404);
+//                 } else {
+//                     console.log("Faculty verified: ", doc);
+// 					res.sendStatus(200);
+//                     // res.redirect('/login.html');
+//                 }
+//             }
+//         );
+//     }
+// }
 
 function getUniversities(req, res) {
 	UniversityDetailsCollection.find(function (err, universities) {
@@ -334,7 +339,6 @@ module.exports = {
 	verifyemail: verifyemail,
 	deleteProfile: deleteProfile,
 	getUniversities: getUniversities,
-	verifyUser: verifyUser,
 	sendresetlink: sendresetlink,
 	resetpassword: resetpassword,
 	getFacultyProfile: getFacultyProfile,

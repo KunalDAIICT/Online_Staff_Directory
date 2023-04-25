@@ -55,6 +55,7 @@ const theme = createTheme();
 export default function UniversityForm() {
 
 let navigate = useNavigate();
+
   const [image, setImage] = useState(default_logo);
   const [name, setName] = useState("");
 
@@ -76,8 +77,6 @@ let navigate = useNavigate();
       image: data.get('image'),
     });
   };
-
- 
 
 
   return (
@@ -150,7 +149,7 @@ let navigate = useNavigate();
                 //   fullWidth
 
                 variant="contained"
-                sx={{ mt: 2, mb: 2, ml: 13}} 
+                sx={{ mt: 2, mb: 2, ml: 13}}
                 >
                 Add
                 </Button>
