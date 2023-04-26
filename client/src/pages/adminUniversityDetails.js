@@ -5,11 +5,7 @@ import { AppBar, Toolbar, Stack, Typography, Fab, Button, IconButton, Box, Conta
 import SearchIcon from '@mui/icons-material/Search';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import logo from '../data/Logo.png'
-import nirma_logo from '../data/nirma_logo.png'
-import iitb_logo from '../data/iitb_logo.png'
-import au_logo from '../data/au_logo.png'
-import pdeu_logo from '../data/pdeu_logo.png'
+
 import { useNavigate } from 'react-router-dom';
 
 

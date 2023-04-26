@@ -84,7 +84,21 @@ function disapproveFaculty(req, res) {
 			return res.status(404).json({ error: "User not found" });
 		}
 		user.remove();
+		
+	});
+
+	facultyCollection.findOne(user, function (err, user) {
+		if (err) {
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
+		if (!user) {
+			return res.status(404).json({ error: "User not found" });
+		}
+
+		user.remove();
 		res.status(200).json({ message: "Faculty Deletion done!!" });
+
 	});
 }
 
@@ -119,11 +133,17 @@ function addUniversity(req, res) {
 
 function isadmin(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
-	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
+	if(token !== null )
+	{
+		const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
 	if (secretOBJ._id != admin) {
 		return res.status(401).json({ error: "Unauthorized" });
 	}
-	res.status(200).json({ message: "Authorized" });
+	res.status(200).json({ message: "Authorized" });}
+	else
+	{
+		return res.status(401).json({ error: "Unauthorized" });
+	}
 }
 
 
