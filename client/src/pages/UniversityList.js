@@ -63,7 +63,6 @@ let navigate = useNavigate();
     <Stack
       className="university-card"
       direction="row"
-      marginLeft={40}
       marginTop={10}
       alignItems={"center"}
     >
@@ -128,20 +127,16 @@ export const UniversityDetails = () => {
   return (
     <div>
       <Navbar />
-      <Stack marginLeft={65} direction="row" alignItems="center" spacing={5}>
-        <item>
+      <Box alignItems="center"  sx={{display: 'flex', justifyContent: 'center'}}>
           <SearchBar />
-        </item>
-        {/* <item>
-
-                    <Fab size="small" color="secondary" aria-label="add" onClick={() => alert('Hello')}>
-                        <FilterListIcon />
-                    </Fab>
-                </item> */}
-      </Stack>
-      {allUni.map((university) => (
-        <UniversityCard key={university.id} university={university} />
-      ))}
+      </Box>
+      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <Stack>
+          {allUni.map((university) => (
+            <UniversityCard key={university.id} university={university} />
+          ))}
+        </Stack>
+      </Box>
     </div>
   );
 };
