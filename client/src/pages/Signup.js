@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import '../App.css';
 import { useEffect, useState } from 'react';
 import { Navbar } from './Navbar';
-
+import  Footer  from '../pages/footer';
 
 
 const theme = createTheme();
@@ -150,6 +150,7 @@ const [matchPassword, setMatchPassword] = useState(false);
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginBottom: 8,
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -313,7 +314,10 @@ const [matchPassword, setMatchPassword] = useState(false);
             </Grid>
           </Box>
         </Box>
+      
       </Container>
+      <Footer />
     </ThemeProvider>
+      
   );
 }

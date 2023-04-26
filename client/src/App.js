@@ -1,12 +1,12 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Landing } from "./pages/Landing";
+import FrontPage, { Landing } from "./pages/Landing";
 import { Loginpg } from "./pages/Loginpg";
 import { Notfound } from "./pages/Notfound";
 import { Signup } from "./pages/Signup";
 import { Myprofile } from "./pages/Myprofile";
 import { EditMyProfile } from "./pages/EditMyProfile";
-import { UniversityDetails } from "./pages/Landing";
+import { UniversityDetails } from "./pages/UniversityList";
 import { ResetPassword } from "./pages/resetpassword";
 import { SendResetLink } from "./pages/SendResetLink";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +35,7 @@ function App() {
       {/* <Router> */}
         {/* {token.length>4 && token} */}
         <Routes>
-          <Route path="/" element={<UniversityDetails />}></Route>
+          <Route path="/" element={<FrontPage/>}></Route>
           <Route path="/loginpage" element={<Loginpg />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="*" element={<Notfound />}></Route>
@@ -53,7 +53,6 @@ function App() {
           <Route path="/AboutUs" element={<AboutUs />} />
         </Routes>
       {/* </Router> */}
-      <Footer />
     </div>
   );
 }

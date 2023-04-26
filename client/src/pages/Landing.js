@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import front_page_img from '../data/front_page_img.jpeg'
-import Navbar from './navbar';
+import {Navbar} from '../pages/Navbar';
 import Footer from './footer';
 
 export default function FrontPage() {
@@ -32,7 +32,6 @@ export default function FrontPage() {
       </Container>
       <Box sx={{display: 'flex', mt: 5, mb: 3, justifyContent: 'center'}}>
       </Box>
-      <Footer/>
     </div>
   );
 }
