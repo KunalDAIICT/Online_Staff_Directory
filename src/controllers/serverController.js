@@ -37,6 +37,7 @@ async function startServer() {
 	app.post("/getFaculty",reqHandler.getFacultyProfile);
 	app.post("/sendresetlink",reqHandler.sendresetlink);
 	app.post("/resetpassword",reqHandler.resetpassword);
+	app.get("/admin/isadmin",adminReqHandler.isadmin);
 
 
 	let server = app.listen(process.env.PORT_NUM, function (req, res) {

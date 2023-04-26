@@ -14,18 +14,8 @@ import AdminHome from "./pages/AdminHome";
 import { Verify } from "./pages/verify";
 import UniversityForm from "./pages/addUniversity";
 import { FacultyProfile } from "./pages/FacultyProfile";
-import AboutUs from './pages/AboutUs'
-
-import {Navbar} from "./pages/Navbar";
-import {
-  AppBar,
-  Toolbar,
-  Button,
-  Typography,
-  Box,
-  IconButton,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import AboutUs from './pages/AboutUs';
+import Footer from './pages/footer';
 import FacultyDetails from "./pages/faculty";
 
 function App() {
@@ -63,6 +53,7 @@ function App() {
           <Route path="/AboutUs" element={<AboutUs />} />
         </Routes>
       {/* </Router> */}
+      <Footer />
     </div>
   );
 }

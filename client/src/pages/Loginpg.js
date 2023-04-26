@@ -54,12 +54,12 @@ export const Loginpg = () => {
       console.log(json.role);
         if(json.role === "user"){
         alert("Logged in successfully");
-        navigate('/', {state: {role: "user"}});
+        navigate('/');
         }
-        else if(json.role === "admin"){
-        alert("Logged in successfully as admin");
-        navigate('/adminhome',{state: {role: "admin"}});
-        }
+        if(json.role === "admin"){
+          alert("Logged in successfully as Admin");
+          navigate('/');
+          }
     }
     else if(response.status === 402){
       alert("Email not verified, Please verify your email!");

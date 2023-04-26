@@ -61,7 +61,7 @@ const [isError, setIsError] = useState(false);
     console.log(response);
   
     if(response.status === 200){
-      alert("Registered successfully, You can now login");
+      alert("Registered successfully, Verify your email to login!");
       navigate('/loginpage');
     }
     else if(response.status === 400){

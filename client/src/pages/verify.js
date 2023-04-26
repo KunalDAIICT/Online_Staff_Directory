@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useNavigate,useParams } from "react-router-dom";
 
-import { Navbar } from './Navbar';
+import { Navbar } from '../pages/Navbar';
 
 export const Verify = () => {
     const {token} = useParams();

@@ -126,10 +126,20 @@ function addUniversity(req, res) {
 	});
 }
 
+function isadmin(req, res) {
+	const token = req.headers.authorization.split(" ")[1];
+	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
+	if (secretOBJ._id != admin) {
+		return res.status(401).json({ error: "Unauthorized" });
+	}
+	res.status(200).json({ message: "Authorized" });
+}
+
 
 module.exports = {
 	getallFaculties: getallFaculties,
 	approveFaculty: approveFaculty,
 	disapproveFaculty: disapproveFaculty,
 	addUniversity: addUniversity,
+	isadmin: isadmin,
 };

@@ -20,6 +20,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useNavigate } from "react-router-dom";
 import { AdminUniversityDetails } from "./adminUniversityDetails.js";
+import { Navbar } from "../pages/Navbar";
 
 // This page will show the data of the approved faculty members to the admin. The admin can delete the faculty members from this page.
 
@@ -219,9 +220,10 @@ const FacultyDetails = (isapproved, allfaculties) => {
   );
 };
 
-export default function LabTabs() {
+export function AdminTab() {
   const [value, setValue] = React.useState("1");
   const [allfaculties, setAllfaculties] = useState([]);
+
 
   useEffect(() => {
   const fetchData = async () => {
@@ -258,26 +260,6 @@ export default function LabTabs() {
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
-      <Box padding={1} border sx={{ flexGrow: 1 }}>
-        <AppBar position="static" className="Navbar">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            ></IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <b>Online Faculty-Staff Directory</b>
-            </Typography>
-            <Button color="warning" variant="contained" onClick={logOut}>
-              Log out
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
-
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
@@ -294,3 +276,44 @@ export default function LabTabs() {
   );
 }
 
+export default function AdminHome() {
+  const [isadmin, setIsadmin] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/admin/isadmin", {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          }
+        });
+        if(response.status===200){
+          setIsadmin(true);
+        }
+        else{
+          setIsadmin(false);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      {isadmin ? (
+      <div>
+      <Navbar />
+        <AdminTab />
+        </div>
+      ) : (
+        <div>
+          <h1>Not an admin</h1>
+        </div>
+      )}
+    </div>
+  );
+}
