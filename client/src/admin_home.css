@@ -1,98 +1,140 @@
-.adminfaculty-details-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .adminfaculty-cards-box {
-    width: 90%;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
-  }
-  
+/* Small screens */
+@media screen and (max-width: 767px) {
   .adminfaculty-cards-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 4rem;
     padding: 4rem;
   }
   
   .adminfaculty-card {
-    display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    width: 90%;
-    height: 80%;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    padding-top: 1.5rem;
-    padding-right: 1rem;
-    padding-bottom: 1.5rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    height: auto;
+    margin-bottom: 2rem;
   }
   
   .adminfaculty-image-container {
-    width: 150px;
-    height: auto;
-    margin-right: 1rem;
-    padding: 1rem;
-  }
-  
-  .adminfaculty-image {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    margin-right: 0;
+    padding: 0;
   }
   
   .adminfaculty-details {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    flex: 1;
+    text-align: center;
   }
-  
-  .adminfaculty-name {
-    margin: 0.5rem;
-    color: #3f51b5; /* blue */
-  }
-  
-  .adminfaculty-email,
-  .adminfaculty-mobile,
-  .adminfaculty-specialization {
-    margin: 0.5rem 0;
-    color: #333; /* dark gray */
-  }
-  
-  .adminfaculty-email::before,
-  .adminfaculty-mobile::before,
-  .adminfaculty-specialization::before {
-    content: attr(data-label);
-    font-weight: bold;
-    margin-right: 0.5rem;
-    text-transform: capitalize;
-  }
-  
-  .adminfaculty-email::before {
-    color: #ff5722; /* orange */
-  }
-  
-  .adminfaculty-mobile::before {
-    color: #f44336; /* red */
-  }
-  
-  .adminfaculty-specialization::before {
-    color: #4caf50; /* green */
-  }
+}
 
-  .adminfaculty-card:hover {
-    box-shadow: 0 0 11px rgba(33,33,33,.2);
-    transition: all 0.3s ease-in-out;
-    transform: scale(1.05);
-     
+/* Medium screens */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .adminfaculty-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 4rem;
+    padding: 4rem;
+  }
+}
+
+/* Large screens */
+@media screen and (min-width: 1024px) {
+  .adminfaculty-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 4rem;
+    padding: 4rem;
+  }
+}
+
+/* Common styles */
+.adminfaculty-details-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminfaculty-cards-box {
+  width: 80%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.adminfaculty-cards-container {
+  display: grid;
+  gap: 4rem;
+}
+
+.adminfaculty-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 90%;
+  height: 80%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+}
+
+.adminfaculty-image-container {
+  width: 150px;
+  height: auto;
+  margin-right: 1rem;
+  padding: 1rem;
+}
+
+.adminfaculty-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.adminfaculty-details {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  flex: 1;
+}
+
+.adminfaculty-name {
+  margin: 0.5rem;
+  color: #3f51b5; /* blue */
+}
+
+.adminfaculty-email,
+.adminfaculty-mobile,
+.adminfaculty-specialization {
+  margin: 0.5rem 0;
+  color: #333; /* dark gray */
+}
+
+.adminfaculty-email::before,
+.adminfaculty-mobile::before,
+.adminfaculty-specialization::before {
+  content: attr(data-label);
+  font-weight: bold;
+  margin-right: 0.5rem;
+  text-transform: capitalize;
+}
+
+.adminfaculty-email::before {
+  color: #ff5722; /* orange */
+}
+
+.adminfaculty-mobile::before {
+  color: #f44336; /* red */
+}
+
+.adminfaculty-specialization::before {
+  color: #4caf50; /* green */
+}
+
+.adminfaculty-card:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.05);
+   
 }
