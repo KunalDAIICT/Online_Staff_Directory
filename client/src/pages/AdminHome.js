@@ -125,7 +125,6 @@ export function FacultyCardNotApproved ({ faculty }) {
 
   
   const handleDelete = (id) => async (e) => {
-    e.preventDefault();
     try {
       const response = await fetch("http://localhost:3000/admin/deleteFaculty", {
         method: "POST",
@@ -228,6 +227,8 @@ export function AdminTab() {
   useEffect(() => {
   const fetchData = async () => {
     try {
+      if(localStorage.getItem("token") !== null)
+      {
       const response = await fetch("http://localhost:3000/admin/allfaculties", {
         method: "GET",
         headers: {
@@ -238,6 +239,7 @@ export function AdminTab() {
       const json = await response.json();
       setAllfaculties(json);
       console.log(json);
+    }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -252,11 +254,6 @@ export function AdminTab() {
 
   let navigate=useNavigate();
   
-  const logOut = (token) => {
-    localStorage.setItem("token","null");
-    alert("Logged out successfully");
-    navigate("/");
-  }
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
@@ -278,14 +275,17 @@ export function AdminTab() {
 
 export default function AdminHome() {
   const [isadmin, setIsadmin] = useState(false);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
+    
+    if(token !== null)
+    {
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:3000/admin/isadmin", {
           method: "GET",
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + token,
           }
         });
         if(response.status===200){
@@ -297,10 +297,13 @@ export default function AdminHome() {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+    
     };
 
     fetchData();
-  }, []);
+  }
+  
+  }, [isadmin]);
 
   return (
     <div>

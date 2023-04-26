@@ -29,25 +29,33 @@ export const Signup = () => {
 
 const [mobile, setMobile] = useState("");
 const [isError, setIsError] = useState(false);
+const [confirmpassword, setConfirmPassword] = useState("");
+const [password, setPassword] = useState("");
+const [matchPassword, setMatchPassword] = useState(false);
+
+// To display universities in dropdown
 
   const [allUni, setAllUni] = useState([]);
+
+
   useEffect(() => {
-      const fetchData = async () => {
-          try {
-              const response = await fetch("http://localhost:3000/getUniversities", {
-                  method: "GET",
-              });
-              console.log(response);
-              const json = await response.json();
-              setAllUni(json);
-              console.log(json);
-          }
-          catch (error) {
-              console.error("Error fetching data:", error);
-          }
-      };
-      fetchData();
-  }, []);
+    const fetchData = async () => {
+      try {
+          const response = await fetch("http://localhost:3000/getUniversities", {
+              method: "GET",
+          });
+          console.log(response);
+          const json = await response.json();
+          setAllUni(json);
+          console.log(json);
+      }
+      catch (error) {
+          console.error("Error fetching data:", error);
+      }
+  };
+  fetchData();
+      
+  }, [password , confirmpassword]);
 
   let navigate=useNavigate();
   const handleUserSignup = async (userData) => {
@@ -78,6 +86,16 @@ const [isError, setIsError] = useState(false);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
+    if(matchPassword !== true)
+    {
+      alert("Confirm Password Does not match !!!")
+    }
+    else if(isError)
+    {
+      alert("Enter valid Mobile Number !!!");
+    }
+    else
+    {
     var a="0";
     if(data.get('role') === "faculty"){
       a="1";
@@ -117,6 +135,7 @@ const [isError, setIsError] = useState(false);
     }
     console.log(userData);
     handleUserSignup(userData);
+  }
   };
   
 
@@ -139,13 +158,13 @@ const [isError, setIsError] = useState(false);
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
                   name="firstName"
-                  required
+                  required = {true}
                   fullWidth
                   id="firstName"
                   label="First Name"
@@ -164,39 +183,68 @@ const [isError, setIsError] = useState(false);
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  required = {true}
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  type='email'
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  required = {true}
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+
+                    if(e.target.value !== confirmpassword)
+                    {
+                      setMatchPassword(false);
+
+                    }
+                    else
+                    {
+                      setMatchPassword(true);
+                    }
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  required = {true}
                   fullWidth
                   name="confirm password"
                   label="Confirm Password"
                   type="password"
                   id="confirm password"
                   autoComplete="new-confirm password"
+                  value={confirmpassword}
+                  onChange={(ev) => {
+                    setConfirmPassword(ev.target.value);
+                    if (ev.target.value !== password) {
+                      setMatchPassword(false);
+                    }
+                    else
+                    {
+                      setMatchPassword(true)
+                    }
+                   
+                  }}
+                  error={!matchPassword}
+                  
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  required = {true}
                   fullWidth
                   name="mobile"
                   label="Mobile"
@@ -219,11 +267,12 @@ const [isError, setIsError] = useState(false);
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                    required
+                    required = {true}
                     fullWidth
                     name="university"
                     label='University'
                     select
+
                 >
                   {allUni.map(university => (
                 <MenuItem value={university.name}> {university.name} </MenuItem>
@@ -239,6 +288,7 @@ const [isError, setIsError] = useState(false);
                     row
                     aria-labelledby="role"
                     name="role"
+                    required = {true}
                 >
                     <FormControlLabel value="student" control={<Radio />} label="Student" />
                     <FormControlLabel value="faculty" control={<Radio />} label="Faculty" />

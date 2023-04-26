@@ -118,7 +118,7 @@ export function NavbarAdmin () {
           </Link>
           {(token!==null && token.length>4)  && <Link to={"/adminhome"}>
             <Button color="inherit" variant="outlined" sx={{ mr: 1, color: "white" }}>
-            Dashboard
+              Dashboard
             </Button>
           </Link>}
           {(token!==null && token.length>4)   &&
@@ -136,11 +136,12 @@ export function NavbarAdmin () {
 
 
 export const  Navbar =() => {
-  const token=localStorage.getItem("token");
   const [isadmin, setIsadmin] = useState(false);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    const fetchData = async () => {
+    if(token !== null)
+  {  
+  const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:3000/admin/isadmin", {
           method: "GET",
@@ -160,7 +161,8 @@ export const  Navbar =() => {
     };
 
     fetchData();
-  }, [token]);
+  }
+  }, []);
 
     return (
         <div>
