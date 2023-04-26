@@ -23,16 +23,10 @@ import { AdminUniversityDetails } from "./adminUniversityDetails.js";
 import { Navbar } from "../pages/Navbar";
 
 // This page will show the data of the approved faculty members to the admin. The admin can delete the faculty members from this page.
-
 // faculty data
 
 
-
-
-
-
 export function FacultyCardApproved  ({ faculty }) {
-
 
   const handleDelete = (id) => async (e) => {
     e.preventDefault();

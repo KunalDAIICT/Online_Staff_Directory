@@ -2,16 +2,6 @@ const request = require("supertest");
 const baseURL = "http://localhost:3000";
 const serverController = require('../controllers/serverController');
 
-let server;
-
-beforeAll(async () => {
-	server = await serverController.startServer();
-});
-
-afterAll(async () => {
-    await serverController.stopServer(server);
-});
-
 function generateRandomEmail() {
 	const alphabet = "abcdefghijklmnopqrstuvwxyz";
 	const numbers = "0123456789";

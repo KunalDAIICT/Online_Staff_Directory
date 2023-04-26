@@ -163,9 +163,9 @@ export const Loginpg = () => {
                   {<a href='/sendresetlink'>Forgot password?</a>}
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid item xs>
                 <Link to={'/signup'} variant="body2">
-                  {<a href='/sendresetlink'>Don't have an account? Sign Up</a>}
+                  {<a href='/signup'>Don't have an account? Sign Up</a>}
                 </Link>
               </Grid>
             </Grid>

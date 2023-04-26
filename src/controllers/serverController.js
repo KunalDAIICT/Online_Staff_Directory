@@ -27,16 +27,17 @@ async function startServer() {
 	app.post("/editProfile", reqHandler.editProfile);
 	app.get("/verify-email", reqHandler.verifyemail);
 	app.get("/deleteProfile", reqHandler.deleteProfile);
-	app.get("/admin/allfaculties", adminReqHandler.getallFaculties);
-	app.post("/admin/addUniversity", adminReqHandler.addUniversity);
 	app.get("/getUniversities",reqHandler.getUniversities);
 	app.post("/editUniversity", universityController.editUniversity);
 	app.post("/deleteUniversity",universityController.deleteUniversity);
-	app.post("/admin/approveFaculty", adminReqHandler.approveFaculty);
-	app.post("/admin/deleteFaculty", adminReqHandler.disapproveFaculty);
 	app.post("/getFaculty",reqHandler.getFacultyProfile);
 	app.post("/sendresetlink",reqHandler.sendresetlink);
 	app.post("/resetpassword",reqHandler.resetpassword);
+	
+	app.post("/admin/approveFaculty", adminReqHandler.approveFaculty);
+	app.post("/admin/deleteFaculty", adminReqHandler.disapproveFaculty);
+	app.get("/admin/allfaculties", adminReqHandler.getallFaculties);
+	app.post("/admin/addUniversity", adminReqHandler.addUniversity);
 	app.get("/admin/isadmin",adminReqHandler.isadmin);
 
 

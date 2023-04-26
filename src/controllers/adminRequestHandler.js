@@ -72,7 +72,6 @@ function disapproveFaculty(req, res) {
 	if (secretOBJ._id != admin) {
 		return res.status(401).json({ error: "Unauthorized" });
 	}
-
 	const user = {
 		_id: req.body.email,
 	};
@@ -84,33 +83,25 @@ function disapproveFaculty(req, res) {
 		if (!user) {
 			return res.status(404).json({ error: "User not found" });
 		}
-
 		user.remove();
 		res.status(200).json({ message: "Faculty Deletion done!!" });
-
-	});
-
-	facultyCollection.findOne(user, function (err, user) {
-		if (err) {
-			console.error(err);
-			return res.status(500).json({ error: "Internal server error" });
-		}
-		if (!user) {
-			return res.status(404).json({ error: "User not found" });
-		}
-
-		user.remove();
 	});
 }
 
 function addUniversity(req, res) {
+	const token = req.headers.authorization.split(" ")[1];
+	const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
+	if (secretOBJ._id != admin) {
+		return res.status(401).json({ error: "Unauthorized" });
+	}
+
 	universityCollection.exists({ name: req.body.name }, function (err, doc) {
 		if (err) {
 			console.error(err);
 			return res.status(500).json({ error: "Internal server error" });
 		}
 		if (doc) {
-			return res.status(404).json({ error: "University already exists" });
+			return res.status(302).json({ error: "University already exists" });
 		}
 		else {
 			universityInstance = new universityCollection({
