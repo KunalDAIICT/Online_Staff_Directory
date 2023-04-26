@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 export function UniversityCard ({ university })  {
   return(
     <>
-        <Stack className="university-card" direction="row" marginLeft={30} marginTop={10} alignItems={'center'}>
+        <Stack className="university-card" direction="row" marginTop={10} alignItems={'center'}>
             <Box display='flex' height='100%' width='25%' alignItems='center' justifyContent='center' justifyItems='center'>
                 <img className="university-image" src={university.Image} alt={'logo'} />
             </Box>
@@ -67,9 +67,13 @@ const handelClick = () => {
                     Add University
                 </Fab>
             </Stack>
-            {allUni.map(university => (
-                <UniversityCard key={university.id} university={university} />
-            ))}
+            <Box sx={{display: 'flex', justifyContent: 'center'}}>
+              <Stack>
+                {allUni.map(university => (
+                    <UniversityCard key={university.id} university={university} />
+                ))}
+              </Stack>
+            </Box>
         </>
     );
 };
