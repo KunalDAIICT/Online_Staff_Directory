@@ -69,17 +69,74 @@ let navigate = useNavigate();
     console.log(image)
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      image: data.get('image'),
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     name: data.get('name'),
+  //     image: data.get('image'),
+  //   });
+  // };
+  const handleAddUniversity = async (userData) => {
+    const token = localStorage.getItem("token");
+    const response = await fetch("http://localhost:3000/admin/addUniversity", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
+      },
+      body: JSON.stringify(userData),
     });
+    console.log(response);
+    if(response.status === 200){
+      alert("University added successfully");
+      // navigate('/loginpage');
+    }
+    else if(response.status === 404){
+      alert("University already exists");
+    }
+    else{
+      alert("An unknown error occured please try again!");
+    }
   };
 
+const handleSubmit = (event) => {
+    event.preventDefault();
+   var userData ={};
+    userData = {...userData,
+      name: name,
+      Image: image,
+    }
 
-  return (
+    console.log(userData);
+    navigate('/adminhome')
+    handleAddUniversity(userData);
+  };
+
+  function convertTobase64(file) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+  
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+  
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  }
+  
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    const base64 = await convertTobase64(file);
+    setImage(base64);
+    console.log(image);
+    console.log(base64); 
+  };
+
+    return (
     <ThemeProvider theme={theme}>
       <>
         <Container component="main" maxWidth="xs">
@@ -99,9 +156,9 @@ let navigate = useNavigate();
                     <b>Add University</b>
                 </Typography>
                 <input
-                    id="image-upload"
+                    id="Image"
                     type="file"
-                    onChange={handleImage}
+                    onChange={handleImageChange}
                     display="hidden"
                 />
                 <Typography marginBottom="20px">
@@ -125,6 +182,7 @@ let navigate = useNavigate();
                         </CardContent>
                     </CardActionArea>
                 </Card>
+
                 <Typography marginBottom="20px">
                 </Typography>
                 <TextField
@@ -134,7 +192,7 @@ let navigate = useNavigate();
                 multiline
                 rows={2}
                 variant='outlined'
-                id="university_name"
+                id="name"
                 label="University Name"
                 name="university_name"
                 value={name}
@@ -146,8 +204,6 @@ let navigate = useNavigate();
                 <br></br>
                 <Button
                 type="submit"
-                //   fullWidth
-
                 variant="contained"
                 sx={{ mt: 2, mb: 2, ml: 13}}
                 >

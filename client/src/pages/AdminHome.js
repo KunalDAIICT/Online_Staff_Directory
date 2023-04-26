@@ -60,15 +60,15 @@ export function FacultyCardApproved  ({ faculty }) {
 
 return (
 
-  <Box className="faculty-card">
-    <div className="faculty-image-container">
-      <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
+  <Box className="adminfaculty-card">
+    <div className="adminfaculty-image-container">
+      <img className="adminfaculty-image" src={faculty.Image} alt={faculty.name} />
     </div>
-    <div className="faculty-details">
-      <h3 className="faculty-name">{faculty.name}</h3>
-      <p className="faculty-email">{faculty._id}</p>
-      <p className="faculty-mobile">{faculty.mobile_number}</p>
-      <p className="faculty-specialization">{faculty.specialization}</p>
+    <div className="adminfaculty-details">
+      <h3 className="adminfaculty-name">{faculty.name}</h3>
+      <p className="adminfaculty-email">{faculty._id}</p>
+      <p className="adminfaculty-mobile">{faculty.mobile_number}</p>
+      <p className="adminfaculty-specialization">{faculty.specialization}</p>
       <p>
         <IconButton>
           <LinkedInIcon />
@@ -150,15 +150,15 @@ export function FacultyCardNotApproved ({ faculty }) {
 
   return (
 
-  <Box className="faculty-card">
-    <div className="faculty-image-container">
-      <img className="faculty-image" src={faculty.Image} alt={faculty.name} />
+  <Box className="adminfaculty-card">
+    <div className="adminfaculty-image-container">
+      <img className="adminfaculty-image" src={faculty.Image} alt={faculty.name} />
     </div>
-    <div className="faculty-details">
-      <h3 className="faculty-name">{faculty.name}</h3>
-      <p className="faculty-email">{faculty._id}</p>
-      <p className="faculty-mobile">{faculty.mobile_number}</p>
-      <p className="faculty-specialization">{faculty.specialization}</p>
+    <div className="adminfaculty-details">
+      <h3 className="adminfaculty-name">{faculty.name}</h3>
+      <p className="adminfaculty-email">{faculty._id}</p>
+      <p className="adminfaculty-mobile">{faculty.mobile_number}</p>
+      <p className="adminfaculty-specialization">{faculty.specialization}</p>
       <p>
         <IconButton>
           <LinkedInIcon />
@@ -191,9 +191,9 @@ const FacultyDetails = (isapproved, allfaculties) => {
   // const checkapproved = isapproved;
   return (
     <div>
-      <div className="faculty-details-page">
-        <div className="faculty-cards-box">
-          <div className="faculty-cards-container">
+      <div className="adminfaculty-details-page">
+        <div className="adminfaculty-cards-box">
+          <div className="adminfaculty-cards-container">
             {isapproved
               ? allfaculties
                   .filter((faculty) => {

@@ -1,11 +1,11 @@
-.faculty-details-page {
+.adminfaculty-details-page {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   
-  .faculty-cards-box {
-    width: 80%;
+  .adminfaculty-cards-box {
+    width: 90%;
     margin-top: 2rem;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
@@ -14,18 +14,18 @@
     overflow: hidden;
   }
   
-  .faculty-cards-container {
+  .adminfaculty-cards-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     padding: 4rem;
   }
   
-  .faculty-card {
+  .adminfaculty-card {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
+    width: 90%;
     height: 80%;
     background-color: #f9f9f9;
     border: 1px solid #ccc;
@@ -38,59 +38,59 @@
     padding-right: 0.5rem;
   }
   
-  .faculty-image-container {
+  .adminfaculty-image-container {
     width: 150px;
     height: auto;
     margin-right: 1rem;
     padding: 1rem;
   }
   
-  .faculty-image {
+  .adminfaculty-image {
     width: 100%;
     height: auto;
     border-radius: 5px;
   }
   
-  .faculty-details {
+  .adminfaculty-details {
     margin-top: 25px;
     margin-bottom: 25px;
     flex: 1;
   }
   
-  .faculty-name {
+  .adminfaculty-name {
     margin: 0.5rem;
     color: #3f51b5; /* blue */
   }
   
-  .faculty-email,
-  .faculty-mobile,
-  .faculty-specialization {
+  .adminfaculty-email,
+  .adminfaculty-mobile,
+  .adminfaculty-specialization {
     margin: 0.5rem 0;
     color: #333; /* dark gray */
   }
   
-  .faculty-email::before,
-  .faculty-mobile::before,
-  .faculty-specialization::before {
+  .adminfaculty-email::before,
+  .adminfaculty-mobile::before,
+  .adminfaculty-specialization::before {
     content: attr(data-label);
     font-weight: bold;
     margin-right: 0.5rem;
     text-transform: capitalize;
   }
   
-  .faculty-email::before {
+  .adminfaculty-email::before {
     color: #ff5722; /* orange */
   }
   
-  .faculty-mobile::before {
+  .adminfaculty-mobile::before {
     color: #f44336; /* red */
   }
   
-  .faculty-specialization::before {
+  .adminfaculty-specialization::before {
     color: #4caf50; /* green */
   }
 
-  .faculty-card:hover {
+  .adminfaculty-card:hover {
     box-shadow: 0 0 11px rgba(33,33,33,.2);
     transition: all 0.3s ease-in-out;
     transform: scale(1.05);

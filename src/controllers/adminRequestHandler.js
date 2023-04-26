@@ -1,6 +1,8 @@
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
 const facultyCollection = require("../models/facultyModel");
 const authorize = require("../controllers/authController");
+const universityCollection = require("../models/universityModel");
+
 const admin = "admin@gmail.com";
 
 function getallFaculties(req, res) {
@@ -101,8 +103,33 @@ function disapproveFaculty(req, res) {
 	});
 }
 
+function addUniversity(req, res) {
+	universityCollection.exists({ name: req.body.name }, function (err, doc) {
+		if (err) {
+			console.error(err);
+			return res.status(500).json({ error: "Internal server error" });
+		}
+		if (doc) {
+			return res.status(404).json({ error: "University already exists" });
+		}
+		else {
+			universityInstance = new universityCollection({
+				name: req.body.name,
+				Image: req.body.Image,
+			});
+
+			universityInstance.save();
+			console.log("New University added");
+			res.statusMessage = 'University added successfully';
+			res.sendStatus(200);
+		}
+	});
+}
+
+
 module.exports = {
 	getallFaculties: getallFaculties,
 	approveFaculty: approveFaculty,
 	disapproveFaculty: disapproveFaculty,
+	addUniversity: addUniversity,
 };
