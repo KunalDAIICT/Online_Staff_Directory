@@ -307,7 +307,7 @@ function verifyemail(req, res) {
 
 function getUniversities(req, res) {
 	//get all the names in asending order with case sensitive
-	UniversityDetailsCollection.find({}, { name: 1, _id: 0 })
+	UniversityDetailsCollection.find({}, { name: 1, Image: 1 })
 		.sort({ name: 1 })
 		.exec(function (err, universities) {
 			if (err) {
