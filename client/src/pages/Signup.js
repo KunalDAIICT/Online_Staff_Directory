@@ -276,7 +276,7 @@ const [matchPassword, setMatchPassword] = useState(false);
                     select
 
                 >
-                  {allUni.map(university => (
+                {allUni.map(university => (
                 <MenuItem value={university.name}> {university.name} </MenuItem>
                   ))}
                     {/* <MenuItem value='Dhirubhai Ambani Institute of Information and Communication Technology'>Dhirubhai Ambani Institute of Information and Communication Technology</MenuItem> */}

@@ -306,14 +306,17 @@ function verifyemail(req, res) {
 // }
 
 function getUniversities(req, res) {
-	UniversityDetailsCollection.find(function (err, universities) {
-		if (err) {
-			console.error(err);
-			return res.status(500).json({ error: "Internal server error" });
-		}
-		// Send all the faculties in the response
-		return res.status(200).json(universities);
-	});
+	//get all the names in asending order with case sensitive
+	UniversityDetailsCollection.find({}, { name: 1, _id: 0 })
+		.sort({ name: 1 })
+		.exec(function (err, universities) {
+			if (err) {
+				console.error(err);
+				return res.status(500).json({ error: "Internal server error" });
+			}
+			// Send all the faculties in the response
+			return res.status(200).json(universities);
+		});
 }
 
 function sendresetlink(req, res) {
