@@ -21,7 +21,6 @@ import TabPanel from "@mui/lab/TabPanel";
 import { useNavigate } from "react-router-dom";
 import { AdminUniversityDetails } from "./adminUniversityDetails.js";
 import { Navbar } from "../pages/Navbar";
-
 // This page will show the data of the approved faculty members to the admin. The admin can delete the faculty members from this page.
 // faculty data
 
@@ -52,10 +51,18 @@ export function FacultyCardApproved  ({ faculty }) {
       console.error("Error adding data:", error);
     }
   };
+  let navigate = useNavigate();
+  const handleClick = () => () => {
+    console.log("clicked");
+    navigate("/FacultyProfile",
+    {
+      state: {faculty: faculty}
+    });
+  };
 
 return (
 
-  <Box className="adminfaculty-card">
+  <Box className="adminfaculty-card" onClick={handleClick()} >
     <div className="adminfaculty-image-container">
       <img className="adminfaculty-image" src={faculty.Image} alt={faculty.name} />
     </div>
@@ -141,10 +148,17 @@ export function FacultyCardNotApproved ({ faculty }) {
       console.error("Error adding data:", error);
     }
   };
-
+  let navigate = useNavigate();
+  const handleClick = () => () => {
+    console.log("clicked");
+    navigate("/FacultyProfile",
+    {
+      state: {faculty: faculty}
+    });
+  };
   return (
 
-  <Box className="adminfaculty-card">
+  <Box className="adminfaculty-card" onClick={handleClick()}>
     <div className="adminfaculty-image-container">
       <img className="adminfaculty-image" src={faculty.Image} alt={faculty.name} />
     </div>

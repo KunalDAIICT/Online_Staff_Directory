@@ -60,7 +60,7 @@ export const FacultyProfile = () => {
                 e.preventDefault();
                 }}
           />
-
+          
           <br />
           <FormLabel id="role">
             <h3>University</h3>
