@@ -19,12 +19,9 @@ import { useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { useNavigate } from "react-router-dom";
 
-export function SearchBar() {
+export function SearchBar({ universities , setUniversities }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
+ 
   return (
     <Container>
       <TextField
@@ -32,7 +29,23 @@ export function SearchBar() {
         type="search"
         label="Search"
         value={searchTerm}
-        onChange={handleChange}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          console.log(e.target.value);
+
+          const filtered = universities.filter((university) => {
+            return university.name.toLowerCase().includes(e.target.value.toLowerCase());
+          });
+
+
+          if(e.target.value !== ""){            
+            setUniversities(filtered);
+            console.log(universities);
+          }else{
+            setUniversities(universities);
+
+          }
+        }}
         sx={{ width: 500 }}
         margin="normal"
         InputProps={{
@@ -108,6 +121,7 @@ let navigate = useNavigate();
 
 export const UniversityDetails = () => {
   const [allUni, setAllUni] = useState([]);
+  const [universities, setUniversities] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -117,6 +131,7 @@ export const UniversityDetails = () => {
         console.log(response);
         const json = await response.json();
         setAllUni(json);
+        setUniversities(json);
         console.log(json);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -128,11 +143,11 @@ export const UniversityDetails = () => {
     <div>
       <Navbar />
       <Box alignItems="center"  sx={{display: 'flex', justifyContent: 'center'}}>
-          <SearchBar />
+          <SearchBar universities={allUni} setUniversities={setUniversities} />
       </Box>
       <Box sx={{display: 'flex', justifyContent: 'center'}}>
         <Stack>
-          {allUni.map((university) => (
+          {universities.map((university) => (
             <UniversityCard key={university.id} university={university} />
           ))}
         </Stack>
