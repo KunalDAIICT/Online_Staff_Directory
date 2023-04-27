@@ -46,12 +46,16 @@ describe("POST /resetpassword", () => {
 
     test("valid token but new password not provided",  async () => {
         const req  = {
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkZXYxMjM0NTZAZ21haWwuY29tIiwiaWF0IjoxNjgyNTQ5MDUyfQ.cD8dUKvIhq4YHA739i-A8QBSrfve7OOb0EqzDor2KEc'
+            },
             body:{
-                newpassword:""
-            }   
+                newpassword: null,
+            }
         };
-        const res =  request(baseURL).post("/resetpassword").
-                set('Authorization' , 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkZXYxMjM0NTZAZ21haWwuY29tIiwiaWF0IjoxNjgyNTQ5MDUyfQ.cD8dUKvIhq4YHA739i-A8QBSrfve7OOb0EqzDor2KEc')
+        const res =  await request(baseURL).post("/resetpassword").
+                set(req.headers)
                 .send(req.body);
 
         expect(res.status).toEqual(400);
@@ -61,13 +65,13 @@ describe("POST /resetpassword", () => {
         const req = {
             headers:{
                 'Content-Type': 'application/json',
-                Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkZXYxMjM0NTZAZ21haWwuY29tIiwiaWF0IjoxNjgyNTQ5MDUyfQ.cD8dUKvIhq4YHA739i-A8QBSrfve7OOb0EqzDor2KEc'
+                'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkZXYxMjM0NTZAZ21haWwuY29tIiwiaWF0IjoxNjgyNTQ5MDUyfQ.cD8dUKvIhq4YHA739i-A8QBSrfve7OOb0EqzDor2KEc'
             },
             body:{
                 newpassword:"123456",
             }
         };
-        const res = request(baseURL).post("/resetpassword").send(req.body).set(req.headers)
+        const res = await request(baseURL).post("/resetpassword").send(req.body).set(req.headers)
         expect(res.status).toEqual(200);
     });
 });
