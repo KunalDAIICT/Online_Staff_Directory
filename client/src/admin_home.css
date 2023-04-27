@@ -23,6 +23,7 @@
   .adminfaculty-details {
     text-align: center;
   }
+
 }
 
 /* Medium screens */
@@ -102,6 +103,7 @@
 .adminfaculty-name {
   margin: 0.5rem;
   color: #3f51b5; /* blue */
+  cursor: pointer;
 }
 
 .adminfaculty-email,
