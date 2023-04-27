@@ -53,22 +53,37 @@ function editProfile(req, res) {
 	}
 
 	let updatedUser;
-	if (req.body.role == 0) {
+	if (req.body.role == "0") {
 		updatedUser = new studentCollection({
 			name: req.body.name,
 			password: req.body.password,
 			mobile_number: req.body.mobile_number,
 			university: req.body.university,
-			role: req.body.role,
 			Image: req.body.Image,
 		});
+		console.log(updatedUser);
+		studentCollection.findByIdAndUpdate(user._id, updatedUser,
+
+			function (err, updatedUser) {
+				if (err) {
+					console.error(err);
+					return res.status(500).json({ error: "Internal server error" });
+				}
+	
+				// console.log(updatedUser);
+	
+				console.log("User updated");
+				res.status(200).json({ message: "user updated" });
+	
+			}
+		);
 	} else {
+		console.log("Hey I was here")
 		updatedUser = new facultyCollection({
 			name: req.body.name,
 			password: req.body.password,
 			mobile_number: req.body.mobile_number,
 			university: req.body.university,
-			role: req.body.role,
 			specialization: req.body.specialization,
 			experience: req.body.experience,
 			projects: req.body.projects,
@@ -76,53 +91,61 @@ function editProfile(req, res) {
 			Industrial_experience: req.body.Industrial_experience,
 			Publications: req.body.Publications,
 			Image: req.body.Image,
+
 		});
-	}
+		console.log(updatedUser);
+		facultyCollection.findByIdAndUpdate(user._id, updatedUser,
 
-	studentCollection.findByIdAndUpdate(
-		user._id,
-		updatedUser,
-		{ new: true },
-		function (err, updatedUser) {
-			if (err) {
-				console.error(err);
-				return res.status(500).json({ error: "Internal server error" });
-			}
-
-			console.log("User updated");
-			// res.status(200).json({ message: "user updated" });
-		}
-	);
-
-	if (req.body.role == 1) {
-		facultyDetailsInstance = new facultyDetailsCollection({
-			name: req.body.name,
-			mobile_number: req.body.mobile_number,
-			university: req.body.university,
-			specialization: req.body.specialization,
-			experience: req.body.experience,
-			projects: req.body.projects,
-			Awards_and_Honors: req.body.Awards_and_Honors,
-			Industrial_experience: req.body.Industrial_experience,
-			Publications: req.body.Publications,
-			Image: req.body.Image,
-			isApproved: false,
-		});
-		facultyDetailsCollection.findByIdAndUpdate(
-			req.body.userEmail,
-			facultyDetailsInstance,
-			{ new: true },
-			function (err, updatedFaculty) {
+			function (err, updatedUser) {
 				if (err) {
 					console.error(err);
 					return res.status(500).json({ error: "Internal server error" });
 				}
-
+	
+				// console.log(updatedUser);
+	
+				console.log("Hey I was here");
+				facultyDetailsInstance = new facultyDetailsCollection({
+					name: req.body.name,
+					mobile_number: req.body.mobile_number,
+					university: req.body.university,
+					specialization: req.body.specialization,
+					experience: req.body.experience,
+					projects: req.body.projects,
+					Awards_and_Honors: req.body.Awards_and_Honors,
+					Industrial_experience: req.body.Industrial_experience,
+					Publications: req.body.Publications,
+					Image: req.body.Image,
+					isApproved: false,
+				});
+				// console.log("new");
+				// console.log(facultyDetailsInstance);
+				// console.log(user._id);
+				facultyDetailsCollection.findByIdAndUpdate(
+					user._id,
+					facultyDetailsInstance,
+					{ new: true },
+					function (err, updatedFaculty) {
+						if (err) {
+							console.error(err);
+							return res.status(500).json({ error: "Internal server error" });
+						}
+						// console.log("updated");
+						// console.log(updatedFaculty);
+						console.log("Faculty updated");
+						// return res.status(200).json({ message: "user updated" });
+					}
+				);
+	
+	
 				console.log("User updated");
+				res.status(200).json({ message: "user updated" });
+	
 			}
 		);
 	}
-	res.status(200).json({ message: "user updated" });
+	// console.log(user._id);
+
 }
 
 function deleteProfile(req, res) {
@@ -161,8 +184,7 @@ function getFaculties(req, res) {
 
 	facultyDetailsCollection.find(filter, function (err, faculties) {
 		console.log(faculties.length);
-		if(faculties.length==0)
-		{
+		if (faculties.length == 0) {
 			return res.status(404).json({ error: "No Faculties for this University" });
 		}
 		if (err) {
@@ -216,7 +238,7 @@ function verifyemail(req, res) {
 }
 
 // function verifyemail(req, res) {
-	
+
 // 	const token = req.headers.authorization.split(" ")[1];
 // 	const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
 // 	if (!user) {
@@ -279,7 +301,7 @@ function getUniversities(req, res) {
 	});
 }
 
-function sendresetlink(req,res) {
+function sendresetlink(req, res) {
 	const email = req.body.email;
 	studentCollection.findById(email, function (err, user) {
 		if (err) {
@@ -293,20 +315,20 @@ function sendresetlink(req,res) {
 
 		const name = user.name;
 
-		sendResetMail(email,name)
-		.then((result) => {
-			res.status(200).json({ message: "reset link sent" });
-		}
-		)
-		.catch((err) => {
-			console.error(err);
-			return res.status(500).json({ error: "Internal server error" });
-		}
-		);
+		sendResetMail(email, name)
+			.then((result) => {
+				res.status(200).json({ message: "reset link sent" });
+			}
+			)
+			.catch((err) => {
+				console.error(err);
+				return res.status(500).json({ error: "Internal server error" });
+			}
+			);
 	});
 }
 
-function resetpassword(req,res){
+function resetpassword(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	const user = authorize(token, process.env.ACESS_TOKEN_SECRET);
 

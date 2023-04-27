@@ -76,6 +76,7 @@ export const EditMyProfile = () => {
 
   let navigate = useNavigate();
   const handleEditProfile = async (userData) => {
+    console.log(userData);
     const response = await fetch("http://localhost:3000/editProfile", {
       method: "POST",
       headers: {
@@ -118,7 +119,7 @@ export const EditMyProfile = () => {
           mobile_number: mob,
           name: name,
           password: pass,
-          role: "0",
+          role: "1",
           university: univ,
           userEmail: email,
           Awards_and_Honors: awards,
@@ -583,6 +584,7 @@ export const EditMyProfile = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={handleSubmit}
           >
             Save Changes
           </Button>
