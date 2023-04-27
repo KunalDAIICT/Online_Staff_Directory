@@ -165,6 +165,21 @@ function deleteProfile(req, res) {
 			return res.status(404).json({ error: "User not found" });
 		}
 
+		if (user.role == "1")
+		{
+			facultyDetailsCollection.findOne(user._id, function (err,user){
+				if (err) {
+					console.error(err);
+					return res.status(500).json({ error: "Internal server error" });
+				}
+		
+				if (!user) {
+					return res.status(404).json({ error: "User not found" });
+				}
+				user.remove();
+			});
+		}
+
 		user.remove();
 		console.log("User deleted");
 		res.status(200).json({ message: "user deleted" });

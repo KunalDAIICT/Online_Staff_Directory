@@ -131,7 +131,7 @@ describe("GET /deleteProfile", () => {
     test("Valid Token", async () => {
         const req = {
             headers:{
-                Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJqYXkzMmVAZ21haWwuY29tIiwiaWF0IjoxNjgyNTQ2ODY1fQ.lJ0X6395s9lQeZcB0lgVUSxFosfrKBAnHBILJq0ZcP4'
+                Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJrdW5hbC5ob3R3YW5pMTIzNDVAZ21haWwuY29tIiwiaWF0IjoxNjgyNTg1MDM5fQ.-jlLkXmoC7Ewy42LYE9OBuBxmskNlgFazADEatxHcrQ'
             },
 
         };
@@ -221,13 +221,13 @@ describe("GET /getProfile", () => {
 
     test("Valid token (Student)", async () => {
         const res = await request(baseURL).post("/profile")
-        .set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkcDEyMzRhYmNAZ21haWwuY29tIiwiaWF0IjoxNjgyNTUxMzY3fQ.PbDrqNmdmXyC9ee_HszgBZTnLkTiG_yFM9IIXK3X8Jo')
+        .set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJrdW5hbC5ob3R3YW5pMUBnbWFpbC5jb20iLCJpYXQiOjE2ODI1ODQ5MTF9.483kcKvWxEYh-mLGHWcq0nLTS1YS6jsWXUI5_92gS-4')
         expect(res.status).toEqual(200);
     });
 
     test("Valid Token (Faculty)", async () => {
         const res = await request(baseURL).post("/profile")
-        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJydzk2cG5iaGE5bTNmNUB5YWhvby5jb20iLCJpYXQiOjE2ODI1NTE2MjB9.UvtB5Zg2mzQXXcu8n6fUmfxRUek2R0zUF5Entmnk8Ks')
+        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkcDEyMzQ1Njc4QGdtYWlsLmNvbSIsImlhdCI6MTY4MjU4NTQ5MH0.jdf99Pht3UjYo6q2Q1KZTePRxxmuqE87pSCgnewu4-E')
         expect(res.status).toEqual(200);
     });
 });
