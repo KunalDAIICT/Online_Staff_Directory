@@ -33,7 +33,7 @@ export function NavbarNormal () {
               aria-label="menu"
               sx={{ mr: 2 }}
             ></IconButton> */}
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} justifyContent={"flex-start"}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "left", pl: '3%' }} justifyContent={"flex-start"}>
               <b>Campus Connect</b>
             </Typography>
             <Link to={"/"}>
