@@ -208,7 +208,7 @@ function getFaculties(req, res) {
 		}
 
 		// Send all the faculties in the response
-		console.log(faculties);
+		// console.log(faculties);
 		return res.status(200).json(faculties);
 	});
 }

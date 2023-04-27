@@ -129,7 +129,7 @@ const FacultyDetails = () => {
       }
     };
     fetchData();
-  }, [uni]);
+  }, []);
 
   
 
@@ -139,9 +139,13 @@ const FacultyDetails = () => {
       <div className="faculty-details-page">
         <div className="faculty-cards-box">
           <div className="faculty-cards-container">
-            {faculties.map(faculty => (
-              <FacultyCard key={faculty._id} faculty={faculty} />
-            ))}
+          {faculties.length > 0 ? (
+              faculties.map((faculty) => (
+                <FacultyCard faculty={faculty} key={faculty._id} />
+              ))
+            ) : (
+              <h1>No faculties found</h1>
+            )}
           </div>
         </div>
       </div>
