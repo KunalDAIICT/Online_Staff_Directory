@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../App.css";
 import { Navbar } from "./Navbar";
+import MenuItem from '@mui/material/MenuItem'
 
 const theme = createTheme();
 
@@ -27,9 +28,23 @@ export const EditMyProfile = () => {
   const [pass, setPass] = useState("");
   const [cpass, setCpass] = useState("");
   const [image, setImage] = useState(null);
+  const [allUni, setAllUni] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      try {
+        const responseuni = await fetch("http://localhost:3000/getUniversities", {
+            method: "GET",
+        });
+        console.log(responseuni);
+        const jsonuni = await responseuni.json();
+        setAllUni(jsonuni);
+        console.log(jsonuni);
+    }
+    catch (error) {
+        console.error("Error fetching data:", error);
+    }
+    
       try {
         const response = await fetch("http://localhost:3000/profile", {
           method: "POST",
@@ -324,15 +339,25 @@ export const EditMyProfile = () => {
           <FormLabel id="role">
             <h3>University</h3>
           </FormLabel>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            value={univ}
-            onChange={(event) => setUniv(event.target.value)}
-            autoFocus
-          />
-
+          
+          
+                <TextField
+                    required = {true}
+                    fullWidth
+                    name="university"
+                    label='University'
+                    select
+                    margin="normal"
+                    value={univ}
+                    onChange={(event) => setUniv(event.target.value)}
+                    autoFocus
+                >
+                  {allUni.map(university => (
+                <MenuItem value={university.name}> {university.name} </MenuItem>
+                  ))}
+                    {/* <MenuItem value='Dhirubhai Ambani Institute of Information and Communication Technology'>Dhirubhai Ambani Institute of Information and Communication Technology</MenuItem> */}
+                  
+                </TextField>
           <br />
           <FormLabel id="role">
             <h3>Mobile Number</h3>
