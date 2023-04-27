@@ -2,6 +2,7 @@ const studentCollection = require("../models/studentModel");
 const facultyCollection = require("../models/facultyModel");
 const facultyDetailsCollection = require("../models/facultyDetailsModel");
 const sendAuthMail = require("./emailVerification"); // import the email verification function
+const bcrypt = require('bcrypt');
 
 module.exports = function (req, res) {
     if (req.body.role == 0) {
@@ -19,7 +20,7 @@ module.exports = function (req, res) {
                     password: req.body.password,
                     mobile_number: req.body.mobile_number,
                     university: req.body.university,
-                    role: req.body.role,
+                    role: req.body.role, 
                     Image:"https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
 					isVerified: false,
                 });
