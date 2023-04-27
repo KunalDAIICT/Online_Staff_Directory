@@ -34,7 +34,7 @@ export function NavbarNormal () {
               sx={{ mr: 2 }}
             ></IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <b>Online Faculty-Staff Directory</b>
+              <b>Campus Connect</b>
             </Typography>
             <Link to={"/"}>
               <Button color="inherit" style={{ color: "white" }}>
@@ -44,6 +44,11 @@ export function NavbarNormal () {
             {/* <Button color="inherit" style={{ color: "white" }}>
               Academics
             </Button> */}
+            <Link to="/UniversityDetails">
+            <Button color="inherit" style={{ color: "white" }}>
+              Universities
+            </Button>
+            </Link>
             <Link to="/AboutUs">
             <Button color="inherit" style={{ color: "white" }}>
               About Us
@@ -101,13 +106,18 @@ export function NavbarAdmin () {
             sx={{ mr: 2 }}
           ></IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <b>Online Faculty-Staff Directory (Admin) </b>
+            <b>Campus Connect (Admin) </b>
           </Typography>
           <Link to={"/"}>
             <Button color="inherit" style={{ color: "white" }}>
               Home
             </Button>
           </Link>
+          <Link to="/UniversityDetails">
+            <Button color="inherit" style={{ color: "white" }}>
+              Universities
+            </Button>
+            </Link>
           {/* <Button color="inherit" style={{ color: "white" }}>
             Academics
           </Button> */}
