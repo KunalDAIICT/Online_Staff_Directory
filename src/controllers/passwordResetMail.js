@@ -31,8 +31,10 @@ module.exports = async function sendResetMail(email,name) {
     
         await transporter.sendMail(mailOptions);
         console.log(`Password reset email sent`);
+        // return result=1;
     } catch (error) {
         console.error(error);
+        // return result=0;
     }
   
 };

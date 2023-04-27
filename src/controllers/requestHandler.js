@@ -160,13 +160,19 @@ function getFaculties(req, res) {
 	}
 
 	facultyDetailsCollection.find(filter, function (err, faculties) {
+		console.log(faculties.length);
+		if(faculties.length==0)
+		{
+			return res.status(404).json({ error: "No Faculties for this University" });
+		}
 		if (err) {
 			console.error(err);
 			return res.status(500).json({ error: "Internal server error" });
 		}
 
 		// Send all the faculties in the response
-		res.status(200).json(faculties);
+		console.log(faculties);
+		return res.status(200).json(faculties);
 	});
 }
 
@@ -269,14 +275,12 @@ function getUniversities(req, res) {
 			return res.status(500).json({ error: "Internal server error" });
 		}
 		// Send all the faculties in the response
-		res.status(200).json(universities);
+		return res.status(200).json(universities);
 	});
 }
 
 function sendresetlink(req,res) {
 	const email = req.body.email;
-
-
 	studentCollection.findById(email, function (err, user) {
 		if (err) {
 			console.error(err);
@@ -333,13 +337,13 @@ function resetpassword(req,res){
 
 
 module.exports = {
-	getProfile: getProfile,
+	getProfile: getProfile,//
 	getFaculties: getFaculties,
-	editProfile: editProfile,
-	verifyemail: verifyemail,
-	deleteProfile: deleteProfile,
+	editProfile: editProfile,//
+	verifyemail: verifyemail,//
+	deleteProfile: deleteProfile,//  Testing Pending
 	getUniversities: getUniversities,
-	sendresetlink: sendresetlink,
-	resetpassword: resetpassword,
-	getFacultyProfile: getFacultyProfile,
+	sendresetlink: sendresetlink,//
+	resetpassword: resetpassword, // Testing Pending
+	getFacultyProfile: getFacultyProfile,//
 }
