@@ -75,17 +75,6 @@ function disapproveFaculty(req, res) {
 	const user = {
 		_id: req.body.email,
 	};
-	facultyDetailsCollection.findOne(user, function (err, user) {
-		if (err) {
-			console.error(err);
-			return res.status(500).json({ error: "Internal server error" });
-		}
-		if (!user) {
-			return res.status(404).json({ error: "User not found" });
-		}
-		user.remove();
-		
-	});
 
 	facultyCollection.findOne(user, function (err, user) {
 		if (err) {
@@ -96,9 +85,23 @@ function disapproveFaculty(req, res) {
 			return res.status(404).json({ error: "User not found" });
 		}
 
-		user.remove();
-		res.status(200).json({ message: "Faculty Deletion done!!" });
+		if (user.role == "0") {
+			return res.status(404).json({ error: "User not found" });
+		}
 
+		facultyDetailsCollection.findById(user._id, function (err, user) {
+			if (err) {
+				console.error(err);
+				return res.status(500).json({ error: "Internal server error" });
+			}
+			if (!user) {
+				return res.status(404).json({ error: "User not found" });
+			}
+			user.remove();
+			return res.status(200).json({ message: "Faculty Deletion done!!" });
+		});
+
+		user.remove();
 	});
 }
 
@@ -116,8 +119,7 @@ function addUniversity(req, res) {
 		}
 		if (doc) {
 			return res.status(302).json({ error: "University already exists" });
-		}
-		else {
+		} else {
 			universityInstance = new universityCollection({
 				name: req.body.name,
 				Image: req.body.Image,
@@ -125,7 +127,7 @@ function addUniversity(req, res) {
 
 			universityInstance.save();
 			console.log("New University added");
-			res.statusMessage = 'University added successfully';
+			res.statusMessage = "University added successfully";
 			res.sendStatus(200);
 		}
 	});
@@ -133,19 +135,16 @@ function addUniversity(req, res) {
 
 function isadmin(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
-	if(token !== null )
-	{
+	if (token !== null) {
 		const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
-	if (secretOBJ._id != admin) {
-		return res.status(401).json({ error: "Unauthorized" });
-	}
-	res.status(200).json({ message: "Authorized" });}
-	else
-	{
+		if (secretOBJ._id != admin) {
+			return res.status(401).json({ error: "Unauthorized" });
+		}
+		res.status(200).json({ message: "Authorized" });
+	} else {
 		return res.status(401).json({ error: "Unauthorized" });
 	}
 }
-
 
 module.exports = {
 	getallFaculties: getallFaculties,

@@ -40,7 +40,7 @@ describe("POST /admin/approveFaculty", () => {
     test("if admin and faculty", async () => {
         const response = await request(baseURL).post("/admin/approvefaculty")
         .send({
-            email: "317a5@outlook.com",
+            email: "tf3@yahoo.com",
         })
         .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MTkxMTN9.JSdN7iOCpoEdxCbi1IdEr1wtrHlqhcg32NMatobEIDE');
         expect(response.status).toEqual(200);
@@ -79,7 +79,7 @@ describe("POST /admin/deleteFaculty", () => {
     test("if admin but id not found", async () => {
         const response = await request(baseURL).post("/admin/deleteFaculty")
         .send({
-            email: "dp1234abc@gmail.com"   
+            email: "ab@gmail.com"   
         })
         .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MTY0NzZ9.Cv6L4qS_e0_EpFgCr_nE8gSw9sTUtOt2hHWRjR21_G0');
         expect(response.status).toEqual(404);
@@ -88,18 +88,20 @@ describe("POST /admin/deleteFaculty", () => {
     test("if admin and faculty", async () => {
         const response = await request(baseURL).post("/admin/deleteFaculty")
         .send({
-            email: "w@dd",
+            email: "dp1234567@gmail.com"
         })
         .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MTY0NzZ9.Cv6L4qS_e0_EpFgCr_nE8gSw9sTUtOt2hHWRjR21_G0');
         expect(response.status).toEqual(200);
     });
+
+
 });
 
 describe("POST /admin/addUniversity", () => {
     test("if admin and new", async () => {
         const response = await request(baseURL).post("/admin/addUniversity")
         .send({
-            name: "University of To4324343424tr",
+            name: "Unit Test University 4",
             Image: "",
         })
         .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2ODI1MTY0NzZ9.Cv6L4qS_e0_EpFgCr_nE8gSw9sTUtOt2hHWRjR21_G0');
@@ -153,7 +155,3 @@ describe("GET /admin/isadmin", () => {
     });
 
 });
-
-
-
-
