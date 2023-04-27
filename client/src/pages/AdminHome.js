@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../admin_home.css"; // import CSS styles
 import {
-  AppBar,
-  Toolbar,
   Tab,
   Stack,
-  Typography,
   Button,
   IconButton,
   Box,
@@ -262,9 +259,6 @@ export function AdminTab() {
     setValue(newValue);
   };
 
-  let navigate=useNavigate();
-  
-
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
       <TabContext value={value}>
@@ -313,7 +307,7 @@ export default function AdminHome() {
     fetchData();
   }
   
-  }, [isadmin]);
+  }, [isadmin, token]);
 
   return (
     <div>

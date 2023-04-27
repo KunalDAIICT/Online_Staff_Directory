@@ -22,21 +22,20 @@ import { useEffect, useState } from 'react';
 import { Navbar } from './Navbar';
 import  Footer  from '../pages/footer';
 
-
 const theme = createTheme();
 
 export const Signup = () => {
-
 const [mobile, setMobile] = useState("");
 const [isError, setIsError] = useState(false);
 const [confirmpassword, setConfirmPassword] = useState("");
 const [password, setPassword] = useState("");
-const [matchPassword, setMatchPassword] = useState(false);
-
+const [matchPassword, setMatchPassword] = useState(true);
+const [isvalid, setIsvalid] = useState(true);
+const [isOk, setIsOk] = useState(true);
 // To display universities in dropdown
 
   const [allUni, setAllUni] = useState([]);
-
+  // const [ErrorMessages, setErrorMessages] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,8 +53,7 @@ const [matchPassword, setMatchPassword] = useState(false);
       }
   };
   fetchData();
-      
-  }, [password , confirmpassword]);
+  }, [isOk]);
 
   let navigate=useNavigate();
   const handleUserSignup = async (userData) => {
@@ -80,19 +78,37 @@ const [matchPassword, setMatchPassword] = useState(false);
     }
   };
 
+  const handleIsvalid=(password)=>{
+    
+    // generate regexp for password that should have atleat one digit one lowercase one uppercase and one special character and length should be 6-20
+    var passw=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z0-9])(?=.*[!@#$%^&*]).{8,}$/;
+  
+    if(password.match(passw))
+    {
+      setIsvalid(true);
+    }
+    else
+    {
+      setIsvalid(false);
+    }
+
+    // // generate regexp for email that should have username atthe rate and domain name and domain name should have atleast one dot
+    // var email=  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+
+
+  }
+
+
   const handleSubmit = (event) => {
 
 
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    if(matchPassword !== true)
+    if(matchPassword !== true || isError || isvalid !== true)
     {
-      alert("Confirm Password Does not match !!!")
-    }
-    else if(isError)
-    {
-      alert("Enter valid Mobile Number !!!");
+      alert("Please enter valid details!");
+      setIsOk(!isOk);
     }
     else
     {
@@ -205,7 +221,7 @@ const [matchPassword, setMatchPassword] = useState(false);
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
-
+                    
                     if(e.target.value !== confirmpassword)
                     {
                       setMatchPassword(false);
@@ -215,7 +231,12 @@ const [matchPassword, setMatchPassword] = useState(false);
                     {
                       setMatchPassword(true);
                     }
+
+                    handleIsvalid(e.target.value);
                   }}
+
+                  error={!isvalid}
+                  helperText={!isvalid ? "Password should contain atleast one digit, one lowercase, one uppercase, one special character and length should be minimum 8" : ""}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -240,6 +261,7 @@ const [matchPassword, setMatchPassword] = useState(false);
                    
                   }}
                   error={!matchPassword}
+                  helperText={!matchPassword ? "Password does not match" : ""}
                   
                 />
               </Grid>
@@ -298,6 +320,9 @@ const [matchPassword, setMatchPassword] = useState(false);
                 </FormControl>
               </Grid>
             </Grid>
+            <br />
+            
+
             <Button
               type="submit"
               fullWidth

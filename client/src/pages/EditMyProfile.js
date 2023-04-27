@@ -86,7 +86,7 @@ export const EditMyProfile = () => {
     };
 
     fetchData();
-  }, []);
+  }, [token]);
 
 
   let navigate = useNavigate();
