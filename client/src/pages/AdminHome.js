@@ -62,12 +62,13 @@ export function FacultyCardApproved  ({ faculty }) {
 
 return (
 
-  <Box className="adminfaculty-card" onClick={handleClick()} >
+  <Box className="adminfaculty-card">
+    {/* <div className="adminfaculty-details"> */}
     <div className="adminfaculty-image-container">
       <img className="adminfaculty-image" src={faculty.Image} alt={faculty.name} />
     </div>
     <div className="adminfaculty-details">
-      <h3 className="adminfaculty-name">{faculty.name}</h3>
+      <h3 className="adminfaculty-name" onClick={handleClick()} >{faculty.name}</h3>
       <p className="adminfaculty-email">{faculty._id}</p>
       <p className="adminfaculty-mobile">{faculty.mobile_number}</p>
       <p className="adminfaculty-specialization">{faculty.specialization}</p>
@@ -82,6 +83,7 @@ return (
           <LinkIcon />
         </IconButton>
       </p>
+      {/* </div> */}
       <p>
         <Button variant="contained" color="error" onClick={handleDelete(faculty._id)}>
           Delete
