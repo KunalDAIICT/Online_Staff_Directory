@@ -180,3 +180,11 @@ input[type="submit"]:hover {
 input[type="text"] {
   margin-bottom: 0;
 }
+
+.error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 0.6rem;
+  position: absolute;
+}
