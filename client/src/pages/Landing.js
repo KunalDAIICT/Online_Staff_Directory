@@ -30,7 +30,7 @@ export default function FrontPage() {
           Thank you for choosing our online faculty directory for multi-university. We hope you find our website useful and informative, and welcome any feedback or suggestions you may have.
         </Typography>
       </Container>
-      <Box sx={{display: 'flex', mt: 5, mb: 10, justifyContent: 'center'}}>
+      <Box sx={{display: 'flex', mt: 5, mb: 5, justifyContent: 'center'}}>
       </Box>
     </div>
   );
