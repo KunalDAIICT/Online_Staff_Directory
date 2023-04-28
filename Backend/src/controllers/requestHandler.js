@@ -56,7 +56,6 @@ function editProfile(req, res) {
 	if (req.body.role == "0") {
 		updatedUser = new studentCollection({
 			name: req.body.name,
-			password: req.body.password,
 			mobile_number: req.body.mobile_number,
 			university: req.body.university,
 			Image: req.body.Image,
@@ -81,7 +80,6 @@ function editProfile(req, res) {
 		console.log("Hey I was here")
 		updatedUser = new facultyCollection({
 			name: req.body.name,
-			password: req.body.password,
 			mobile_number: req.body.mobile_number,
 			university: req.body.university,
 			specialization: req.body.specialization,

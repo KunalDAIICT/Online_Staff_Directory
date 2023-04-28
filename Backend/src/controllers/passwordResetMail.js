@@ -28,7 +28,7 @@ module.exports = async function sendResetMail(email,name) {
             <p>Click on the link below to reset your password.</p>
             <a href="https://campus-connect-ecru.vercel.app/resetpassword/${token}">Reset Password</a>`,
         };
-
+    
         await transporter.sendMail(mailOptions);
         console.log(`Password reset email sent`);
         // return result=1;

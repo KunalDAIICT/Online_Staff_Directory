@@ -22,7 +22,7 @@ import { Navbar } from "../pages/Navbar";
 // faculty data
 
 
-export function FacultyCardApproved  ({ faculty }) {
+export function FacultyCardApproved  ({ faculty , check , setCheck }) {
 
   const handleDelete = (id) => async (e) => {
     e.preventDefault();
@@ -40,7 +40,8 @@ export function FacultyCardApproved  ({ faculty }) {
       console.log(json);
       if (response.status === 200) {
         alert("Faculty Deleted successfully");
-        window.location.reload();
+        // window.location.reload();
+        setCheck(!check);
       } else {
         alert("Faculty Deleted failed");
       }
@@ -94,7 +95,7 @@ return (
 
 // faculty card component
 
-export function FacultyCardNotApproved ({ faculty }) {
+export function FacultyCardNotApproved ({ faculty , check , setCheck }) {
 
   const handleApprove = (id) => async (e) => {
     e.preventDefault();
@@ -116,7 +117,9 @@ export function FacultyCardNotApproved ({ faculty }) {
       
       if (response.status === 200) {
         alert("Faculty approved successfully");
-        window.location.reload();
+        // window.location.reload();
+       setCheck(!check);
+        
       } else {
         alert("Faculty approval failed");
       }
@@ -143,7 +146,8 @@ export function FacultyCardNotApproved ({ faculty }) {
       console.log(json);
       if (response.status === 200) {
         alert("Faculty Deleted successfully");
-        window.location.reload();
+        // window.location.reload();
+        setCheck(!check);
       } else {
         alert("Faculty Deleted failed");
       }
@@ -198,7 +202,7 @@ export function FacultyCardNotApproved ({ faculty }) {
 
 
 // faculty details page component
-const FacultyDetails = (isapproved, allfaculties) => {
+const FacultyDetails = (isapproved, allfaculties , check , setCheck ) => {
   // const checkapproved = isapproved;
   return (
     <div>
@@ -211,7 +215,7 @@ const FacultyDetails = (isapproved, allfaculties) => {
                     return faculty.isApproved === true;
                   })
                   .map((faculty) => (
-                    <FacultyCardApproved key={faculty.id} faculty={faculty} />
+                    <FacultyCardApproved key={faculty.id} faculty={faculty} check={check} setCheck={setCheck} />
                   ))
               : allfaculties
                   .filter((faculty) => {
@@ -221,6 +225,7 @@ const FacultyDetails = (isapproved, allfaculties) => {
                     <FacultyCardNotApproved
                       key={faculty.id}
                       faculty={faculty}
+                      check={check} setCheck={setCheck}
                     />
                   ))}
           </div>
@@ -233,7 +238,7 @@ const FacultyDetails = (isapproved, allfaculties) => {
 export function AdminTab() {
   const [value, setValue] = React.useState("1");
   const [allfaculties, setAllfaculties] = useState([]);
-
+  const [check, setCheck] = useState(false);
 
   useEffect(() => {
   const fetchData = async () => {
@@ -257,7 +262,8 @@ export function AdminTab() {
   };
 
   fetchData();
-}, []);
+  console.log(check);
+}, [check]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -273,8 +279,8 @@ export function AdminTab() {
             <Tab label="Universities" value="3" />
           </TabList>
         </Box>
-        <TabPanel value="1">{FacultyDetails(true, allfaculties)}</TabPanel>
-        <TabPanel value="2">{FacultyDetails(false, allfaculties)}</TabPanel>
+        <TabPanel value="1">{FacultyDetails(true, allfaculties, check , setCheck)}</TabPanel>
+        <TabPanel value="2">{FacultyDetails(false, allfaculties, check , setCheck)}</TabPanel>
         <TabPanel value="3">{AdminUniversityDetails()}</TabPanel>
       </TabContext>
     </Box>
