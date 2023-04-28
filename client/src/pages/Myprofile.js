@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import { Navbar } from "./Navbar";
+import Grid from '@mui/material/Grid';
 
 const theme = createTheme();
 
@@ -320,11 +321,32 @@ export const Myprofile = () => {
             <div>Empty</div>
           )}
 
-          <Link to={"/editmyprofile"}>
-            <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          
+
+          <Grid container>
+              <Grid item xs>
+                <Link to={"/changepassword"}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 , width: '80%'}}
+                 >
+                   Change Password
+                </Button>
+                </Link>
+              </Grid>
+
+              <Grid item xs>
+              <Link to={"/editmyprofile"}>
+            <Button fullWidth variant="contained" sx={{ mt: 3, mb: 2, width: '80%' }}>
               Edit Profile
             </Button>
           </Link>
+              </Grid>
+
+
+            </Grid>
 
           {/* <Button onClick={()=> console.log(awards)}>Show awards</Button> */}
         </Box>

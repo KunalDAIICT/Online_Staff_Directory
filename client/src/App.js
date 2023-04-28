@@ -7,17 +7,17 @@ import { Signup } from "./pages/Signup";
 import { Myprofile } from "./pages/Myprofile";
 import { EditMyProfile } from "./pages/EditMyProfile";
 import { UniversityDetails } from "./pages/UniversityList";
-import { ResetPassword } from "./pages/resetpassword";
+import { ResetPassword } from "./pages/reset";
 import { SendResetLink } from "./pages/SendResetLink";
 import { useNavigate } from "react-router-dom";
 import AdminHome from "./pages/AdminHome";
 import { Verify } from "./pages/verify";
 import UniversityForm from "./pages/addUniversity";
 import { FacultyProfile } from "./pages/FacultyProfile";
+import { ChangePassword } from "./pages/changePassword";
 import AboutUs from './pages/AboutUs';
-import Footer from './pages/footer';
 import FacultyDetails from "./pages/faculty";
-
+import  Footer  from './pages/footer';
 function App() {
   var token=localStorage.getItem("token");
   let navigate=useNavigate();
@@ -51,8 +51,10 @@ function App() {
           <Route path="/verify-email/:token" element={<Verify />} />
           <Route path="/FacultyProfile" element={<FacultyProfile/>}></Route>
           <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
         </Routes>
       {/* </Router> */}
+         <Footer/>
     </div>
   );
 }

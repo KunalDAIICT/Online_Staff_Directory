@@ -18,7 +18,7 @@ import Radio from '@mui/material/Radio';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from "react-router-dom";
 import { Navbar } from './Navbar';
-
+import { Footer } from './footer';
 const theme = createTheme();
 
 export const Loginpg = () => {
@@ -49,11 +49,12 @@ export const Loginpg = () => {
     console.log(json.token); // Log the token field to the console
 
     localStorage.setItem("token", json.token);
-    
+    localStorage.setItem("role", json.role);
     if(response.status === 200){
       console.log(json.role);
         if(json.role === "user"){
         alert("Logged in successfully");
+       
         navigate('/');
         }
         if(json.role === "admin"){
@@ -95,14 +96,15 @@ export const Loginpg = () => {
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" >
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: "15%",
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            marginBottom: '45%',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -131,23 +133,6 @@ export const Loginpg = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <Grid item xs={12}>
-              <FormControl>
-                <FormLabel id="role">Role</FormLabel>
-                <RadioGroup
-                    row
-                    aria-labelledby="role"
-                    name="role"
-                >
-                    <FormControlLabel value="student" control={<Radio />} label="Student" />
-                    <FormControlLabel value="faculty" control={<Radio />} label="Faculty" />
-                </RadioGroup>
-                </FormControl>
-              </Grid>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"

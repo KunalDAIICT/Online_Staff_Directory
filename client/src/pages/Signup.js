@@ -20,7 +20,6 @@ import { useNavigate } from "react-router-dom";
 import '../App.css';
 import { useEffect, useState } from 'react';
 import { Navbar } from './Navbar';
-import  Footer  from '../pages/footer';
 
 const theme = createTheme();
 
@@ -158,11 +157,11 @@ const [isOk, setIsOk] = useState(true);
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{}}>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: '5%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -320,9 +319,6 @@ const [isOk, setIsOk] = useState(true);
                 </FormControl>
               </Grid>
             </Grid>
-            <br />
-            
-
             <Button
               type="submit"
               fullWidth
@@ -342,7 +338,6 @@ const [isOk, setIsOk] = useState(true);
         </Box>
       
       </Container>
-      <Footer />
     </ThemeProvider>
       
   );

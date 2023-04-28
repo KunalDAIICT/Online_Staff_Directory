@@ -5,13 +5,13 @@ import {
   Typography,
 } from "@mui/material";
 import front_page_img from '../data/front_page_img.jpeg'
-import {Navbar} from '../pages/Navbar';
-import Footer from './footer';
+import Header from "./header";
+
 
 export default function FrontPage() {
   return (
     <div>
-      <Navbar/>
+      <Header/>
       <Box sx={{display: 'flex', mt: 2, justifyContent: 'center'}}>
         <img src={front_page_img} alt="image not found" width='70%' align="center"></img>
       </Box>

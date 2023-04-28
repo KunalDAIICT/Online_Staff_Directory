@@ -15,7 +15,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 
 export default function Footer() {
   return (
-    <Box sx={{bgcolor: 'lightblue', mt: 5}}>
+    <Box sx={{bgcolor: 'lightblue', mt: 5, position: 'relative' , bottom:'0'}}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 7, mt: 2}}>
             <img src={da_logo} alt="da_logo" width="35%"></img>

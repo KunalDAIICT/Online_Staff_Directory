@@ -23,7 +23,7 @@ export function SearchBar({ universities , setUniversities }) {
   const [searchTerm, setSearchTerm] = useState("");
  
   return (
-    <Container>
+    <Container >
       <TextField
         id="search"
         type="search"

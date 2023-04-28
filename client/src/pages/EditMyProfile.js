@@ -9,13 +9,15 @@ import { useState, useEffect } from "react";
 import "../App.css";
 import { Navbar } from "./Navbar";
 import MenuItem from '@mui/material/MenuItem'
-
+import { Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 const theme = createTheme();
 
 export const EditMyProfile = () => {
   const token = localStorage.getItem("token");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [newEmail , setNewEmail] = useState("");
   const [univ, setUniv] = useState("");
   const [mob, setMob] = useState("");
   const [role, setRole] = useState("");
@@ -29,6 +31,29 @@ export const EditMyProfile = () => {
   const [cpass, setCpass] = useState("");
   const [image, setImage] = useState(null);
   const [allUni, setAllUni] = useState([]);
+  const [isvalid, setIsvalid] = useState(true);
+  const [matchPassword, setMatchPassword] = useState(false);
+
+  const handleIsvalid=(password)=>{
+    
+    // generate regexp for password that should have atleat one digit one lowercase one uppercase and one special character and length should be 6-20
+    var passw=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z0-9])(?=.*[!@#$%^&*]).{8,}$/;
+  
+    if(password.match(passw))
+    {
+      setIsvalid(true);
+    }
+    else
+    {
+      setIsvalid(false);
+    }
+
+    // // generate regexp for email that should have username atthe rate and domain name and domain name should have atleast one dot
+    // var email=  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+
+
+  }
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,15 +83,17 @@ export const EditMyProfile = () => {
         if (json.role === "0") {
           setName(json.name);
           setEmail(json._id);
+          setNewEmail(json._id);
           setUniv(json.university);
           setMob(json.mobile_number);
           setRole("Student");
-          setPass(json.password);
-          setCpass(json.password);
+          // setPass(json.password);
+          // setCpass(json.password);
           setImage(json.Image);
         } else {
           setName(json.name);
           setEmail(json._id);
+          setNewEmail(json._id);
           setUniv(json.university);
           setMob(json.mobile_number);
           setRole("Faculty");
@@ -76,8 +103,8 @@ export const EditMyProfile = () => {
           setIndux(json.Industrial_experience);
           setPubs(json.Publications);
           setProjs(json.projects);
-          setPass(json.password);
-          setCpass(json.password);
+          // setPass(json.password);
+          // setCpass(json.password);
           setImage(json.Image);
         }
       } catch (error) {
@@ -86,7 +113,7 @@ export const EditMyProfile = () => {
     };
 
     fetchData();
-  }, [token]);
+  }, []);
 
 
   let navigate = useNavigate();
@@ -115,7 +142,7 @@ export const EditMyProfile = () => {
     event.preventDefault();
     var userData={};
 
-    if (pass === cpass) {
+    if (matchPassword && isvalid) {
       if (role === "Student") {
         userData = {...userData,
           confirmpassword: cpass,
@@ -124,8 +151,9 @@ export const EditMyProfile = () => {
           password: pass,
           role: "0",
           university: univ,
-          userEmail: email,
-          Image: image
+          userEmail:newEmail,
+          Image: image,
+          isVerified: newEmail===email?true:false
         };
       }
       else{
@@ -143,12 +171,13 @@ export const EditMyProfile = () => {
           projects: projs,
           specialization: spec,
           experience: exper,
-          Image: image
+          Image: image,
+          isVerified: newEmail===email?true:false
         };
       }
     }
     else{
-      alert("Password and Confirm Password don't match!");
+      alert("enter valid password");
     }
     console.log(userData);
     handleEditProfile(userData);
@@ -305,36 +334,9 @@ export const EditMyProfile = () => {
             required
             fullWidth
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
             autoFocus
+            disabled
           />
-
-          <FormLabel id="role">
-            <h3>Set New Password</h3>
-          </FormLabel>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            value={pass}
-            type="password"
-            onChange={(event) => setPass(event.target.value)}
-            autoFocus
-          />
-
-          <FormLabel id="role">
-            <h3>Confirm Password</h3>
-          </FormLabel>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            value={cpass}
-            type="password"
-            onChange={(event) => setCpass(event.target.value)}
-            autoFocus
-          />
-
           <br />
           <FormLabel id="role">
             <h3>University</h3>
@@ -604,7 +606,17 @@ export const EditMyProfile = () => {
             </Button>
           )}
 
-          <Button
+          <Grid>
+            <Grid>
+          
+          </Grid>
+          <Grid>
+         
+          </Grid>
+          </Grid>
+
+          <Grid container>
+              <Button
             type="submit"
             fullWidth
             variant="contained"
@@ -613,6 +625,8 @@ export const EditMyProfile = () => {
           >
             Save Changes
           </Button>
+              
+            </Grid>
 
           {/* <Button onClick={()=> console.log(awards)}>Show awards</Button> */}
         </Box>

@@ -98,10 +98,10 @@ function disapproveFaculty(req, res) {
 				return res.status(404).json({ error: "User not found" });
 			}
 			user.remove();
-			return res.status(200).json({ message: "Faculty Deletion done!!" });
 		});
 
 		user.remove();
+		return res.status(200).json({ message: "Faculty Deletion done!!" });
 	});
 }
 
@@ -137,7 +137,7 @@ function isadmin(req, res) {
 	const token = req.headers.authorization.split(" ")[1];
 	if (token !== null) {
 		const secretOBJ = authorize(token, process.env.ACESS_TOKEN_SECRET);
-		if (secretOBJ._id != admin) {
+		if (!secretOBJ || secretOBJ._id != admin) {
 			return res.status(401).json({ error: "Unauthorized" });
 		}
 		res.status(200).json({ message: "Authorized" });

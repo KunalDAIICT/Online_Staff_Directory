@@ -38,7 +38,7 @@ export function FacultyCardApproved  ({ faculty }) {
       console.log(response);
       const json = await response.json();
       console.log(json);
-      if (json.success) {
+      if (response.status === 200) {
         alert("Faculty Deleted successfully");
         window.location.reload();
       } else {
@@ -107,10 +107,14 @@ export function FacultyCardNotApproved ({ faculty }) {
         },
         body: JSON.stringify({ email: id }),
       });
+
+
       console.log(response);
       const json = await response.json();
       console.log(json);
-      if (json.success) {
+
+      
+      if (response.status === 200) {
         alert("Faculty approved successfully");
         window.location.reload();
       } else {
@@ -137,7 +141,7 @@ export function FacultyCardNotApproved ({ faculty }) {
       console.log(response);
       const json = await response.json();
       console.log(json);
-      if (json.success) {
+      if (response.status === 200) {
         alert("Faculty Deleted successfully");
         window.location.reload();
       } else {
@@ -242,7 +246,7 @@ export function AdminTab() {
             Authorization: "Bearer " + localStorage.getItem("token"),
         },
       });
-      console.log(response);
+      // console.log(response);
       const json = await response.json();
       setAllfaculties(json);
       console.log(json);
@@ -253,7 +257,7 @@ export function AdminTab() {
   };
 
   fetchData();
-}, [allfaculties]);
+}, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
