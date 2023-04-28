@@ -26,7 +26,7 @@ module.exports = async function sendAuthMail(userEmail,name) {
       //attach id and role to the link
         html: `<h1>Hi ${name},</h1>
         <p>Thank you for registering with us. Please click on the link below to verify your email address.</p>
-        <a href="http://localhost:3001/verify-email/${token}">Verify Email</a>`,
+        <a href="https://campus-connect-ecru.vercel.app/verify-email/${token}">Verify Email</a>`,
     };
 
     await transporter.sendMail(mailOptions);

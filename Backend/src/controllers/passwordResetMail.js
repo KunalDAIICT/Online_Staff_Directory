@@ -26,9 +26,9 @@ module.exports = async function sendResetMail(email,name) {
         //attach id and role to the link
             html: `<h1>Hi, ${name}</h1>
             <p>Click on the link below to reset your password.</p>
-            <a href="http://localhost:3001/resetpassword/${token}">Reset Password</a>`,
+            <a href="https://campus-connect-ecru.vercel.app/resetpassword/${token}">Reset Password</a>`,
         };
-    
+
         await transporter.sendMail(mailOptions);
         console.log(`Password reset email sent`);
         // return result=1;

@@ -16,8 +16,8 @@ module.exports = function (req, res) {
 
 				if (isPasswordCorrect == true) {
 
-					// if (user.isVerified) {
-					if (true) {
+					if (user.isVerified) {
+// 					if (true) {
 						// User exists and password is correct, generate a JWT
 						let token = jwt.sign(
 							{ _id: user._id },
