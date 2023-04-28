@@ -1,0 +1,29 @@
+.b-example-divider {
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+@media (min-width: 992px) {
+  .rounded-lg-3 { border-radius: .3rem; }
+}
+
+.container-fluid d-flex align-items-center
+{
+  
+  padding-top: 10%;
+  margin-top: 10%;
+  padding-bottom: 20%;
+  border-radius: 10%;
+  border: 10px  ;
+  border-color: brown;
+}
+.header{
+  width: 100%; height:max-content;
+  /* border-style: solid; */
+  /* border-color:aqua; */
+  background-color:whitesmoke;
+  color: white;
+}
