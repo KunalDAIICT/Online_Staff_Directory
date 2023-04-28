@@ -48,12 +48,12 @@ export function NavbarNormal () {
               About Us
             </Button>
             </Link>
-            {(token===null || token==="null")  && <Link to={"/loginpage"}>
+            {(role === null)  && <Link to={"/loginpage"}>
               <Button color="inherit" variant="outlined" sx={{ mr: 1, color: "white" }}>
                 Sign In
               </Button>
             </Link>}
-            {(token===null || token==="null")  && <Link to={"/signup"}>
+            {( role === null ) && <Link to={"/signup"}>
               <Button color="warning" variant="contained">
                 Sign Up
               </Button>
@@ -70,8 +70,7 @@ export function NavbarNormal () {
               </Button>
             </Link>}
             
-            {(token!==null && token.length>4)   &&
-              <Button color="warning" variant="contained" onClick={logOut}>
+            {(role !== null)  &&  <Button color="warning" variant="contained" onClick={logOut}>
                 Log out
               </Button>
             }

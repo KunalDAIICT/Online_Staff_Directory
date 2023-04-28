@@ -48,10 +48,10 @@ export const Loginpg = () => {
     const json = await response.json(); // Convert response body to JSON object
     console.log(json.token); // Log the token field to the console
 
-    localStorage.setItem("token", json.token);
-    localStorage.setItem("role", json.role);
     if(response.status === 200){
       console.log(json.role);
+    localStorage.setItem("token", json.token);
+    localStorage.setItem("role", json.role);
         if(json.role === "user"){
         alert("Logged in successfully");
        

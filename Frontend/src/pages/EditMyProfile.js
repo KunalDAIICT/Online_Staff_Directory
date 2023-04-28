@@ -142,7 +142,7 @@ export const EditMyProfile = () => {
     event.preventDefault();
     var userData={};
 
-    if (matchPassword && isvalid) {
+   
       if (role === "Student") {
         userData = {...userData,
           confirmpassword: cpass,
@@ -175,10 +175,7 @@ export const EditMyProfile = () => {
           isVerified: newEmail===email?true:false
         };
       }
-    }
-    else{
-      alert("enter valid password");
-    }
+    
     console.log(userData);
     handleEditProfile(userData);
   };
