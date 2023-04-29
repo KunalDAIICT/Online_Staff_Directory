@@ -1,0 +1,8 @@
+
+1682749813844,0,,Non HTTP response code: java.net.MalformedURLException,Non HTTP response message: Illegal character found in host: '/',Thread Group 1-1,text,false,,875,0,1,1,null,0,0,0
+1682749813956,1348,AboutUS,200,OK,Thread Group 1-1,text,true,,1395,280,1,1,https://campus-connect-ecru.vercel.app/AboutUs/,583,0,483
+1682749813956,592,AboutUS-0,308,Permanent Redirect,Thread Group 1-1,text,true,,262,140,1,1,http://campus-connect-ecru.vercel.app/AboutUs/,583,0,483
+1682749814553,751,AboutUS-1,200,OK,Thread Group 1-1,text,true,,1133,140,1,1,https://campus-connect-ecru.vercel.app/AboutUs/,751,0,644
+1682749815305,296,UniversityDetails,200,OK,Thread Group 1-1,text,true,,1425,300,1,1,https://campus-connect-ecru.vercel.app/UniversityDetails/,188,0,92
+1682749815305,189,UniversityDetails-0,308,Permanent Redirect,Thread Group 1-1,text,true,,292,150,1,1,http://campus-connect-ecru.vercel.app/UniversityDetails/,188,0,92
+1682749815494,107,UniversityDetails-1,200,OK,Thread Group 1-1,text,true,,1133,150,1,1,https://campus-connect-ecru.vercel.app/UniversityDetails/,107,0,0
